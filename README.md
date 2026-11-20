@@ -1,9 +1,10 @@
 # Circular Visualization in Python (`circlize-py`)
 
-Complete Python port of Zuguang Gu's [*Circular Visualization in R*](https://jokergoo.github.io/circlize_book/book/) book, built with **`circlize-py`**.
+Complete Python port of Zuguang Gu's [*Circular Visualization in R*](https://jokergoo.github.io/circlize_book/book/) book, built with [**`circlize-py`**](https://github.com/zhanxw/circlize-py).
 
 - **Read the Live Book (GitHub Pages)**: [https://zhanxw.github.io/circlize-book-py/book/](https://zhanxw.github.io/circlize-book-py/book/)
 - **Browse All 173 Figures (Gallery)**: [https://zhanxw.github.io/circlize-book-py/book/gallery.html](https://zhanxw.github.io/circlize-book-py/book/gallery.html)
+- **Python Library**: [https://github.com/zhanxw/circlize-py](https://github.com/zhanxw/circlize-py)
 - **Original R Book**: [jokergoo.github.io/circlize_book/book/](https://jokergoo.github.io/circlize_book/book/)
 
 ---
@@ -42,7 +43,7 @@ Complete Python port of Zuguang Gu's [*Circular Visualization in R*](https://jok
 - `pygments` (syntax highlighting) and `pandoc` (Markdown-to-HTML compilation)
 
 ```bash
-pip install circlize-py pygments
+pip install "git+https://github.com/zhanxw/circlize-py.git" pygments
 ```
 
 ### Build Figures, Compile HTML, and Verify

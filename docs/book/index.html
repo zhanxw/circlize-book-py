@@ -171,8 +171,8 @@ diagram</span></a></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
-        <div>Published with <strong>circlize-py</strong></div>
-        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+        <div>Published with <a href="https://github.com/zhanxw/circlize-py" target="_blank" rel="noopener"><strong>circlize-py</strong></a></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">Book Repo</a> &middot; <a href="https://github.com/zhanxw/circlize-py" target="_blank" rel="noopener">circlize-py</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
       </div>
     </nav>
 
@@ -213,8 +213,9 @@ diagram</span></a></li>
           <section class="normal markdown-section">
             <h1 id="about">About<a class="anchor-section" aria-label="Anchor link to section" href="#about">#</a></h1>
 <p>This is the Python documentation of <a
-href="https://github.com/zhanxw/circlize-master"><strong>circlize-py</strong></a>
-— a pure-Python port of Zuguang Gu’s <a
+href="https://github.com/zhanxw/circlize-py"><strong>circlize-py</strong></a>
+(<code>https://github.com/zhanxw/circlize-py</code>) — a pure-Python
+port of Zuguang Gu’s <a
 href="https://cran.r-project.org/package=circlize"><strong>circlize</strong></a>
 package for circular visualization, built on <code>numpy</code>,
 <code>pandas</code>, <code>matplotlib</code>, <code>scipy</code>, and
@@ -239,8 +240,15 @@ alt="Circular Visualization in Python cover" /><figcaption aria-hidden="true">Ci
 cover</figcaption>
 </figure>
 <h2 id="installation">Installation<a class="anchor-section" aria-label="Anchor link to section" href="#installation">#</a></h2>
-<p>From the repository root (requires Python &gt;= 3.10):</p>
-<div class="code-wrapper"><pre class="codehilite"><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev]"</span></code></pre></div>
+<p>Install <strong>circlize-py</strong> directly from GitHub (<a
+href="https://github.com/zhanxw/circlize-py">zhanxw/circlize-py</a>,
+requires Python &gt;= 3.10):</p>
+<div class="code-wrapper"><pre class="codehilite"><code>pip<span class="w"> </span>install<span class="w"> </span><span class="s2">"git+https://github.com/zhanxw/circlize-py.git"</span></code></pre></div>
+<p>Or clone the repository for an editable local development
+install:</p>
+<div class="code-wrapper"><pre class="codehilite"><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/zhanxw/circlize-py.git
+<span class="nb">cd</span><span class="w"> </span>circlize-py
+pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span><span class="s2">".[dev]"</span></code></pre></div>
 <p>Once installed, both top-level package names can be imported
 interchangeably:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">circlize_py</span>

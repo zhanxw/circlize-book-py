@@ -22,6 +22,7 @@ BOOK_DIR = REPO_ROOT / "docs" / "book"
 ASSETS_DIR = BOOK_DIR / "assets"
 
 REPO_URL = "https://github.com/zhanxw/circlize-book-py"
+LIBRARY_URL = "https://github.com/zhanxw/circlize-py"
 BOOK_TITLE = "Circular Visualization in Python"
 BOOK_SUBTITLE = "circlize-py Book Edition"
 
@@ -814,8 +815,8 @@ def _render_page(
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
-        <div>Published with <strong>circlize-py</strong></div>
-        <div><a href="{html.escape(REPO_URL)}" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+        <div>Published with <a href="{html.escape(LIBRARY_URL)}" target="_blank" rel="noopener"><strong>circlize-py</strong></a></div>
+        <div><a href="{html.escape(REPO_URL)}" target="_blank" rel="noopener">Book Repo</a> &middot; <a href="{html.escape(LIBRARY_URL)}" target="_blank" rel="noopener">circlize-py</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
       </div>
     </nav>
 

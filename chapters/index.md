@@ -1,6 +1,6 @@
 # About {#about}
 
-This is the Python documentation of [**circlize-py**](https://github.com/zhanxw/circlize-master) — a pure-Python port of Zuguang Gu's [**circlize**](https://cran.r-project.org/package=circlize) package for circular visualization, built on `numpy`, `pandas`, `matplotlib`, `scipy`, and `Pillow`. Examples in this book are generated under `circlize_py` version `0.4.16` (matching R `circlize` v0.4.16).
+This is the Python documentation of [**circlize-py**](https://github.com/zhanxw/circlize-py) (`https://github.com/zhanxw/circlize-py`) — a pure-Python port of Zuguang Gu's [**circlize**](https://cran.r-project.org/package=circlize) package for circular visualization, built on `numpy`, `pandas`, `matplotlib`, `scipy`, and `Pillow`. Examples in this book are generated under `circlize_py` version `0.4.16` (matching R `circlize` v0.4.16).
 
 > **Quick Browse:** Looking for a visual overview of every plot in the book? Open the [**Figure Gallery & Master Index**](gallery.html) to browse, filter, zoom, inspect Python snippets, and jump straight to any of the 173 example figures.
 
@@ -12,9 +12,17 @@ If you use **circlize** / **circlize-py** in your publications, please cite the 
 
 ## Installation {#installation}
 
-From the repository root (requires Python >= 3.10):
+Install **circlize-py** directly from GitHub ([zhanxw/circlize-py](https://github.com/zhanxw/circlize-py), requires Python >= 3.10):
 
 ```bash
+pip install "git+https://github.com/zhanxw/circlize-py.git"
+```
+
+Or clone the repository for an editable local development install:
+
+```bash
+git clone https://github.com/zhanxw/circlize-py.git
+cd circlize-py
 pip install -e ".[dev]"
 ```
 

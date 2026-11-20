@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 11 Modes for
+circos.genomicTrack() | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter active"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="modes-of-input"><span class="header-section-number">11</span> Modes for
+<code>circos.genomicTrack()</code><a class="anchor-section" aria-label="Anchor link to section" href="#modes-of-input">#</a></h1>
+<p>The behavior of <code>circos.genomicTrack()</code> and
+<code>panel_fun</code> adapts depending on the structure of the input
+data (a single <code>pandas.DataFrame</code> or a <code>list</code> of
+<code>pandas.DataFrame</code>s, and how many numeric columns are
+present) as well as the <code>stack</code> mode setting.</p>
+<h2 id="normal-mode"><span class="header-section-number">11.1</span> Normal mode<a class="anchor-section" aria-label="Anchor link to section" href="#normal-mode">#</a></h2>
+<h3 id="input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame<a class="anchor-section" aria-label="Anchor link to section" href="#input-is-a-dataframe">#</a></h3>
+<p>When <code>data</code> is a single BED-like
+<code>pandas.DataFrame</code>, <code>circos.genomicTrack()</code> passes
+two <code>DataFrame</code>s to
+<code>panel_fun(region, value, **kwargs)</code> for the current
+chromosome: <code>region</code> holds <code>(start, end)</code>, and
+<code>value</code> holds all columns from the fourth column onward. Any
+<code>numeric_column</code> setting specified in
+<code>circos.genomicTrack()</code> is forwarded through
+<code>**kwargs</code> so downstream functions such as
+<code>circos.genomicPoints(region, value, **kwargs)</code> use the
+selected columns automatically.</p>
+<p>When multiple numeric columns are present (or selected), graphics are
+added iteratively for every selected column against the same genomic
+regions.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">circos</span><span class="p">,</span> <span class="n">generateRandomBed</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_normal</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="c1"># Uses numeric_column=3 passed from circos.genomicTrack() -&gt; value column 0</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="c1"># Without **kwargs, all numeric columns in `value` are plotted</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="c1"># Explicit 0-based column index inside `value` (corresponding to col index 3 in `data`)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">numeric_column</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">numeric_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_normal</span><span class="p">)</span></code></pre></div>
+<h3 id="input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames<a class="anchor-section" aria-label="Anchor link to section" href="#input-is-a-list-of-dataframes">#</a></h3>
+<p>When <code>data</code> is a <code>list[pandas.DataFrame]</code>,
+<code>panel_fun</code> is invoked once per <code>DataFrame</code> inside
+each cell. In each call, <code>region</code> and <code>value</code>
+correspond to the current <code>DataFrame</code> and current chromosome,
+and <code>getI(**kwargs)</code> returns the 1-based index
+(<code>1, 2, ...</code>) of the active <code>DataFrame</code>. Note that
+<code>getI(**kwargs)</code> is only meaningful inside
+<code>panel_fun</code> and requires <code>**kwargs</code> to be accepted
+by <code>panel_fun</code>.</p>
+<p>When <code>numeric_column</code> is passed to
+<code>circos.genomicTrack()</code> with a list of
+<code>DataFrame</code>s, it may have length 1 (applied to all
+<code>DataFrame</code>s) or match the number of <code>DataFrame</code>s
+(one column per <code>DataFrame</code>). When omitted, the first numeric
+column of each <code>DataFrame</code> is used.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">circos</span><span class="p">,</span> <span class="n">generateRandomBed</span><span class="p">,</span> <span class="n">getI</span>
+
+<span class="n">bed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">generateRandomBed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_list</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_list</span><span class="p">)</span>
+
+<span class="c1"># Select column index 3 ('value1') from the first BED and index 4 ('value2') from the second</span>
+<span class="n">bed_list2</span> <span class="o">=</span> <span class="p">[</span><span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list2</span><span class="p">,</span> <span class="n">numeric_column</span><span class="o">=</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_list</span><span class="p">)</span></code></pre></div>
+<h2 id="stack-mode"><span class="header-section-number">11.2</span> Stack mode<a class="anchor-section" aria-label="Anchor link to section" href="#stack-mode">#</a></h2>
+<p><code>circos.genomicTrack()</code> supports <code>stack=True</code>,
+which overrides the y-axis into evenly spaced horizontal bins
+(<code>y = 1, 2, ...</code>) so multiple columns or multiple
+<code>DataFrame</code>s can be stacked cleanly inside one track.</p>
+<h3 id="input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame<a class="anchor-section" aria-label="Anchor link to section" href="#input-is-a-dataframe-1">#</a></h3>
+<p>Under <code>stack=True</code> with a single <code>DataFrame</code>,
+each numeric column selected by <code>numeric_column</code> (or all
+numeric columns by default) becomes one horizontal layer.
+<code>ylim</code> is set internally to <code>[0.5, n + 0.5]</code>,
+where <code>n</code> is the number of selected numeric columns, and
+<code>panel_fun</code> runs once per column at <code>y = i</code>. In
+each call, <code>value</code> contains only the current numeric column
+plus any non-numeric columns, while <code>getI(**kwargs)</code> returns
+the 1-based layer index <code>i</code>. Low-level genomic functions
+automatically map y-coordinates to <code>y = i</code> (rather than
+reading numeric values from <code>value</code>), though
+<code>value</code> remains available for mapping colors or
+annotations.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">data</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nc</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_stack_df</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_stack_df</span><span class="p">)</span></code></pre></div>
+<h3 id="input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames<a class="anchor-section" aria-label="Anchor link to section" href="#input-is-a-list-of-dataframes-1">#</a></h3>
+<p>Under <code>stack=True</code> with a
+<code>list[pandas.DataFrame]</code>, each <code>DataFrame</code> becomes
+one horizontal layer (<code>ylim = [0.5, len(bed_list) + 0.5]</code>),
+and <code>panel_fun</code> is called iteratively for each
+<code>DataFrame</code> at <code>y = i</code>. Unlike a multi-column
+single <code>DataFrame</code>, each <code>DataFrame</code> in a list can
+carry completely different genomic intervals.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">generateRandomBed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">1</span><span class="p">),</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">seed</span><span class="o">=</span><span class="mi">2</span><span class="p">)]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_stack_list</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_stack_list</span><span class="p">)</span></code></pre></div>
+<h2 id="applications"><span class="header-section-number">11.3</span> Applications<a class="anchor-section" aria-label="Anchor link to section" href="#applications">#</a></h2>
+<p>The following examples compare normal mode and
+<code>stack=True</code> mode for points, lines, and rectangles. To zoom
+in on individual tracks clearly, only chromosome 1 is plotted in the
+top-right quarter of the canvas (<code>canvas_xlim=(0, 1)</code>,
+<code>canvas_ylim=(0, 1)</code>, <code>start_degree=90</code>,
+<code>gap_degree=270</code>).</p>
+<h3 id="modes-points"><span class="header-section-number">11.3.1</span> Points<a class="anchor-section" aria-label="Anchor link to section" href="#modes-points">#</a></h3>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">CELL_META</span><span class="p">,</span> <span class="n">circos</span><span class="p">,</span> <span class="n">generateRandomBed</span><span class="p">,</span> <span class="n">get</span><span class="p">,</span> <span class="n">getI</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">start_degree</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">canvas_xlim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">canvas_ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">gap_degree</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">chromosome_index</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span></code></pre></div>
+<p>Track A plots a single numeric column in normal mode, while Track B
+plots the same data under <code>stack=True</code> along a horizontal
+line (<code>y = 1</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"A"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_b</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#00000040"</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_b</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"B"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></pre></div>
+<p>Tracks C and D repeat this comparison with a list of two BED
+<code>DataFrame</code>s, using <code>i = getI(**kwargs)</code> to color
+each dataset (<code>col=i</code> maps via the R palette):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed1</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1001</span><span class="p">)</span>
+<span class="n">bed2</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1002</span><span class="p">)</span>
+<span class="n">bed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bed1</span><span class="p">,</span> <span class="n">bed2</span><span class="p">]</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed_list</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"C"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_d</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#00000040"</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_d</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"D"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></pre></div>
+<p>Tracks E and F plot a <code>DataFrame</code> containing four numeric
+columns in normal mode (<code>col=[1, 2, 3, 4]</code>) and in
+<code>stack=True</code> mode (four stacked horizontal lines, Figure
+11.1):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed4</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">1003</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed4</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"E"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_f</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicPoints</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">i</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#00000040"</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed4</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_f</span><span class="p">)</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"yplot"</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.015</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">pos</span><span class="p">)),</span> <span class="s2">"F"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"right"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch11_genomic_application_points.png"
+alt="Figure 11.1: Add points under different modes." />
+<figcaption aria-hidden="true">Figure 11.1: Add points under different
+modes.</figcaption>
+</figure>
+<h3 id="modes-lines"><span class="header-section-number">11.3.2</span> Lines<a class="anchor-section" aria-label="Anchor link to section" href="#modes-lines">#</a></h3>
+<p>The next figure demonstrates <code>circos.genomicLines()</code>
+across eight tracks (Figure 11.2):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.08</span><span class="p">,</span>
+    <span class="n">start_degree</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">canvas_xlim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">canvas_ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">gap_degree</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+    <span class="n">cell_padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">chromosome_index</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span></code></pre></div>
+<ul>
+<li><strong>Track A</strong>: plain lines connecting region
+midpoints.</li>
+<li><strong>Track B</strong>: filled area under the curve
+(<code>area=True</code>).</li>
+<li><strong>Track C</strong>: vertical bars
+(<code>type="h"</code>).</li>
+</ul>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2001</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">area</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s2">"h"</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">),</span>
+<span class="p">)</span></code></pre></div>
+<ul>
+<li><strong>Track D</strong>: list of two BED <code>DataFrame</code>s in
+normal mode.</li>
+<li><strong>Track E</strong>: list of two BED <code>DataFrame</code>s in
+<code>stack=True</code> mode (under stack mode,
+<code>circos.genomicLines()</code> draws horizontal segments spanning
+each region’s <code>[start, end]</code>).</li>
+</ul>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed1</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2002</span><span class="p">)</span>
+<span class="n">bed2</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2003</span><span class="p">)</span>
+<span class="n">bed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bed1</span><span class="p">,</span> <span class="n">bed2</span><span class="p">]</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed_list</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed_list</span><span class="p">,</span>
+    <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span></code></pre></div>
+<ul>
+<li><strong>Track F</strong>: single <code>DataFrame</code> with 4
+numeric columns in normal mode.</li>
+<li><strong>Track G</strong>: single <code>DataFrame</code> with 4
+numeric columns in <code>stack=True</code> mode.</li>
+<li><strong>Track H</strong>: horizontal segments placed at each
+region’s numeric y-value (<code>type="segment"</code>), colored per
+region with <code>rand_color()</code>.</li>
+</ul>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed4</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2004</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed4</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed4</span><span class="p">,</span>
+    <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">bed_h</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2005</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_h</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">rand_color</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">2006</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">)):</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">genomicLines</span><span class="p">(</span>
+            <span class="n">region</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">k</span><span class="p">]],</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[[</span><span class="n">k</span><span class="p">]],</span>
+            <span class="nb">type</span><span class="o">=</span><span class="s2">"segment"</span><span class="p">,</span>
+            <span class="n">lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+            <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">[</span><span class="n">k</span><span class="p">],</span>
+            <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+        <span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_h</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_h</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch11_genomic_application_lines.png"
+alt="Figure 11.2: Add lines under different modes." />
+<figcaption aria-hidden="true">Figure 11.2: Add lines under different
+modes.</figcaption>
+</figure>
+<h3 id="modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles<a class="anchor-section" aria-label="Anchor link to section" href="#modes-rectangles">#</a></h3>
+<p>For rectangles, fill color commonly encodes numeric values via a
+continuous color mapping created by <code>colorRamp2()</code> (Figure
+11.3):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">colorRamp2</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.5</span><span class="p">,</span> <span class="mf">6.5</span><span class="p">))</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">111</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span>
+    <span class="n">start_degree</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">canvas_xlim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">canvas_ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">gap_degree</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">chromosome_index</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">,</span> <span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">col_fun</span> <span class="o">=</span> <span class="n">colorRamp2</span><span class="p">(</span><span class="n">breaks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">colors</span><span class="o">=</span><span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"black"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span></code></pre></div>
+<ul>
+<li><strong>Track A</strong>: four numeric columns under
+<code>stack=True</code> mode form a 4-row circular heatmap sharing the
+same genomic intervals.</li>
+<li><strong>Track B</strong>: a list of two <code>DataFrame</code>s
+under <code>stack=True</code> mode, with explicit
+<code>ytop=i + 0.3</code> and <code>ybottom=i - 0.3</code> leaving
+vertical margins.</li>
+<li><strong>Track C</strong>: identical layout to Track B implemented
+manually in normal mode by setting <code>ylim=(0.5, 2.5)</code>.</li>
+<li><strong>Track D</strong>: genomic barplots drawn with
+<code>ytop_column=0</code> and <code>ybottom=0.0</code>, colored
+<code>"red"</code> for positive values and <code>"green"</code> for
+negative values.</li>
+</ul>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bed4</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3001</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span>
+    <span class="n">bed4</span><span class="p">,</span>
+    <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicRect</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span> <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span>
+    <span class="p">),</span>
+<span class="p">)</span>
+
+<span class="n">bed1</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3002</span><span class="p">)</span>
+<span class="n">bed2</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3003</span><span class="p">)</span>
+<span class="n">bed_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">bed1</span><span class="p">,</span> <span class="n">bed2</span><span class="p">]</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_rect_list</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">getI</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicRect</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">,</span>
+        <span class="n">ytop</span><span class="o">=</span><span class="n">i</span> <span class="o">+</span> <span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">ybottom</span><span class="o">=</span><span class="n">i</span> <span class="o">-</span> <span class="mf">0.3</span><span class="p">,</span>
+        <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]),</span>
+        <span class="o">**</span><span class="n">kwargs</span><span class="p">,</span>
+    <span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">stack</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_rect_list</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_rect_list</span><span class="p">)</span>
+
+<span class="n">bed_d</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">3004</span><span class="p">)</span>
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_rect_d</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">genomicRect</span><span class="p">(</span><span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">ytop_column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ybottom</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#00000040"</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrack</span><span class="p">(</span><span class="n">bed_d</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_rect_d</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch11_genomic_application_rect.png"
+alt="Figure 11.3: Add rectangles under different modes." />
+<figcaption aria-hidden="true">Figure 11.3: Add rectangles under
+different modes.</figcaption>
+</figure>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="genomic-plotting-region.html">&larr; 10 Create plotting regions for genomic
+data</a>
+            <a href="high-level-genomic-functions.html">12 High-level genomic functions &rarr;</a>
+          </nav>
+        </main>
+        <a href="genomic-plotting-region.html" class="navigation navigation-prev" aria-label="Previous chapter: Create plotting regions for genomic
+data" title="Previous: Create plotting regions for genomic
+data">&#8249;</a>
+        <a href="high-level-genomic-functions.html" class="navigation navigation-next" aria-label="Next chapter: High-level genomic functions" title="Next: High-level genomic functions">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

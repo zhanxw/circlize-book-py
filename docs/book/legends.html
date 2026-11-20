@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 4 Legends | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter active"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="legends"><span class="header-section-number">4</span> Legends<a class="anchor-section" aria-label="Anchor link to section" href="#legends">#</a></h1>
+<p><strong>circlize</strong> provides complete freedom for users to
+design custom circular graphics through <code>panel_fun</code>
+callbacks. However, because <strong>circlize</strong> renders arbitrary
+user-supplied primitives rather than owning a high-level plot grammar,
+it does not automatically generate legends for tracks or links.</p>
+<p>In <strong>circlize-py</strong>, every circular plot is drawn onto a
+standard Matplotlib <code>Axes</code>. That means legends can be built
+and arranged seamlessly using Matplotlib’s native
+<code>fig.legend()</code>, <code>fig.colorbar()</code>,
+<code>GridSpec</code>, and explicit figure axes—requiring only a few
+lines of Python. In the book’s figure helper module
+(<code>_common.py</code>), two thin
+wrappers—<code>add_discrete_legend()</code> and
+<code>add_colorbar()</code>—illustrate this pattern directly on top of
+Matplotlib’s <code>Line2D</code>/<code>Patch</code> artists and
+<code>ScalarMappable</code> colorbars.</p>
+<p>As a running example, we construct a circular plot with two tracks
+and interior links. The first track plots two groups of points, the
+second track plots two groups of lines, and the links use a continuous
+<code>ColorRamp2</code> mapping. We wrap the circular plot in a reusable
+function <code>draw_example_circle()</code> so we can pair it with
+several legend layouts.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">add_transparency</span><span class="p">,</span> <span class="n">circos</span><span class="p">,</span> <span class="n">color_ramp2</span>
+
+<span class="n">col_fun</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"yellow"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">draw_example_circle</span><span class="p">(</span><span class="n">seed</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">12345</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="n">seed</span><span class="p">)</span>
+    <span class="n">sectors</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"abcdefghij"</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">sectors</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">panel_track1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+    <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_track1</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">panel_track2</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">20</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_track2</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">s1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">sectors</span><span class="p">))</span>
+        <span class="n">s2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">sectors</span><span class="p">))</span>
+        <span class="n">p1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">))[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="n">p2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">))[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="c1"># Pass transparency=0.5 explicitly to match semi-transparent ribbons</span>
+        <span class="n">col</span> <span class="o">=</span> <span class="n">add_transparency</span><span class="p">(</span><span class="n">col_fun</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">())),</span> <span class="n">transparency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">p1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">p2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+
+    <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<h2 id="building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib<a class="anchor-section" aria-label="Anchor link to section" href="#building-matplotlib-legends">#</a></h2>
+<p>To render legends alongside any <code>circlize-py</code> figure:</p>
+<ol type="1">
+<li><strong>Discrete point, line, or patch legends
+(<code>fig.legend</code> / <code>add_discrete_legend</code>)</strong>:
+Build proxy <code>matplotlib.lines.Line2D</code> or
+<code>matplotlib.patches.Patch</code> handles using
+<code>color_to_hex()</code> (so R palette indices like
+<code>2</code>–<code>5</code> and R color names resolve identically to
+<code>circlize-py</code> tracks), and attach them with
+<code>fig.legend(...)</code>. Calling <code>fig.legend()</code> multiple
+times appends independent legend boxes to the figure without replacing
+earlier legends (whereas calling <code>ax.legend()</code> repeatedly on
+a single <code>Axes</code> replaces the previous legend unless
+<code>ax.add_artist()</code> is used).</li>
+<li><strong>Continuous colorbars (<code>fig.colorbar</code> /
+<code>add_colorbar</code>)</strong>: Sample a <code>ColorRamp2</code>
+object across <code>[vmin, vmax]</code> into a Matplotlib
+<code>LinearSegmentedColormap</code> (<code>colorramp_to_cmap()</code>),
+wrap it in
+<code>matplotlib.cm.ScalarMappable(norm=Normalize(vmin, vmax), cmap=cmap)</code>,
+and draw it into a dedicated axes box
+<code>[left, bottom, width, height]</code> via
+<code>fig.colorbar(sm, cax=cax)</code>.</li>
+</ol>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.cm</span><span class="w"> </span><span class="kn">import</span> <span class="n">ScalarMappable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.colors</span><span class="w"> </span><span class="kn">import</span> <span class="n">LinearSegmentedColormap</span><span class="p">,</span> <span class="n">Normalize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib.lines</span><span class="w"> </span><span class="kn">import</span> <span class="n">Line2D</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_to_hex</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">make_discrete_handles</span><span class="p">(</span><span class="n">items</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">"point"</span><span class="p">):</span>
+    <span class="n">handles</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">label</span><span class="p">,</span> <span class="n">color</span> <span class="ow">in</span> <span class="n">items</span><span class="p">:</span>
+        <span class="n">hex_col</span> <span class="o">=</span> <span class="n">color_to_hex</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">include_alpha</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"point"</span><span class="p">:</span>
+            <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">"o"</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"None"</span><span class="p">,</span>
+                       <span class="n">markerfacecolor</span><span class="o">=</span><span class="n">hex_col</span><span class="p">,</span> <span class="n">markeredgecolor</span><span class="o">=</span><span class="n">hex_col</span><span class="p">,</span>
+                       <span class="n">markersize</span><span class="o">=</span><span class="mf">6.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">"line"</span><span class="p">:</span>
+            <span class="n">handles</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">Line2D</span><span class="p">([</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="n">hex_col</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">label</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">handles</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">colorramp_to_cmap</span><span class="p">(</span><span class="n">col_fun</span><span class="p">,</span> <span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="mi">256</span><span class="p">):</span>
+    <span class="n">vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">vmin</span><span class="p">,</span> <span class="n">vmax</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="p">[</span><span class="n">color_to_hex</span><span class="p">(</span><span class="n">col_fun</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">v</span><span class="p">)),</span> <span class="n">include_alpha</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">vals</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">LinearSegmentedColormap</span><span class="o">.</span><span class="n">from_list</span><span class="p">(</span><span class="s2">"circlize_ramp"</span><span class="p">,</span> <span class="n">cols</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="n">n</span><span class="p">)</span></code></pre></div>
+<h2 id="overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas<a class="anchor-section" aria-label="Anchor link to section" href="#overlay-legends">#</a></h2>
+<p>Because <code>fig.legend()</code> and <code>fig.add_axes()</code> use
+normalized figure coordinates (<code>[0, 1]</code> ×
+<code>[0, 1]</code>), legends can be placed directly in the corners of
+the circular canvas. The helper <code>add_discrete_legend()</code> wraps
+proxy handle creation and <code>fig.legend()</code>, while
+<code>add_colorbar()</code> creates a small colorbar axes at
+<code>rect=[left, bottom, width, height]</code>.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">draw_example_circle</span><span class="p">()</span>
+
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label2"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"point"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track1"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.43</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label3"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label4"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track2"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.27</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_colorbar</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">col_fun</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.032</span><span class="p">,</span> <span class="mf">0.19</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch04_directly_add.png"
+alt="Directly overlaid corner legends on the circular plot." />
+<figcaption aria-hidden="true">Directly overlaid corner legends on the
+circular plot.</figcaption>
+</figure>
+<p>As the stacked corner legends demonstrate, overlaying multiple
+legends directly on a compact square canvas leaves them overlapping the
+outer circular tracks. One quick mitigation on a wider canvas is to
+split the legends across different corners—for example, placing the
+discrete track legends in the lower-left corner and the continuous link
+colorbar in the lower-right corner.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_axes</span><span class="p">([</span><span class="mf">0.06</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.88</span><span class="p">,</span> <span class="mf">0.92</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">draw_example_circle</span><span class="p">()</span>
+
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label2"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"point"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track1"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.19</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label3"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label4"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track2"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"lower left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.03</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_colorbar</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">col_fun</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch04_two_legends.png"
+alt="Legends split across the bottom-left and bottom-right corners." />
+<figcaption aria-hidden="true">Legends split across the bottom-left and
+bottom-right corners.</figcaption>
+</figure>
+<h2 id="gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+<code>GridSpec</code><a class="anchor-section" aria-label="Anchor link to section" href="#gridspec-legends">#</a></h2>
+<p>Corner placement still breaks down when legends are tall or numerous.
+The cleanest, most reliable solution is to partition the Matplotlib
+figure with <code>fig.add_gridspec()</code> so the circular plot
+occupies one region and the legends live in their own non-overlapping
+panel.</p>
+<p>First, use a <code>1 × 2</code> <code>GridSpec</code>
+(<code>width_ratios=[4.2, 1.2]</code>) to reserve a dedicated right-side
+legend column. Activate the left subplot with
+<code>plt.sca(ax_circ)</code> before calling
+<code>draw_example_circle()</code>, then read the right subplot’s
+normalized figure box (<code>pos = ax_leg.get_position()</code>) to
+anchor the discrete legends and colorbar axes cleanly inside the right
+column:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">7.0</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span>
+    <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+    <span class="n">width_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">4.2</span><span class="p">,</span> <span class="mf">1.2</span><span class="p">],</span>
+    <span class="n">left</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.96</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.97</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">wspace</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ax_circ</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax_circ</span><span class="p">)</span>
+<span class="n">draw_example_circle</span><span class="p">()</span>
+
+<span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
+<span class="n">ax_leg</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">ax_leg</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label2"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"point"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track1"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.78</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label3"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label4"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track2"</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"upper left"</span><span class="p">,</span> <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.59</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_colorbar</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">col_fun</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.012</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.22</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+<span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch04_right_legend.png"
+alt="Circular plot with a dedicated right-side legend column built via GridSpec." />
+<figcaption aria-hidden="true">Circular plot with a dedicated right-side
+legend column built via GridSpec.</figcaption>
+</figure>
+<p>Legends can just as easily sit below the circular plot by switching
+to a <code>2 × 1</code> <code>GridSpec</code>
+(<code>height_ratios=[4.3, 1.0]</code>), passing <code>ncol=2</code> to
+<code>add_discrete_legend()</code>, and setting
+<code>orientation="horizontal"</code> on
+<code>add_colorbar()</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">5.6</span><span class="p">,</span> <span class="mf">6.4</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">,</span> <span class="n">facecolor</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">gs</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_gridspec</span><span class="p">(</span>
+    <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span>
+    <span class="n">height_ratios</span><span class="o">=</span><span class="p">[</span><span class="mf">4.3</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="n">left</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span> <span class="n">right</span><span class="o">=</span><span class="mf">0.97</span><span class="p">,</span> <span class="n">top</span><span class="o">=</span><span class="mf">0.98</span><span class="p">,</span> <span class="n">bottom</span><span class="o">=</span><span class="mf">0.04</span><span class="p">,</span> <span class="n">hspace</span><span class="o">=</span><span class="mf">0.03</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">ax_circ</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax_circ</span><span class="p">)</span>
+<span class="n">draw_example_circle</span><span class="p">()</span>
+
+<span class="n">ax_leg</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="n">gs</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">ax_leg</span><span class="o">.</span><span class="n">set_axis_off</span><span class="p">()</span>
+<span class="n">pos</span> <span class="o">=</span> <span class="n">ax_leg</span><span class="o">.</span><span class="n">get_position</span><span class="p">()</span>
+
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label1"</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label2"</span><span class="p">,</span> <span class="mi">3</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"point"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track1"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"center left"</span><span class="p">,</span>
+    <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.02</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.50</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_discrete_legend</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="p">[(</span><span class="s2">"label3"</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="s2">"label4"</span><span class="p">,</span> <span class="mi">5</span><span class="p">)],</span>
+    <span class="n">kind</span><span class="o">=</span><span class="s2">"line"</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">"Track2"</span><span class="p">,</span> <span class="n">ncol</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">loc</span><span class="o">=</span><span class="s2">"center left"</span><span class="p">,</span>
+    <span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.34</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.50</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">add_colorbar</span><span class="p">(</span>
+    <span class="n">fig</span><span class="p">,</span> <span class="n">col_fun</span><span class="p">,</span> <span class="n">vmin</span><span class="o">=-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">vmax</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.68</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.42</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">,</span>
+          <span class="mf">0.28</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">],</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
+<span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch04_bottom_legend.png"
+alt="Circular plot with horizontal legends placed in a dedicated bottom row via GridSpec." />
+<figcaption aria-hidden="true">Circular plot with horizontal legends
+placed in a dedicated bottom row via GridSpec.</figcaption>
+</figure>
+<p>See <a href="circos-heatmap.html">the <code>circos.heatmap()</code>
+chapter</a> for an extended multi-track example combining eight discrete
+and continuous legends alongside a complex circular heatmap.</p>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="graphics.html">&larr; 3 Graphics</a>
+            <a href="high-level-plots.html">5 Implement high-level circular plots &rarr;</a>
+          </nav>
+        </main>
+        <a href="graphics.html" class="navigation navigation-prev" aria-label="Previous chapter: Graphics" title="Previous: Graphics">&#8249;</a>
+        <a href="high-level-plots.html" class="navigation navigation-next" aria-label="Next chapter: Implement high-level circular plots" title="Next: Implement high-level circular plots">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

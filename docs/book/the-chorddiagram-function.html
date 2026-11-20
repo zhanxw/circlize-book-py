@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 14 The chordDiagram()
+function | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter active"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="the-chorddiagram-function"><span class="header-section-number">14</span> The <code>chordDiagram()</code>
+function<a class="anchor-section" aria-label="Anchor link to section" href="#the-chorddiagram-function">#</a></h1>
+<p>One unique feature of circular layouts is visualizing relations
+between objects with links, as illustrated in tabular visualization
+examples at <a
+href="http://circos.ca/intro/tabular_visualization/">circos.ca</a>. This
+style of graphic is known as a <a
+href="http://en.wikipedia.org/wiki/Chord_diagram">Chord diagram</a>. In
+<strong>circlize-py</strong>, <code>chord_diagram()</code> (also
+available via the R-style alias <code>chordDiagram()</code>) makes it
+straightforward to draw Chord diagrams either with minimal defaults or
+with fine-grained customization.</p>
+<p>Relations can be represented in two data formats: an
+<strong>adjacency matrix</strong> or an <strong>adjacency list</strong>.
+In an adjacency matrix, the entry in the <em>i</em>-th row and
+<em>j</em>-th column gives the connection from row object <em>i</em> to
+column object <em>j</em>, with the absolute value measuring connection
+strength. In an adjacency list, relations are stored as a three-column
+<code>pandas.DataFrame</code> where links go from the first column to
+the second column with strength in the third column.</p>
+<p>An adjacency matrix can be represented as a labeled
+<code>pandas.DataFrame</code> (or a 2D <code>numpy.ndarray</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="n">mat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
+    <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"ABC"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">mat</span></code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code>   A  B  C
+a  1  4  7
+b  2  5  8
+c  3  6  9</code></pre></div>
+<p>An adjacency list is a DataFrame with source, target, and value
+columns:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"from"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">),</span> <span class="s2">"to"</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"ABC"</span><span class="p">),</span> <span class="s2">"value"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="n">df</span></code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code>  from to  value
+0    a  A      1
+1    b  B      2
+2    c  C      3</code></pre></div>
+<p>You can convert cleanly between these two formats using
+<code>circlize_py.adjacency_matrix2list()</code> and
+<code>circlize_py.adjacency_list2matrix()</code>.</p>
+<p>A Chord diagram communicates relational structure at several
+levels:</p>
+<ol type="1">
+<li>Links directly connect pairs of related objects.</li>
+<li>Link widths are proportional to relation strength, making magnitude
+comparisons immediate.</li>
+<li>Link colors provide an additional visual encoding (e.g., source
+identity, sign, or continuous intensity).</li>
+<li>Sector widths show each object’s total connection strength across
+all incoming and outgoing links.</li>
+</ol>
+<p>In <strong>circlize-py</strong>, <code>chord_diagram()</code> accepts
+both adjacency matrices (<code>np.ndarray</code> or named
+<code>pd.DataFrame</code>) and adjacency lists
+(<code>pd.DataFrame</code>), returning a <code>pd.DataFrame</code> with
+link coordinates
+(<code>['rn', 'cn', 'value1', 'value2', 'o1', 'o2', 'x1', 'x2']</code>,
+plus <code>'col'</code> when plotted). Depending on the input format,
+per-link graphical parameters take either a 2D array / matrix-shaped
+<code>DataFrame</code> / 3-column lookup <code>DataFrame</code> (for
+matrix input) or a 1D vector/Series matching the number of rows (for
+adjacency-list input). Below we focus primarily on matrix examples while
+showing the corresponding adjacency-list idioms alongside them.</p>
+<h2 id="basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram<a class="anchor-section" aria-label="Anchor link to section" href="#basic-usage-of-making-chord-diagram">#</a></h2>
+<p>First, let’s build a random 3x6 adjacency matrix and its equivalent
+adjacency list:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">chord_diagram</span><span class="p">,</span> <span class="n">circos</span><span class="p">,</span> <span class="n">color_ramp2</span><span class="p">,</span> <span class="n">mm_h</span><span class="p">,</span> <span class="n">rand_color</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">19</span><span class="p">))</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">)</span>
+<span class="n">rn</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"S</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">)]</span>
+<span class="n">cn</span> <span class="o">=</span> <span class="p">[</span><span class="sa">f</span><span class="s2">"E</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)]</span>
+<span class="n">mat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="n">rn</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="n">cn</span><span class="p">)</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"from"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">rn</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">cn</span><span class="p">)),</span>
+        <span class="s2">"to"</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">cn</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">rn</span><span class="p">)),</span>
+        <span class="s2">"value"</span><span class="p">:</span> <span class="n">arr</span><span class="o">.</span><span class="n">ravel</span><span class="p">(</span><span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">)</span></code></pre></div>
+<p>The simplest plot just calls <code>chord_diagram(mat)</code>
+(followed by <code>circos.clear()</code> to reset layout state):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_basic.png"
+alt="Basic usages of chord_diagram()." />
+<figcaption aria-hidden="true">Basic usages of
+<code>chord_diagram()</code>.</figcaption>
+</figure>
+<p>Calling <code>chord_diagram(df)</code> with the adjacency list
+produces the same diagram:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>By default, a Chord diagram contains a sector-label track, a grid
+track with axes, and connecting ribbons. Row sectors appear in the lower
+half of the circle and column sectors in the upper half, ordered by
+<code>union(mat.index, mat.columns)</code> (or
+<code>union(df.iloc[:, 0], df.iloc[:, 1])</code>). You can reorder
+sectors with <code>order</code>, whose length must match the total
+number of sectors. Keeping row sectors (<code>S*</code>) contiguous and
+column sectors (<code>E*</code>) contiguous improves readability;
+interleaving them creates unnecessary crossings. See <a
+href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram">Multiple-group
+Chord diagram</a> for grouping more than two sets.</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">,</span> <span class="s2">"E1"</span><span class="p">,</span> <span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E2"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E3"</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">,</span> <span class="s2">"E1"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">,</span> <span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E2"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E3"</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_basic_order.png"
+alt="Adjust sector orders in Chord diagram. Left: sectors remain grouped after reordering; right: sectors are interleaved." />
+<figcaption aria-hidden="true">Adjust sector orders in Chord diagram.
+Left: sectors remain grouped after reordering; right: sectors are
+interleaved.</figcaption>
+</figure>
+<p>By default, grid colors are randomly assigned and each link inherits
+its row sector’s color with <code>transparency=0.5</code>.</p>
+<h2 id="adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by <code>circos.par()</code><a class="anchor-section" aria-label="Anchor link to section" href="#adjust-by-circos.par">#</a></h2>
+<p>Because <code>chord_diagram()</code> is built on top of standard
+<code>circlize_py</code> tracks, global layout parameters in
+<code>circos.par()</code> apply directly. Remember to call
+<code>circos.clear()</code> afterward so customized
+<code>circos.par()</code> values do not leak into subsequent plots.</p>
+<p>You can set sector gaps explicitly via
+<code>circos.par(gap_after=...)</code> (an alias for
+<code>gap_degree</code>) to visually separate row sectors from column
+sectors:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">gap_after</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">])</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_basic_gap_after.png"
+alt="Set gaps in Chord diagram via circos.par(gap_after=...)." />
+<figcaption aria-hidden="true">Set gaps in Chord diagram via
+<code>circos.par(gap_after=...)</code>.</figcaption>
+</figure>
+<p>With an adjacency list:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">gap_after</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"from"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"to"</span><span class="p">]</span><span class="o">.</span><span class="n">nunique</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>As explained in <a
+href="circular-layout.html#graphic-parameters">Graphic parameters</a>,
+<code>gap_after</code> can also be a dictionary mapping sector names to
+gap angles:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">gap_after</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">"S1"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+        <span class="s2">"E1"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"E2"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"E3"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"E5"</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>For the common two-group case where row and column names do not
+overlap, passing <code>big_gap</code> directly to
+<code>chord_diagram()</code> sets the gap between the two groups
+automatically, while <code>small_gap</code> (default <code>1.0</code>)
+controls the spacing within each group:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">big_gap</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_basic_big_gap.png"
+alt="Directly set big_gap in chord_diagram()." />
+<figcaption aria-hidden="true">Directly set <code>big_gap</code> in
+<code>chord_diagram()</code>.</figcaption>
+</figure>
+<p>The first sector begins at <code>circos.par(start_degree=...)</code>
+(default <code>0</code>, right center) and proceeds clockwise when
+<code>clock_wise=True</code>. Setting <code>clock_wise=False</code>
+reverses direction, which twists links unless sector order is also
+adjusted; reversing <code>order</code> while keeping
+<code>clock_wise=True</code> preserves clean link routing:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">start_degree</span><span class="o">=</span><span class="mi">85</span><span class="p">,</span> <span class="n">clock_wise</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">start_degree</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">)))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_basic_start_degree.png"
+alt="Change start position and orientation of Chord diagram. Left: clock_wise=False; right: reversed order with default clockwise routing." />
+<figcaption aria-hidden="true">Change start position and orientation of
+Chord diagram. Left: <code>clock_wise=False</code>; right: reversed
+<code>order</code> with default clockwise routing.</figcaption>
+</figure>
+<h2 id="chord-diagram-colors"><span class="header-section-number">14.3</span> Colors<a class="anchor-section" aria-label="Anchor link to section" href="#chord-diagram-colors">#</a></h2>
+<h3 id="set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors<a class="anchor-section" aria-label="Anchor link to section" href="#set-grid-colors">#</a></h3>
+<p>By default, links take the color of their source (row / first-column)
+sector. <code>grid_col</code> sets sector grid colors, ideally via a
+dictionary keyed by sector name (or a sequence matching sector order).
+To color links by column sectors instead of row sectors, transpose the
+matrix (<code>mat.T</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">grid_col</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">"S1"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">:</span> <span class="s2">"green"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">:</span> <span class="s2">"blue"</span><span class="p">,</span>
+    <span class="s2">"E1"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span> <span class="s2">"E2"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span> <span class="s2">"E3"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span>
+    <span class="s2">"E4"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span> <span class="s2">"E5"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">:</span> <span class="s2">"grey"</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_grid_color.png"
+alt="Set grid colors in Chord diagram. Left: mat; right: mat.T colors links by E* sectors." />
+<figcaption aria-hidden="true">Set grid colors in Chord diagram. Left:
+<code>mat</code>; right: <code>mat.T</code> colors links by
+<code>E*</code> sectors.</figcaption>
+</figure>
+<h3 id="chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors<a class="anchor-section" aria-label="Anchor link to section" href="#chord-diagram-link-color">#</a></h3>
+<p><code>transparency</code> controls link opacity from <code>0</code>
+(completely opaque) to <code>1</code> (completely transparent),
+defaulting to <code>0.5</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_color_transparency.png"
+alt="Opaque links (transparency=0) in Chord diagram." />
+<figcaption aria-hidden="true">Opaque links
+(<code>transparency=0</code>) in Chord diagram.</figcaption>
+</figure>
+<p>For matrix input, you can supply a 2D array (or DataFrame) of link
+colors matching <code>mat.shape</code>. When explicit alpha values are
+already encoded in the colors (e.g., via
+<code>rand_color(..., transparency=0.5)</code>),
+<code>transparency</code> is preserved:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rand_color</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_color_mat.png"
+alt="Set a 2D color matrix for links in Chord diagram." />
+<figcaption aria-hidden="true">Set a 2D color matrix for links in Chord
+diagram.</figcaption>
+</figure>
+<p>For an adjacency list <code>df</code>, pass a 1D list or Series of
+length <code>len(df)</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col</span> <span class="o">=</span> <span class="n">rand_color</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">))</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>When relation values are continuous, <code>col</code> accepts a
+<code>color_ramp2()</code> mapping function:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_fun</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">(</span>
+    <span class="p">[</span><span class="nb">float</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">max</span><span class="p">())],</span>
+    <span class="p">[</span><span class="s2">"#FFEEEE"</span><span class="p">,</span> <span class="s2">"#FF0000"</span><span class="p">],</span>
+    <span class="n">transparency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_color_fun.png"
+alt="Set a color_ramp2() color mapping function for links." />
+<figcaption aria-hidden="true">Set a <code>color_ramp2()</code> color
+mapping function for links.</figcaption>
+</figure>
+<p>The same callable works with adjacency lists:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">)</span>
+<span class="c1"># or equivalently:</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>For matrix input, <code>row_col</code> and <code>column_col</code>
+let you color links by row or column without affecting grid colors (R
+integer palette indices <code>1..8</code>, named colors, and hex strings
+are all accepted):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">column_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_color_row_col.png"
+alt="Color links by row (row_col) or column (column_col) independently of grid_col." />
+<figcaption aria-hidden="true">Color links by row (<code>row_col</code>)
+or column (<code>column_col</code>) independently of
+<code>grid_col</code>.</figcaption>
+</figure>
+<p>As before, any alpha channel already included in <code>col</code>,
+<code>row_col</code>, or <code>column_col</code> overrides the global
+<code>transparency</code> argument. See <a
+href="#highlight-links">Highlight links</a> for selective
+highlighting.</p>
+<h2 id="chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border<a class="anchor-section" aria-label="Anchor link to section" href="#chord-diagram-link-border">#</a></h2>
+<p><code>link_lwd</code>, <code>link_lty</code>, and
+<code>link_border</code> control ribbon border width, line style, and
+border color. Each accepts a scalar, a 2D array matching
+<code>mat.shape</code>, or a 3-column <code>DataFrame</code>.</p>
+<p>With scalar values, all links share the same border style:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_style_scalar.png"
+alt="Uniform scalar link border style in Chord diagram." />
+<figcaption aria-hidden="true">Uniform scalar link border style in Chord
+diagram.</figcaption>
+</figure>
+<p>With full matrices matching <code>mat.shape</code>, use
+<code>np.nan</code> (or <code>"none"</code>) for links that should have
+no visible border:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">lwd_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+<span class="n">lwd_mat</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="n">border_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">border_mat</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"red"</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="n">lwd_mat</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_mat</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_style_fullmat.png"
+alt="Set link line width and border color as matrices." />
+<figcaption aria-hidden="true">Set link line width and border color as
+matrices.</figcaption>
+</figure>
+<p>To style a single row or subset of links while keeping other links
+borderless, fill a matrix with <code>np.nan</code> and assign colors to
+the target slice (or use a 3-column <code>DataFrame</code> when all
+links have explicit styles):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">border_mat2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">border_mat2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="s2">"black"</span>  <span class="c1"># highlight row S2</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_mat2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_style_submatrix.png"
+alt="Highlight borders for a single row (S2) in the matrix." />
+<figcaption aria-hidden="true">Highlight borders for a single row
+(<code>S2</code>) in the matrix.</figcaption>
+</figure>
+<p>You can also pass a three-column <code>DataFrame</code>
+<code>(row_name, col_name, value)</code> for <code>link_lty</code>,
+<code>link_lwd</code>, and <code>link_border</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">lty_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span> <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span> <span class="s2">"lty"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]})</span>
+<span class="n">lwd_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span> <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span> <span class="s2">"lwd"</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">]})</span>
+<span class="n">border_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span> <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span> <span class="s2">"border"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lty</span><span class="o">=</span><span class="n">lty_df</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="n">lwd_df</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_df</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_style_dataframe.png"
+alt="Set link line style, width, and border via three-column DataFrames." />
+<figcaption aria-hidden="true">Set link line style, width, and border
+via three-column DataFrames.</figcaption>
+</figure>
+<p>For an adjacency list <code>df</code>, pass vectors matching
+<code>len(df)</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span>
+    <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span>
+    <span class="n">link_lty</span><span class="o">=</span><span class="n">rng_s</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)),</span>
+    <span class="n">link_lwd</span><span class="o">=</span><span class="n">rng_s</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)),</span>
+    <span class="n">link_border</span><span class="o">=</span><span class="n">rng_s</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<h2 id="highlight-links"><span class="header-section-number">14.5</span> Highlight links<a class="anchor-section" aria-label="Anchor link to section" href="#highlight-links">#</a></h2>
+<p>Beyond <a href="#chord-diagram-link-border">link borders</a>, you can
+highlight key relations by adjusting <a
+href="#chord-diagram-link-color">link colors</a> and transparency or by
+filtering visibility.</p>
+<p>To emphasize all links originating from one sector (<code>S1</code>),
+pass per-row colors with low alpha for the remaining rows:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="p">[</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="s2">"#00FF0010"</span><span class="p">,</span> <span class="s2">"#0000FF10"</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_highlight_row.png"
+alt="Highlight links from S1 by varying transparency across rows." />
+<figcaption aria-hidden="true">Highlight links from <code>S1</code> by
+varying transparency across rows.</figcaption>
+</figure>
+<p>To highlight links above a numeric threshold, set smaller entries in
+a color matrix to <code>"#00000000"</code> (fully transparent):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_mat_hl</span> <span class="o">=</span> <span class="n">col_mat</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">col_mat_hl</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"#00000000"</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_mat_hl</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_highlight_mat.png"
+alt="Highlight strong links (value &gt;= 12) using a color matrix." />
+<figcaption aria-hidden="true">Highlight strong links
+(<code>value &gt;= 12</code>) using a color matrix.</figcaption>
+</figure>
+<p>Equivalently, use a threshold function for either matrix or
+adjacency-list input:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_fun_hl</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">,</span> <span class="s2">"#00000000"</span><span class="p">,</span> <span class="s2">"#FF000080"</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun_hl</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>While transparent links are still drawn (preserving sector widths),
+passing a three-column <code>DataFrame</code> to <code>col</code> draws
+<em>only</em> the listed links while still sizing sectors from the full
+matrix:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span>
+        <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span>
+        <span class="s2">"col"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="s2">"#00FF0080"</span><span class="p">,</span> <span class="s2">"#0000FF80"</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_df</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_highlight_df.png"
+alt="Draw only highlighted links using a three-column color DataFrame." />
+<figcaption aria-hidden="true">Draw only highlighted links using a
+three-column color DataFrame.</figcaption>
+</figure>
+<p>For an adjacency list, you can also modify a color vector
+directly:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rand_color</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df</span><span class="p">)),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">col</span><span class="p">[</span><span class="n">df</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"#00000000"</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>When transparency is undesirable or you want links omitted completely
+from rendering without changing sector sizes, use
+<code>link_visible</code> with a boolean matrix or boolean vector:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_visible</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_visible.png"
+alt="Filter rendered links using link_visible." />
+<figcaption aria-hidden="true">Filter rendered links using
+<code>link_visible</code>.</figcaption>
+</figure>
+<h2 id="orders-of-links"><span class="header-section-number">14.6</span> Orders of links<a class="anchor-section" aria-label="Anchor link to section" href="#orders-of-links">#</a></h2>
+<p>By default, <code>chord_diagram()</code> arranges link endpoints
+within each sector to minimize crossings. To sort links on each sector
+by width instead, set <code>link_sort=True</code> and control direction
+with <code>link_decreasing</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">link_decreasing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_sort = True, link_decreasing = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">link_decreasing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_sort = True, link_decreasing = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_order1.png"
+alt="Sort link widths within sectors using link_sort and link_decreasing." />
+<figcaption aria-hidden="true">Sort link widths within sectors using
+<code>link_sort</code> and <code>link_decreasing</code>.</figcaption>
+</figure>
+<h2 id="z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links<a class="anchor-section" aria-label="Anchor link to section" href="#z-index-of-adding-links">#</a></h2>
+<p>Links are normally drawn in matrix/DataFrame row order. When drawing
+opaque links (<code>transparency=0</code>), wide ribbons drawn early may
+be covered by narrower ones drawn later. Setting
+<code>link_zindex</code> places links with larger z-index values on
+top:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">rankdata</span>
+
+<span class="n">zmat</span> <span class="o">=</span> <span class="n">rankdata</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">())</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Default z-order"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_zindex</span><span class="o">=</span><span class="n">zmat</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_zindex = rank(mat)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_order2.png"
+alt="Control link layering with link_zindex." />
+<figcaption aria-hidden="true">Control link layering with
+<code>link_zindex</code>.</figcaption>
+</figure>
+<p>For an adjacency list:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_zindex</span><span class="o">=</span><span class="n">rankdata</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<p>As a convenient shortcut for placing wider ribbons above narrower
+ones without computing ranks manually, set
+<code>link_largest_ontop=True</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_largest_ontop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_largest_ontop = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_largest_ontop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_largest_ontop = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_largest_ontop.png"
+alt="Place largest links on top using link_largest_ontop=True." />
+<figcaption aria-hidden="true">Place largest links on top using
+<code>link_largest_ontop=True</code>.</figcaption>
+</figure>
+<h2 id="self-links"><span class="header-section-number">14.8</span> Self-links<a class="anchor-section" aria-label="Anchor link to section" href="#self-links">#</a></h2>
+<p>When an entry connects a sector to itself, <code>self_link</code>
+controls whether the self-link consumes one interval
+(<code>self_link=1</code>) or two intervals (<code>self_link=2</code>,
+duplicating the width in sector totals):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">df2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"start"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">],</span> <span class="s2">"end"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"a"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">]})</span>
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">self_link</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"self_link = 1"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">self_link</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"self_link = 2"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_self_link.png"
+alt="Comparison of self_link=1 and self_link=2 on sector a." />
+<figcaption aria-hidden="true">Comparison of <code>self_link=1</code>
+and <code>self_link=2</code> on sector <code>a</code>.</figcaption>
+</figure>
+<h2 id="symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix<a class="anchor-section" aria-label="Anchor link to section" href="#symmetric-matrix">#</a></h2>
+<p>For symmetric matrices (such as correlation matrices), setting
+<code>symmetric=True</code> plots only the lower triangular entries
+without the diagonal, avoiding duplicate links:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_sym</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">42</span><span class="p">)</span>
+<span class="n">mat3</span> <span class="o">=</span> <span class="n">rng_sym</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">cor_mat</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">corrcoef</span><span class="p">(</span><span class="n">mat3</span><span class="p">,</span> <span class="n">rowvar</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span> <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">),</span> <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">))</span>
+<span class="n">col_fun_sym</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">cor_mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">symmetric</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun_sym</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"symmetric = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">cor_mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun_sym</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"symmetric = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_symmetric.png"
+alt="Symmetric matrix handling (symmetric=True vs symmetric=False)." />
+<figcaption aria-hidden="true">Symmetric matrix handling
+(<code>symmetric=True</code> vs
+<code>symmetric=False</code>).</figcaption>
+</figure>
+<h2 id="directional-relations"><span class="header-section-number">14.10</span> Directional relations<a class="anchor-section" aria-label="Anchor link to section" href="#directional-relations">#</a></h2>
+<p>When rows and columns (or the first and second DataFrame columns)
+have a meaningful direction, set <code>directional=1</code> (from rows
+to columns), <code>directional=-1</code> (from columns to rows), or
+<code>directional=2</code> (bi-directional).</p>
+<p>By default, <code>direction_type="diffHeight"</code> shortens the
+starting end by <code>diff_height</code> (<code>mm_h(2)</code> by
+default; use a negative <code>diff_height</code> to make the source end
+taller instead):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">,</span> <span class="n">ax3</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">3.6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">diff_height</span><span class="o">=</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">directional</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_simple.png"
+alt="Represent link directions with unequal endpoint radii (diff_height)." />
+<figcaption aria-hidden="true">Represent link directions with unequal
+endpoint radii (<code>diff_height</code>).</figcaption>
+</figure>
+<p>Directional mode is especially helpful when row names and column
+names overlap:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">77</span><span class="p">)</span>
+<span class="n">mat2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">rng2</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">))[:</span><span class="mi">35</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">),</span>
+    <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcdefg"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat2</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_overlap.png"
+alt="Directional Chord diagram where row and column sector names overlap." />
+<figcaption aria-hidden="true">Directional Chord diagram where row and
+column sector names overlap.</figcaption>
+</figure>
+<p>To suppress self-loops in such a matrix, zero out the shared diagonal
+entries before plotting:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">mat3_ns</span> <span class="o">=</span> <span class="n">mat2</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">cn_name</span> <span class="ow">in</span> <span class="nb">set</span><span class="p">(</span><span class="n">mat3_ns</span><span class="o">.</span><span class="n">index</span><span class="p">)</span> <span class="o">&amp;</span> <span class="nb">set</span><span class="p">(</span><span class="n">mat3_ns</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
+    <span class="n">mat3_ns</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cn_name</span><span class="p">,</span> <span class="n">cn_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat3_ns</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_non_selfloop.png"
+alt="Directional Chord diagram with self-links removed." />
+<figcaption aria-hidden="true">Directional Chord diagram with self-links
+removed.</figcaption>
+</figure>
+<p>Links can also display center arrows by setting
+<code>direction_type="arrows"</code> (or
+<code>["diffHeight", "arrows"]</code>). In <code>circlize-py</code>, you
+can apply arrows selectively to a subset of links by passing a matrix or
+three-column DataFrame to <code>direction_type</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">dt_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s2">"none"</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span>
+<span class="n">dt_mat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"arrows"</span>  <span class="c1"># S1 -&gt; E5</span>
+<span class="n">dt_mat</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"arrows"</span>  <span class="c1"># S2 -&gt; E6</span>
+<span class="n">dt_mat</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"arrows"</span>  <span class="c1"># S3 -&gt; E4</span>
+
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">mat</span><span class="p">,</span>
+    <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span>
+    <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">direction_type</span><span class="o">=</span><span class="n">dt_mat</span><span class="p">,</span>
+    <span class="n">link_arr_col</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">link_arr_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_arrow.png"
+alt="Center arrows added to a subset of directional links." />
+<figcaption aria-hidden="true">Center arrows added to a subset of
+directional links.</figcaption>
+</figure>
+<p>Combining <code>"diffHeight"</code> and <code>"arrows"</code> gives a
+clear indication at both the link ends and center:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">dt_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span>
+        <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span>
+        <span class="s2">"type"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"diffHeight+arrows"</span><span class="p">,</span> <span class="s2">"diffHeight+arrows"</span><span class="p">,</span> <span class="s2">"diffHeight+arrows"</span><span class="p">],</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">mat</span><span class="p">,</span>
+    <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span>
+    <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">direction_type</span><span class="o">=</span><span class="n">dt_df</span><span class="p">,</span>
+    <span class="n">link_arr_col</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span>
+    <span class="n">link_arr_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_arrow2.png"
+alt="Combine diffHeight and center arrows on selected links." />
+<figcaption aria-hidden="true">Combine <code>diffHeight</code> and
+center <code>arrows</code> on selected links.</figcaption>
+</figure>
+<p>When there are many links, <code>link_arr_type="big.arrow"</code>
+shapes the ribbon tip itself into an arrowhead instead of drawing
+separate center arrows:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">matx</span> <span class="o">=</span> <span class="n">rng_x</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">8</span><span class="p">))</span>
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">matx</span><span class="p">,</span>
+    <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">direction_type</span><span class="o">=</span><span class="p">[</span><span class="s2">"diffHeight"</span><span class="p">,</span> <span class="s2">"arrows"</span><span class="p">],</span>
+    <span class="n">link_arr_type</span><span class="o">=</span><span class="s2">"big.arrow"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_arrow3.png"
+alt="Use link_arr_type=&quot;big.arrow&quot; for dense directional matrices." />
+<figcaption aria-hidden="true">Use
+<code>link_arr_type="big.arrow"</code> for dense directional
+matrices.</figcaption>
+</figure>
+<p>Setting <code>diff_height</code> negative swaps which end is
+longer:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">matx</span><span class="p">,</span>
+    <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">direction_type</span><span class="o">=</span><span class="p">[</span><span class="s2">"diffHeight"</span><span class="p">,</span> <span class="s2">"arrows"</span><span class="p">],</span>
+    <span class="n">link_arr_type</span><span class="o">=</span><span class="s2">"big.arrow"</span><span class="p">,</span>
+    <span class="n">diff_height</span><span class="o">=-</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_directional_arrow4.png"
+alt="big.arrow with negative diff_height=-mm_h(2)." />
+<figcaption aria-hidden="true"><code>big.arrow</code> with negative
+<code>diff_height=-mm_h(2)</code>.</figcaption>
+</figure>
+<p>The same directional options work directly on adjacency-list
+DataFrames (<code>chord_diagram(df, directional=1)</code>).</p>
+<p>When <code>directional=1</code> and <code>diff_height &gt; 0</code>,
+colored indicator bars along the inner edge of source sectors show the
+proportion going to each target sector. Disable them with
+<code>link_target_prop=False</code> or resize them with
+<code>target_prop_height</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.3</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">link_target_prop</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">mat</span><span class="p">,</span>
+    <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span>
+    <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+    <span class="n">diff_height</span><span class="o">=</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">10</span><span class="p">),</span>
+    <span class="n">target_prop_height</span><span class="o">=</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_target_prop.png"
+alt="Control target-proportion indicator bars with link_target_prop and target_prop_height." />
+<figcaption aria-hidden="true">Control target-proportion indicator bars
+with <code>link_target_prop</code> and
+<code>target_prop_height</code>.</figcaption>
+</figure>
+<h2 id="scaling"><span class="header-section-number">14.11</span> Scaling<a class="anchor-section" aria-label="Anchor link to section" href="#scaling">#</a></h2>
+<p>By default, sector widths reflect absolute sums of relation values.
+Setting <code>scale=True</code> scales every sector to
+<code>[0, 1]</code> so link widths show relative fractions within each
+sector:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Default"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"scale = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_scale.png"
+alt="Scaling each sector from 0 to 1 (scale=True)." />
+<figcaption aria-hidden="true">Scaling each sector from 0 to 1
+(<code>scale=True</code>).</figcaption>
+</figure>
+<h2 id="reduce"><span class="header-section-number">14.12</span> Reduce<a class="anchor-section" aria-label="Anchor link to section" href="#reduce">#</a></h2>
+<p>Sectors whose total contribution falls below <code>reduce</code>
+(default <code>1e-5</code>, as a fraction of the total sum across all
+sectors) are automatically dropped along with their links and color/gap
+entries:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">mat_red</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="p">(</span><span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)),</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"R</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">)],</span>
+<span class="p">)</span>
+<span class="n">mat_red</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="mf">1e-10</span>
+<span class="n">mat_red</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-10</span>
+
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_red</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code>All your sectors:
+['R1', 'R3', 'R4', 'R5', 'R6', 'C1', 'C2', 'C4', 'C5', 'C6']
+
+All your tracks:
+[1, 2]</code></pre></div>
+<p>Both <code>R2</code> and <code>C3</code> were removed automatically.
+You can also set rows or columns explicitly to <code>0</code> to achieve
+the same effect.</p>
+<h2 id="input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame<a class="anchor-section" aria-label="Anchor link to section" href="#input-as-a-data-frame">#</a></h2>
+<p>When the input is an adjacency-list <code>DataFrame</code>, each row
+corresponds to a single link, and per-link parameters
+(<code>transparency</code>, <code>col</code>, <code>link_border</code>,
+<code>link_lwd</code>, <code>link_lty</code>,
+<code>link_arr_length</code>, <code>link_arr_width</code>,
+<code>link_arr_type</code>, <code>link_arr_lwd</code>,
+<code>link_arr_lty</code>, <code>link_arr_col</code>,
+<code>link_visible</code>, <code>link_zindex</code>) can be supplied as
+1D sequences matching <code>len(df)</code>. Beyond parity with matrices,
+DataFrames support two unique capabilities and sub-interval overlapping
+layouts.</p>
+<h3 id="multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors<a class="anchor-section" aria-label="Anchor link to section" href="#multiple-links-between-two-sectors">#</a></h3>
+<p>Unlike an adjacency matrix, a <code>DataFrame</code> can contain
+multiple rows for the same sector pair—for example, separate positive
+and negative links:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_m</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">55</span><span class="p">)</span>
+<span class="n">pairs</span> <span class="o">=</span> <span class="p">[(</span><span class="n">r</span><span class="p">,</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"ABCD"</span><span class="p">)</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="s2">"abc"</span><span class="p">)]</span>
+<span class="n">df_pos</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"from"</span><span class="p">,</span> <span class="s2">"to"</span><span class="p">])</span>
+<span class="n">df_pos</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="n">rng_m</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">))</span>
+<span class="n">df_neg</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"from"</span><span class="p">,</span> <span class="s2">"to"</span><span class="p">])</span>
+<span class="n">df_neg</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="n">rng_m</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">pairs</span><span class="p">))</span>
+<span class="n">df_multi</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df_pos</span><span class="p">,</span> <span class="n">df_neg</span><span class="p">],</span> <span class="n">ignore_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">grid_col_m</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcABCD"</span><span class="p">),</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+<span class="n">chord_diagram</span><span class="p">(</span>
+    <span class="n">df_multi</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df_multi</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">),</span>
+    <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_multiple_link.png"
+alt="Multiple links (positive in red, negative in green) between the same sector pairs." />
+<figcaption aria-hidden="true">Multiple links (positive in red, negative
+in green) between the same sector pairs.</figcaption>
+</figure>
+<p>Using <code>link_visible</code>, you can split positive and negative
+links across two side-by-side diagrams while keeping identical sector
+widths:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_multi</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">link_visible</span><span class="o">=</span><span class="n">df_multi</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Positive links"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_multi</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">link_visible</span><span class="o">=</span><span class="n">df_multi</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Negative links"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_multiple_link_split.png"
+alt="Split positive and negative links while preserving sector sizes." />
+<figcaption aria-hidden="true">Split positive and negative links while
+preserving sector sizes.</figcaption>
+</figure>
+<h3 id="unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends<a class="anchor-section" aria-label="Anchor link to section" href="#unequal-width-of-the-link-ends">#</a></h3>
+<p>If a DataFrame contains two numeric columns (columns 3 and 4), the
+first specifies the link width at the source sector (<code>rn</code>)
+and the second specifies the width at the target sector
+(<code>cn</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">df_uneq</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">pairs</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">"from"</span><span class="p">,</span> <span class="s2">"to"</span><span class="p">])</span>
+<span class="n">df_uneq</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">df_uneq</span><span class="p">[</span><span class="s2">"value2"</span><span class="p">]</span> <span class="o">=</span> <span class="mi">3</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_uneq</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">3</span><span class="p">],</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"One column of values"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_uneq</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Two columns of values"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_unequal_end_width.png"
+alt="Equal vs. unequal link endpoint widths from one vs. two numeric DataFrame columns." />
+<figcaption aria-hidden="true">Equal vs. unequal link endpoint widths
+from one vs. two numeric DataFrame columns.</figcaption>
+</figure>
+<h3 id="overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (<code>link_overlap</code>)<a class="anchor-section" aria-label="Anchor link to section" href="#overlapping-incoming-and-outgoing-link-intervals-link_overlap">#</a></h3>
+<p>When row and column sector names overlap in a directional diagram
+(<code>directional=1</code> or <code>-1</code>), incoming and outgoing
+links are placed side-by-side along each sector by default
+(<code>link_overlap=False</code>). Setting
+<code>link_overlap=True</code> overlays outgoing (<code>x1</code>) and
+incoming (<code>x2</code>) sub-intervals on the same
+<code>[0, max(out, in)]</code> sector span:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">mat_ov</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="p">[</span><span class="mi">9</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">11</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">14</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+    <span class="n">index</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcd"</span><span class="p">),</span>
+    <span class="n">columns</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcd"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">gcol_ov</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"a"</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">:</span> <span class="mi">4</span><span class="p">}</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="p">(</span><span class="n">ax1</span><span class="p">,</span> <span class="n">ax2</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">8.6</span><span class="p">,</span> <span class="mf">4.5</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_ov</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_ov</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">link_overlap</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">ax1</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_overlap = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_ov</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_ov</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">link_overlap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_overlap = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch14_chord_diagram_link_overlap.png"
+alt="Comparing side-by-side (link_overlap=False) and overlaid (link_overlap=True) sub-intervals." />
+<figcaption aria-hidden="true">Comparing side-by-side
+(<code>link_overlap=False</code>) and overlaid
+(<code>link_overlap=True</code>) sub-intervals.</figcaption>
+</figure>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="nested-zooming.html">&larr; 13 Nested zooming</a>
+            <a href="advanced-usage-of-chorddiagram.html">15 Advanced usage of
+chordDiagram() &rarr;</a>
+          </nav>
+        </main>
+        <a href="nested-zooming.html" class="navigation navigation-prev" aria-label="Previous chapter: Nested zooming" title="Previous: Nested zooming">&#8249;</a>
+        <a href="advanced-usage-of-chorddiagram.html" class="navigation navigation-next" aria-label="Next chapter: Advanced usage of
+chordDiagram()" title="Next: Advanced usage of
+chordDiagram()">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

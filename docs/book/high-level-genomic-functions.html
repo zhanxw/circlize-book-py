@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 12 High-level genomic functions | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter active"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="high-level-genomic-functions"><span class="header-section-number">12</span> High-level genomic functions<a class="anchor-section" aria-label="Anchor link to section" href="#high-level-genomic-functions">#</a></h1>
+<p>This chapter introduces high-level genomic plotting functions in
+<strong>circlize-py</strong> that create complete tracks (or paired
+connector-and-data tracks) in a single call.</p>
+<h2 id="genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-ideograms">#</a></h2>
+<p><code>circos.initializeWithIdeogram()</code> initializes the circular
+layout and adds the ideogram track whenever cytoband data is available.
+Internally, the chromosome bands are drawn by
+<code>circos.genomicIdeogram()</code>, which you can call directly to
+place an ideogram track at any radial position (Figure 12.1):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">circos</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="p">(</span><span class="s2">"labels"</span><span class="p">,</span> <span class="s2">"axis"</span><span class="p">))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">()</span>  <span class="c1"># place ideogram as the third track</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">(</span><span class="n">track_height</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_ideogram.png"
+alt="Figure 12.1: Circular ideograms." />
+<figcaption aria-hidden="true">Figure 12.1: Circular
+ideograms.</figcaption>
+</figure>
+<h2 id="genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-heatmap">#</a></h2>
+<p>Matrices associated with genomic intervals can be visualized with
+<code>circos.genomicHeatmap()</code>. It creates two paired tracks—one
+for connection lines linking each genomic region to its tile, and one
+for the heatmap itself.</p>
+<p>By default, all numeric columns after the first three BED columns are
+used, or you can select columns with <code>numeric_column</code> (column
+names or indices). Colors can be provided as a <code>colorRamp2()</code>
+mapping function or as a precomputed color matrix matching the shape of
+the selected value columns. You can customize the connection track and
+heatmap dimensions using <code>connection_height</code>,
+<code>heatmap_height</code>, <code>border</code>, and
+<code>line_col</code> (Figure 12.2):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">circos</span><span class="p">,</span> <span class="n">colorRamp2</span><span class="p">,</span> <span class="n">generateRandomBed</span>
+
+<span class="n">bed</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">nc</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">401</span><span class="p">)</span>
+<span class="n">col_fun</span> <span class="o">=</span> <span class="n">colorRamp2</span><span class="p">([</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"black"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicHeatmap</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">line_cols</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">bed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicHeatmap</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span> <span class="n">line_col</span><span class="o">=</span><span class="n">line_cols</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_genomic_heatmap.png"
+alt="Figure 12.2: Genomic heatmaps on the inside (left) and outside (right)." />
+<figcaption aria-hidden="true">Figure 12.2: Genomic heatmaps on the
+inside (left) and outside (right).</figcaption>
+</figure>
+<h2 id="genomic-labels"><span class="header-section-number">12.3</span> Labels<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-labels">#</a></h2>
+<p><code>circos.genomicLabels()</code> places radial text labels for
+genomic regions and automatically spreads colliding labels across
+sectors while drawing elbow connector lines back to the original genomic
+loci.</p>
+<p>Like <code>circos.genomicHeatmap()</code>,
+<code>circos.genomicLabels()</code> creates two tracks: one for the
+connector lines and one for the labels. You can tune the label track
+height (<code>labels_height</code>), label spacing
+(<code>padding</code>), and whether labels appear inside
+(<code>side="inside"</code>) or outside (<code>side="outside"</code>)
+the ideogram (Figure 12.3):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">402</span><span class="p">)</span>
+<span class="n">bed</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span>
+    <span class="n">nr</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+    <span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_lowercase</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">k</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">seed</span><span class="o">=</span><span class="mi">402</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">bed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"aaaaa"</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">10.5</span><span class="p">,</span> <span class="mf">5.2</span><span class="p">))</span>
+<span class="n">ax1</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicLabels</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">labels_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">ax2</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
+<span class="n">grp_cols</span> <span class="o">=</span> <span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">bed</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">codes</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicLabels</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span> <span class="n">labels_column</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span> <span class="n">side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">grp_cols</span><span class="p">,</span> <span class="n">line_col</span><span class="o">=</span><span class="n">grp_cols</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_genomic_labels.png"
+alt="Figure 12.3: Genomic labels on the inside (left) and outside (right)." />
+<figcaption aria-hidden="true">Figure 12.3: Genomic labels on the inside
+(left) and outside (right).</figcaption>
+</figure>
+<h2 id="genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-pos-transform">#</a></h2>
+<p>Under the hood, <code>circos.genomicLabels()</code> uses
+<code>circos.genomicPosTransformLines()</code> together with position
+transformation functions such as <code>posTransform.text()</code> and
+<code>posTransform.default()</code>. You can also use these helpers
+directly to build custom non-overlapping annotation tracks (Figure
+12.4):</p>
+<ul>
+<li><code>posTransform.default()</code> distributes intervals uniformly
+across the entire sector x-range.</li>
+<li><code>posTransform.text()</code> measures each label’s rendered size
+and shifts only overlapping neighbors, keeping non-overlapping regions
+close to their original genomic coordinates. <code>padding</code>
+controls extra spacing between adjacent labels, and
+<code>direction</code> (<code>"outside"</code> or <code>"inside"</code>)
+controls which way the connector lines point.</li>
+</ul>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">get</span><span class="p">,</span> <span class="n">posTransform</span>
+
+<span class="n">bed</span> <span class="o">=</span> <span class="n">generateRandomBed</span><span class="p">(</span><span class="n">nr</span><span class="o">=</span><span class="mi">400</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">k</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="s2">"text"</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span> <span class="n">seed</span><span class="o">=</span><span class="mi">123458</span><span class="p">)</span>
+<span class="n">bed</span> <span class="o">=</span> <span class="n">bed</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">bed</span><span class="o">.</span><span class="n">index</span><span class="p">[</span><span class="mi">8</span><span class="p">:</span><span class="mi">13</span><span class="p">])</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span>
+    <span class="n">start_degree</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span>
+    <span class="n">canvas_xlim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">canvas_ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">gap_degree</span><span class="o">=</span><span class="mi">270</span><span class="p">,</span>
+    <span class="n">cell_padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+    <span class="n">track_margin</span><span class="o">=</span><span class="p">(</span><span class="mf">0.005</span><span class="p">,</span> <span class="mf">0.005</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="p">(</span><span class="s2">"axis"</span><span class="p">,),</span> <span class="n">chromosome_index</span><span class="o">=</span><span class="s2">"chr1"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrackPlotRegion</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicText</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span>
+        <span class="n">value</span><span class="p">,</span>
+        <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span>
+        <span class="n">labels_column</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+        <span class="n">facing</span><span class="o">=</span><span class="s2">"clockwise"</span><span class="p">,</span>
+        <span class="n">adj</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">posTransform</span><span class="o">=</span><span class="n">posTransform</span><span class="o">.</span><span class="n">text</span><span class="p">,</span>
+        <span class="n">cex</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">niceFacing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+    <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">i_track</span> <span class="o">=</span> <span class="n">get</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">meta</span><span class="o">.</span><span class="n">data</span><span class="p">(</span><span class="s2">"track.index"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicPosTransformLines</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">posTransform</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">posTransform</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">region</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">labels</span><span class="o">=</span><span class="n">value</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="n">i_track</span>
+    <span class="p">),</span>
+    <span class="n">direction</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicTrackPlotRegion</span><span class="p">(</span>
+    <span class="n">bed</span><span class="p">,</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">region</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span>
+        <span class="mf">0.5</span> <span class="o">*</span> <span class="p">(</span><span class="n">region</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">region</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">1</span><span class="p">]),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">region</span><span class="p">),</span> <span class="mf">0.5</span><span class="p">),</span>
+        <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.02</span><span class="p">,</span>
+    <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_pos_transform.png"
+alt="Figure 12.4: Comparison of posTransform.text() and posTransform.default() with outside/inside connectors and padding." />
+<figcaption aria-hidden="true">Figure 12.4: Comparison of
+posTransform.text() and posTransform.default() with outside/inside
+connectors and padding.</figcaption>
+</figure>
+<h2 id="genomic-axis"><span class="header-section-number">12.5</span> Genomic axes<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-axis">#</a></h2>
+<p>Although genomic axes are a lower-level helper, they integrate
+directly with high-level genomic tracks.
+<code>circos.initializeWithIdeogram()</code> formats tick labels in
+<code>bp</code>, <code>kb</code>, or <code>Mb</code> via
+<code>circos.genomicAxis()</code>, which you can call inside any track’s
+<code>panel_fun</code> (Figure 12.5):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">()</span>
+<span class="c1"># Add top genomic axis to the ideogram track</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">track_index</span><span class="o">=</span><span class="n">get</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">track</span><span class="o">.</span><span class="n">index</span><span class="p">(),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicAxis</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="s2">"top"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">track_index</span><span class="o">=</span><span class="n">get</span><span class="o">.</span><span class="n">current</span><span class="o">.</span><span class="n">track</span><span class="o">.</span><span class="n">index</span><span class="p">(),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">genomicAxis</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="s2">"bottom"</span><span class="p">,</span> <span class="n">direction</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_genomic_axis.png"
+alt="Figure 12.5: Add genomic axes." />
+<figcaption aria-hidden="true">Figure 12.5: Add genomic
+axes.</figcaption>
+</figure>
+<h2 id="genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot<a class="anchor-section" aria-label="Anchor link to section" href="#genomic-density-and-rainfall">#</a></h2>
+<p>Rainfall plots visualize the spatial clustering of genomic features
+across a genome. Each dot represents a genomic region, with x at the
+region midpoint and y equal to the $_{10}$ minimum distance to its
+neighboring regions. Dense clusters drop downward into visible
+“rainfall” streaks.</p>
+<p><code>circos.genomicRainfall()</code> computes neighbor distances and
+creates a rainfall track from either a single <code>DataFrame</code> or
+a <code>list[DataFrame]</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">genomicRainfall</span><span class="p">(</span><span class="n">bed</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicRainfall</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="s2">"red"</span><span class="p">,</span> <span class="s2">"green"</span><span class="p">])</span></code></pre></div>
+<p>When regions are very dense, individual dots overlap and obscure the
+exact coverage rate. <code>circos.genomicDensity()</code> complements
+rainfall plots by computing the fraction of each sliding genomic window
+covered by intervals in <code>bed</code> (or a list of <code>bed</code>
+tables):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">bed</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">baseline</span><span class="o">=</span><span class="mf">0.0</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">bed</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">bed_list</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="s2">"#0000FF80"</span><span class="p">])</span></code></pre></div>
+<p>The example below uses the bundled <code>"DMR"</code> dataset of
+hyper-methylated and hypo-methylated differentially methylated regions
+(DMRs) to combine a rainfall track with two genomic density tracks
+(Figure 12.6):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">load_extdata</span>
+
+<span class="n">dmr</span> <span class="o">=</span> <span class="n">load_extdata</span><span class="p">(</span><span class="s2">"DMR"</span><span class="p">)</span>
+<span class="n">DMR_hyper</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s2">"DMR_hyper"</span><span class="p">]</span>
+<span class="n">DMR_hypo</span> <span class="o">=</span> <span class="n">dmr</span><span class="p">[</span><span class="s2">"DMR_hypo"</span><span class="p">]</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">chromosome_index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"chr</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">)])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicRainfall</span><span class="p">(</span>
+    <span class="p">[</span><span class="n">DMR_hyper</span><span class="p">,</span> <span class="n">DMR_hypo</span><span class="p">],</span>
+    <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span>
+    <span class="n">cex</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="s2">"#0000FF80"</span><span class="p">],</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">DMR_hyper</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">DMR_hypo</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#0000FF80"</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_genomic_rainfall.png"
+alt="Figure 12.6: Genomic rainfall plot and densities." />
+<figcaption aria-hidden="true">Figure 12.6: Genomic rainfall plot and
+densities.</figcaption>
+</figure>
+<p><code>circos.genomicDensity()</code> can also count the raw
+<strong>number</strong> of regions overlapping each window instead of
+coverage fraction by setting <code>count_by="number"</code> (Figure
+12.7):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">chromosome_index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"chr</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">23</span><span class="p">)])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">DMR_hyper</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">DMR_hyper</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="n">count_by</span><span class="o">=</span><span class="s2">"number"</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch12_genomic_density_count.png"
+alt="Figure 12.7: Genomic densities by fraction (outer track) and region count (inner track)." />
+<figcaption aria-hidden="true">Figure 12.7: Genomic densities by
+fraction (outer track) and region count (inner track).</figcaption>
+</figure>
+<p>Internally, <code>rainfallTransform()</code> and
+<code>genomicDensity()</code> compute the underlying interval distances
+and sliding-window densities and can also be called directly for
+downstream tabular analysis:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">genomicDensity</span><span class="p">,</span> <span class="n">rainfallTransform</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">rainfallTransform</span><span class="p">(</span><span class="n">DMR_hyper</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span></code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code>    chr      start        end     dist
+0  chr1   933445.0   934443.0  35323.0
+1  chr1   969766.0   970362.0   4909.0
+2  chr1   975271.0   976767.0   4909.0
+3  chr1  1108819.0  1109923.0  31522.0
+4  chr1  1141445.0  1142405.0  31522.0</code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="nb">print</span><span class="p">(</span><span class="n">genomicDensity</span><span class="p">(</span><span class="n">DMR_hyper</span><span class="p">,</span> <span class="n">window_size</span><span class="o">=</span><span class="mf">1e6</span><span class="p">)</span><span class="o">.</span><span class="n">head</span><span class="p">())</span></code></pre></div>
+<div class="code-wrapper"><pre class="codehilite"><code>    chr    start      end     value
+0  chr1        1  1000000  0.003093
+1  chr1   500001  1500000  0.007592
+2  chr1  1000001  2000000  0.008848
+3  chr1  1500001  2500000  0.010155
+4  chr1  2000001  3000000  0.011674</code></pre></div>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="modes-of-input.html">&larr; 11 Modes for
+circos.genomicTrack()</a>
+            <a href="nested-zooming.html">13 Nested zooming &rarr;</a>
+          </nav>
+        </main>
+        <a href="modes-of-input.html" class="navigation navigation-prev" aria-label="Previous chapter: Modes for
+circos.genomicTrack()" title="Previous: Modes for
+circos.genomicTrack()">&#8249;</a>
+        <a href="nested-zooming.html" class="navigation navigation-next" aria-label="Next chapter: Nested zooming" title="Next: Nested zooming">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

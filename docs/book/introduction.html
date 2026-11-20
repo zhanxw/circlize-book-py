@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 1 Introduction | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter active"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="introduction"><span class="header-section-number">1</span> Introduction<a class="anchor-section" aria-label="Anchor link to section" href="#introduction">#</a></h1>
+<p>Circular layouts are effective for representing complex,
+multi-layered information. First, they compactly display data with long
+axes or many categories; second, they intuitively align multiple
+measurements on the same object across stacked tracks; third, they
+clearly reveal relationships between elements via interior links or
+ribbons.</p>
+<p><a href="http://circos.ca"><strong>Circos</strong></a> pioneered
+circular layout visualization in <em>Perl</em>, becoming especially
+influential in genomics—so much so that circular plots are commonly
+called <strong>“circos plots”</strong>. <strong>circlize</strong>
+brought that expressive circular grammar into R, and
+<strong>circlize-py</strong> brings the full design directly into Python
+on top of <code>numpy</code>, <code>pandas</code>,
+<code>matplotlib</code>, <code>scipy</code>, and <code>Pillow</code>.
+Rather than wrapping an external binary or generating static
+configuration files, <code>circlize-py</code> integrates natively with
+Python data structures and Matplotlib figures while keeping the
+flexibility and configurability of Circos.</p>
+<p>In this book, Part I introduces the general circular layout and
+graphics engine. Part II covers functions specifically designed for
+genomic datasets. Part III presents a comprehensive guide to visualizing
+relationships with Chord diagrams, and Part IV explores creative uses of
+the library.</p>
+<h2 id="principle-of-design"><span class="header-section-number">1.1</span> Principle of design<a class="anchor-section" aria-label="Anchor link to section" href="#principle-of-design">#</a></h2>
+<p>A circular layout is composed of <em>sectors</em> and
+<em>tracks</em>. Different categories are allocated into distinct
+sectors around the circle, while multiple measurements on the same
+category are arranged as concentric tracks stacked from the outside of
+the circle toward the center. The intersection of a sector and a track
+is called a <em>cell</em> (or grid, panel), which is the basic plotting
+unit in a circular layout—an imaginary rectangular plotting region
+mapped onto polar coordinates.</p>
+<p>Because complex charts are built out of simple geometric primitives
+such as points, lines, and polygons, <code>circlize-py</code> implements
+low-level graphic functions inside circular cells so arbitrary
+high-level visualizations can be composed without artificial
+restrictions.</p>
+<p>Currently, <code>circlize-py</code> provides the following
+<strong>low-level graphic functions</strong> (mirroring R’s base
+graphics names with a <code>circos.</code> prefix or
+<code>circos_</code> snake_case alias):</p>
+<ul>
+<li><code>circos.points()</code> (<code>circos_points()</code>): adds
+points in a cell.</li>
+<li><code>circos.lines()</code> (<code>circos_lines()</code>): adds
+lines or filled area curves in a cell.</li>
+<li><code>circos.segments()</code> (<code>circos_segments()</code>):
+adds line segments in a cell.</li>
+<li><code>circos.rect()</code> (<code>circos_rect()</code>): adds curved
+rectangles in a cell.</li>
+<li><code>circos.polygon()</code> (<code>circos_polygon()</code>): adds
+polygons in a cell.</li>
+<li><code>circos.text()</code> (<code>circos_text()</code>): adds
+rotated or curved text in a cell.</li>
+<li><code>circos.axis()</code> and <code>circos.yaxis()</code>: add
+circular x-axes and radial y-axes in a cell.</li>
+</ul>
+<p>The following function draws connections between two positions across
+the circle:</p>
+<ul>
+<li><code>circos.link()</code> (<code>circos_link()</code>)</li>
+</ul>
+<p>The following functions draw <strong>high-level
+graphics</strong>:</p>
+<ul>
+<li><code>circos.barplot()</code>: draws simple or stacked circular
+barplots.</li>
+<li><code>circos.boxplot()</code>: draws circular boxplots.</li>
+<li><code>circos.violin()</code>: draws circular violin plots.</li>
+<li><code>circos.heatmap()</code>: draws split circular heatmaps with
+clustering.</li>
+<li><code>circos.raster()</code>: draws raster images inside cells.</li>
+<li><code>circos.arrow()</code>: draws circular arrows.</li>
+</ul>
+<p>The following functions <strong>arrange and manage the circular
+layout</strong>:</p>
+<ul>
+<li><code>circos.initialize()</code>: allocates sectors on the
+circle.</li>
+<li><code>circos.track()</code> (or
+<code>circos.trackPlotRegion()</code>): creates plotting regions for all
+cells in a track.</li>
+<li><code>circos.update()</code> (or
+<code>circos.updatePlotRegion()</code>): clears and updates an existing
+cell.</li>
+<li><code>circos.par()</code>: reads or sets global layout
+parameters.</li>
+<li><code>circos.info()</code>: prints or plots metadata of the current
+circular plot.</li>
+<li><code>circos.clear()</code>: resets graphic parameters and internal
+layout state.</li>
+</ul>
+<p>Together, these building blocks allow you to create almost any kind
+of circular figure. The showcase composite below displays nine diverse
+circular visualizations generated directly with
+<code>circlize-py</code>.</p>
+<figure>
+<img src="images/ch01_examples_overview.png"
+alt="Examples generated with circlize-py" />
+<figcaption aria-hidden="true">Examples generated with
+circlize-py</figcaption>
+</figure>
+<h2 id="a-quick-glance"><span class="header-section-number">1.2</span> A quick glance<a class="anchor-section" aria-label="Anchor link to section" href="#a-quick-glance">#</a></h2>
+<p>Before diving into full details, let’s walk through a complete
+multi-track example step by step to see how <code>circlize-py</code>
+works in practice.</p>
+<p>First, generate a synthetic dataset with a categorical
+<code>sectors</code> column, numeric <code>x</code> values, and numeric
+<code>y</code> values:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize_py</span><span class="w"> </span><span class="kn">import</span> <span class="n">CELL_META</span><span class="p">,</span> <span class="n">circos</span><span class="p">,</span> <span class="n">mm_y</span><span class="p">,</span> <span class="n">rand_color</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">999</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="p">{</span>
+        <span class="s2">"sectors"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcdefgh"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="s2">"x"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+        <span class="s2">"y"</span><span class="p">:</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">n</span><span class="p">),</span>
+    <span class="p">}</span>
+<span class="p">)</span></code></pre></div>
+<p>Next, initialize the circular layout. The circle is partitioned into
+sectors according to the x-range within each category. When
+<code>x</code> is supplied to <code>circos.initialize()</code>,
+<code>x</code> is grouped by <code>sectors</code> and each sector’s
+angular width is set proportionally to its data span. By default,
+sectors start at $= 0^$ (3 o’clock in standard polar coordinates) and
+proceed clockwise around the circle. Calling
+<code>circos.initialize()</code> records the geometry internally without
+drawing visible marks until the first track is added:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">6.2</span><span class="p">,</span> <span class="mf">6.2</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">track_height</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">points_overflow_warning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">])</span></code></pre></div>
+<p>Here, <code>circos.par(track_height=0.1)</code> sets the default
+radial height of newly created tracks to <code>0.1</code>. Because
+<code>circlize-py</code> always draws inside the unit circle (radius
+<code>1</code>), <code>0.1</code> corresponds to 10% of the circle
+radius. (See <a href="circular-layout.html#convert-functions">Section
+2.7.2</a> for specifying heights in physical units such as
+<code>mm</code> or <code>cm</code>.)</p>
+<p>Notice that sector allocation only needs x-direction values (along
+the circumference); y-direction values (along the radius) are specified
+when creating individual tracks.</p>
+<p>Once initialized, graphics are built track by track from the outside
+inward. Always create a track with <code>circos.track()</code> (or
+<code>circos.trackPlotRegion()</code>) before calling low-level plotting
+functions inside its cells—analogous to creating a Matplotlib
+<code>Axes</code> before calling <code>plot()</code> or
+<code>scatter()</code>. Because x-ranges are fixed at initialization,
+<code>circos.track()</code> only requires <code>y</code> (to derive
+y-ranges automatically) or an explicit <code>ylim=(ymin, ymax)</code>
+pair shared across the track:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="k">def</span><span class="w"> </span><span class="nf">panel_t1</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">CELL_META</span><span class="o">.</span><span class="n">xcenter</span><span class="p">,</span>
+        <span class="n">CELL_META</span><span class="o">.</span><span class="n">cell</span><span class="o">.</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">mm_y</span><span class="p">(</span><span class="mi">5</span><span class="p">),</span>
+        <span class="n">CELL_META</span><span class="o">.</span><span class="n">sector_index</span><span class="p">,</span>
+    <span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">axis</span><span class="p">(</span><span class="n">labels_cex</span><span class="o">=</span><span class="mf">0.6</span><span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t1</span><span class="p">)</span>
+<span class="n">col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#FF0000"</span><span class="p">,</span> <span class="s2">"#00FF00"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">trackPoints</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_1.png"
+alt="First example of circlize-py: add the first track." />
+<figcaption aria-hidden="true">First example of circlize-py: add the
+first track.</figcaption>
+</figure>
+<p>Axes are usually placed along the outer rim of the outermost track.
+Inside <code>panel_fun</code>, <code>circos.track()</code> visits each
+cell in order and sets that cell as the “current” cell immediately after
+creating its plotting region (detailed further in <a
+href="circular-layout.html#panel-fun">Section 2.6</a>). Calling
+<code>circos.axis()</code> inside <code>panel_fun</code> draws an x-axis
+along the top (outside) edge of every cell.</p>
+<p>Sector names are placed outside the first track using
+<code>circos.text()</code> and <code>CELL_META</code> metadata. Adding
+<code>mm_y(5)</code> shifts the text 5 mm radially outward in the cell’s
+data coordinates (see <a
+href="circular-layout.html#convert-functions">Section 2.7.2</a>).
+Setting <code>points_overflow_warning=False</code> in
+<code>circos.par()</code> suppresses warnings when drawing labels
+outside cell borders. Alternatively, sector labels can be placed in a
+dedicated borderless outer track (as
+<code>circos.initializeWithIdeogram()</code> in <a
+href="initialize-genomic-plot.html">Chapter 9</a> and
+<code>chordDiagram()</code> in <a
+href="the-chorddiagram-function.html">Chapter 14</a> do).</p>
+<p>After creating the track, <code>circos.trackPoints()</code> adds
+scatter points across all cells simultaneously. As discussed in <a
+href="graphics.html#points">Section 3.2</a>, placing
+<code>circos.points()</code> inside <code>panel_fun</code> is generally
+more flexible, though <code>circos.trackPoints()</code> is convenient
+for simple scatter tracks. Low-level functions like
+<code>circos.text()</code> can also be called outside
+<code>panel_fun</code> by supplying <code>sector_index</code> and
+<code>track_index</code> explicitly (<code>track_index</code> defaults
+to the most recently created track).</p>
+<p>Now add histograms on the second track using
+<code>circos.trackHist()</code>, a high-level track function that
+creates a new track automatically. Fixing <code>bin_size=0.2</code>
+ensures consistent bin widths across all sectors:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">bgcol</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#EFEFEF"</span><span class="p">,</span> <span class="s2">"#CCCCCC"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">trackHist</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">bin_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">bg_col</span><span class="o">=</span><span class="n">bgcol</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_2.png"
+alt="First example of circlize-py: add the second track." />
+<figcaption aria-hidden="true">First example of circlize-py: add the
+second track.</figcaption>
+</figure>
+<p>For the third track, pass <code>sectors</code>, <code>x</code>, and
+<code>y</code> to <code>circos.track()</code> so
+<code>circlize-py</code> automatically subsets <code>(x, y)</code> for
+each cell and passes them into <code>panel_fun(x, y)</code>. Inside
+<code>panel_fun</code>, we pick 10 random points per cell, sort them by
+<code>x</code>, and connect them with <code>circos.lines()</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_t3</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">101</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_t3</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">ind</span> <span class="o">=</span> <span class="n">rng_t3</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="n">y2</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">ind</span><span class="p">]</span>
+    <span class="n">od</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">x2</span><span class="p">[</span><span class="n">od</span><span class="p">],</span> <span class="n">y2</span><span class="p">[</span><span class="n">od</span><span class="p">])</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t3</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_3.png"
+alt="First example of circlize-py: add the third track." />
+<figcaption aria-hidden="true">First example of circlize-py: add the
+third track.</figcaption>
+</figure>
+<p>Suppose we now want to revisit the second track
+(<code>track_index=2</code>) and replace cell <code>"d"</code>. Calling
+<code>circos.update()</code> (or <code>circos.updatePlotRegion()</code>)
+erases the existing contents of that cell, updates its background
+styling while preserving <code>xlim</code> and <code>ylim</code>, and
+sets it as the current cell for subsequent low-level calls:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sector_index</span><span class="o">=</span><span class="s2">"d"</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bg_col</span><span class="o">=</span><span class="s2">"#FF8080"</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">xcenter</span><span class="p">,</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">ycenter</span><span class="p">,</span> <span class="s2">"updated"</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_update.png"
+alt="First example of circlize-py: update the second track." />
+<figcaption aria-hidden="true">First example of circlize-py: update the
+second track.</figcaption>
+</figure>
+<p>Even after jumping back to update Track 2, the next
+<code>circos.track()</code> call still appends a new track inward from
+the innermost existing track (becoming Track 4). Here we omit
+<code>x</code> and <code>y</code> data, provide only
+<code>ylim=[0.0, 1.0]</code>, and fill each cell with colored strips
+using <code>circos.rect()</code> and <code>rand_color()</code>. Because
+no <code>x</code>/<code>y</code> vectors are supplied to
+<code>circos.track()</code>, <code>x</code> and <code>y</code> received
+by <code>panel_fun(x, y)</code> are both <code>None</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">rng_t4</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">202</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_t4</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">xlim</span> <span class="o">=</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">xlim</span>
+    <span class="n">ylim</span> <span class="o">=</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">ylim</span>
+    <span class="n">breaks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">xlim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="mf">0.1</span><span class="p">)</span>
+    <span class="n">n_breaks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">breaks</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span>
+        <span class="n">breaks</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">n_breaks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">breaks</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_breaks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">),</span>
+        <span class="n">col</span><span class="o">=</span><span class="n">rand_color</span><span class="p">(</span><span class="n">n_breaks</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">rng_t4</span><span class="o">.</span><span class="n">integers</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">100000</span><span class="p">))),</span>
+        <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t4</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_4.png"
+alt="First example of circlize-py: add the fourth track." />
+<figcaption aria-hidden="true">First example of circlize-py: add the
+fourth track.</figcaption>
+</figure>
+<p>Finally, add links and ribbons in the center of the circle with
+<code>circos.link()</code> to connect single points or intervals across
+sectors (see <a href="graphics.html#links">Section 3.11</a> for full
+options):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"g"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch01_glance_track_links.png"
+alt="First example of circlize-py: add links." />
+<figcaption aria-hidden="true">First example of circlize-py: add
+links.</figcaption>
+</figure>
+<p>Always call <code>circos.clear()</code> at the end of a circular plot
+so internal layout state and <code>circos.par()</code> options are reset
+cleanly before the next figure:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s2">"quick_glance.png"</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s2">"tight"</span><span class="p">,</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">140</span><span class="p">)</span></code></pre></div>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="index.html">&larr; About</a>
+            <a href="circular-layout.html">2 Circular layout &rarr;</a>
+          </nav>
+        </main>
+        <a href="index.html" class="navigation navigation-prev" aria-label="Previous chapter: About" title="Previous: About">&#8249;</a>
+        <a href="circular-layout.html" class="navigation navigation-next" aria-label="Next chapter: Circular layout" title="Next: Circular layout">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

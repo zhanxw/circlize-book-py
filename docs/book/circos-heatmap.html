@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chapter 6 The circos.heatmap() function | Circular Visualization in Python</title>
+  <meta name="description" content="Python port of Circular Visualization in R using circlize-py.">
+  <link rel="stylesheet" href="assets/gitbook.css">
+</head>
+<body>
+  <div class="book">
+    <nav class="book-summary" aria-label="Table of Contents">
+      <div class="book-summary-header">
+        <a class="book-summary-title" href="index.html">Circular Visualization in Python</a>
+        <span class="book-summary-subtitle">circlize-py Book Edition</span>
+      </div>
+      <div class="book-search-box">
+        <input id="book-search-input" type="search" placeholder="Search book..." aria-label="Search book">
+      </div>
+      <ul class="summary">
+        <li class="chapter"><a href="index.html"><span>About</span></a><ul><li class="level-2"><a href="index.html#installation">Installation</a></li>
+<li class="level-2"><a href="index.html#r-to-python-migration">R-to-Python migration &amp; 3-way API
+parity</a></li>
+<li class="level-2"><a href="index.html#indexing-conventions">Indexing &amp; key conventions</a></li>
+<li class="level-2"><a href="index.html#python-environment">Python environment</a></li></ul></li>
+<li class="part"><span>I General Functionality</span></li>
+<li class="chapter"><a href="introduction.html"><span class="header-section-number">1</span><span>Introduction</span></a><ul><li class="level-2"><a href="introduction.html#principle-of-design"><span class="header-section-number">1.1</span> Principle of design</a></li>
+<li class="level-2"><a href="introduction.html#a-quick-glance"><span class="header-section-number">1.2</span> A quick glance</a></li></ul></li>
+<li class="chapter"><a href="circular-layout.html"><span class="header-section-number">2</span><span>Circular layout</span></a><ul><li class="level-2"><a href="circular-layout.html#coordinate-transformation"><span class="header-section-number">2.1</span> Coordinate transformation</a></li>
+<li class="level-2"><a href="circular-layout.html#rules-for-making-the-circular-plot"><span class="header-section-number">2.2</span> Rules for making the
+circular plot</a></li>
+<li class="level-2"><a href="circular-layout.html#sectors-and-tracks"><span class="header-section-number">2.3</span> Sectors and tracks</a></li>
+<li class="level-2"><a href="circular-layout.html#graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters</a></li>
+<li class="level-2"><a href="circular-layout.html#create-plotting-regions"><span class="header-section-number">2.5</span> Create plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#update-plotting-regions"><span class="header-section-number">2.6</span> Update plotting regions</a></li>
+<li class="level-2"><a href="circular-layout.html#panel-fun"><span class="header-section-number">2.7</span> panel_fun argument</a></li>
+<li class="level-2"><a href="circular-layout.html#other-utilities"><span class="header-section-number">2.8</span> Other utilities</a></li>
+<li class="level-3"><a href="circular-layout.html#circlize-and-reverse-circlize"><span class="header-section-number">2.8.1</span> circlize() and
+reverse.circlize()</a></li>
+<li class="level-3"><a href="circular-layout.html#convert-functions"><span class="header-section-number">2.8.2</span> Absolute units</a></li>
+<li class="level-3"><a href="circular-layout.html#circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> circos.info() and
+circos.clear()</a></li>
+<li class="level-2"><a href="circular-layout.html#set-gaps-between-tracks"><span class="header-section-number">2.9</span> Set gaps between tracks</a></li></ul></li>
+<li class="chapter"><a href="graphics.html"><span class="header-section-number">3</span><span>Graphics</span></a><ul><li class="level-2"><a href="graphics.html#setting-colors"><span class="header-section-number">3.1</span> Setting colors</a></li>
+<li class="level-2"><a href="graphics.html#points"><span class="header-section-number">3.2</span> Points</a></li>
+<li class="level-2"><a href="graphics.html#lines"><span class="header-section-number">3.3</span> Lines</a></li>
+<li class="level-2"><a href="graphics.html#segments"><span class="header-section-number">3.4</span> Segments</a></li>
+<li class="level-2"><a href="graphics.html#text"><span class="header-section-number">3.5</span> Text</a></li>
+<li class="level-2"><a href="graphics.html#rectangles"><span class="header-section-number">3.6</span> Rectangles and polygons</a></li>
+<li class="level-2"><a href="graphics.html#axes"><span class="header-section-number">3.7</span> Axes</a></li>
+<li class="level-2"><a href="graphics.html#barplots-boxplots-and-violin-plots"><span class="header-section-number">3.8</span> Barplots, boxplots and
+violin plots</a></li>
+<li class="level-2"><a href="graphics.html#circular-arrows"><span class="header-section-number">3.9</span> Circular arrows</a></li>
+<li class="level-2"><a href="graphics.html#labels"><span class="header-section-number">3.10</span> Labels</a></li>
+<li class="level-2"><a href="graphics.html#raster-image"><span class="header-section-number">3.11</span> Raster image</a></li>
+<li class="level-2"><a href="graphics.html#links"><span class="header-section-number">3.12</span> Links</a></li>
+<li class="level-2"><a href="graphics.html#highlight-sectors-and-tracks"><span class="header-section-number">3.13</span> Highlight sectors and tracks</a></li>
+<li class="level-2"><a href="graphics.html#work-with-matplotlib"><span class="header-section-number">3.14</span> Work together with Matplotlib
+Axes</a></li></ul></li>
+<li class="chapter"><a href="legends.html"><span class="header-section-number">4</span><span>Legends</span></a><ul><li class="level-2"><a href="legends.html#building-matplotlib-legends"><span class="header-section-number">4.1</span> Building discrete and continuous
+legends with Matplotlib</a></li>
+<li class="level-2"><a href="legends.html#overlay-legends"><span class="header-section-number">4.2</span> Overlaying legends on the figure canvas</a></li>
+<li class="level-2"><a href="legends.html#gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
+GridSpec</a></li></ul></li>
+<li class="chapter"><a href="high-level-plots.html"><span class="header-section-number">5</span><span>Implement high-level circular plots</span></a><ul><li class="level-2"><a href="high-level-plots.html#circular-barplot"><span class="header-section-number">5.1</span> Circular barplots</a></li>
+<li class="level-2"><a href="high-level-plots.html#histograms"><span class="header-section-number">5.2</span> Histograms</a></li>
+<li class="level-2"><a href="high-level-plots.html#phylogenetic-trees"><span class="header-section-number">5.3</span> Phylogenetic trees</a></li>
+<li class="level-2"><a href="high-level-plots.html#heatmaps"><span class="header-section-number">5.4</span> Manually create heatmaps</a></li></ul></li>
+<li class="chapter active"><a href="circos-heatmap.html"><span class="header-section-number">6</span><span>The circos.heatmap() function</span></a><ul><li class="level-2"><a href="circos-heatmap.html#circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations</a></li>
+<li class="level-2"><a href="circos-heatmap.html#circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps</a></li></ul></li>
+<li class="chapter"><a href="advanced-layout.html"><span class="header-section-number">7</span><span>Advanced layout</span></a><ul><li class="level-2"><a href="advanced-layout.html#zooming-of-sectors"><span class="header-section-number">7.1</span> Zooming of sectors</a></li>
+<li class="level-2"><a href="advanced-layout.html#part-circle"><span class="header-section-number">7.2</span> Visualize part of the circle</a></li>
+<li class="level-2"><a href="advanced-layout.html#combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots</a></li>
+<li class="level-2"><a href="advanced-layout.html#arrange-multiple-plots"><span class="header-section-number">7.4</span> Arrange multiple plots</a></li></ul></li>
+<li class="part"><span>II Applications in Genomics</span></li>
+<li class="chapter"><a href="genomic-introduction.html"><span class="header-section-number">8</span><span>Introduction</span></a><ul><li class="level-2"><a href="genomic-introduction.html#input-data"><span class="header-section-number">8.1</span> Input data</a></li></ul></li>
+<li class="chapter"><a href="initialize-genomic-plot.html"><span class="header-section-number">9</span><span>Initialize with genomic data</span></a><ul><li class="level-2"><a href="initialize-genomic-plot.html#initialize-cytoband"><span class="header-section-number">9.1</span> Initialize with cytoband data</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#basic-usage"><span class="header-section-number">9.1.1</span> Basic usage</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#pre-defined-tracks"><span class="header-section-number">9.1.2</span> Pre-defined tracks</a></li>
+<li class="level-3"><a href="initialize-genomic-plot.html#other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
+general genomic category</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#zooming-chromosomes"><span class="header-section-number">9.4</span> Zooming chromosomes</a></li>
+<li class="level-2"><a href="initialize-genomic-plot.html#concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes</a></li></ul></li>
+<li class="chapter"><a href="genomic-plotting-region.html"><span class="header-section-number">10</span><span>Create plotting regions for genomic
+data</span></a><ul><li class="level-2"><a href="genomic-plotting-region.html#genomic-points"><span class="header-section-number">10.1</span> Points</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-lines"><span class="header-section-number">10.2</span> Lines</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-text"><span class="header-section-number">10.3</span> Text</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-rectangles"><span class="header-section-number">10.4</span> Rectangles</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#genomic-links"><span class="header-section-number">10.5</span> Links</a></li>
+<li class="level-2"><a href="genomic-plotting-region.html#mixed-use-of-general-circlize-functions"><span class="header-section-number">10.6</span> Mixed use of general
+circlize functions</a></li></ul></li>
+<li class="chapter"><a href="modes-of-input.html"><span class="header-section-number">11</span><span>Modes for
+circos.genomicTrack()</span></a><ul><li class="level-2"><a href="modes-of-input.html#normal-mode"><span class="header-section-number">11.1</span> Normal mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe"><span class="header-section-number">11.1.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes"><span class="header-section-number">11.1.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#stack-mode"><span class="header-section-number">11.2</span> Stack mode</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-dataframe-1"><span class="header-section-number">11.2.1</span> Input is a DataFrame</a></li>
+<li class="level-3"><a href="modes-of-input.html#input-is-a-list-of-dataframes-1"><span class="header-section-number">11.2.2</span> Input is a list of
+DataFrames</a></li>
+<li class="level-2"><a href="modes-of-input.html#applications"><span class="header-section-number">11.3</span> Applications</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-points"><span class="header-section-number">11.3.1</span> Points</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-lines"><span class="header-section-number">11.3.2</span> Lines</a></li>
+<li class="level-3"><a href="modes-of-input.html#modes-rectangles"><span class="header-section-number">11.3.3</span> Rectangles</a></li></ul></li>
+<li class="chapter"><a href="high-level-genomic-functions.html"><span class="header-section-number">12</span><span>High-level genomic functions</span></a><ul><li class="level-2"><a href="high-level-genomic-functions.html#genomic-ideograms"><span class="header-section-number">12.1</span> Ideograms</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-heatmap"><span class="header-section-number">12.2</span> Heatmaps</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-labels"><span class="header-section-number">12.3</span> Labels</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-pos-transform"><span class="header-section-number">12.4</span> Position transformation lines</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-axis"><span class="header-section-number">12.5</span> Genomic axes</a></li>
+<li class="level-2"><a href="high-level-genomic-functions.html#genomic-density-and-rainfall"><span class="header-section-number">12.6</span> Genomic density and Rainfall
+plot</a></li></ul></li>
+<li class="chapter"><a href="nested-zooming.html"><span class="header-section-number">13</span><span>Nested zooming</span></a><ul><li class="level-2"><a href="nested-zooming.html#basic-idea"><span class="header-section-number">13.1</span> Basic idea</a></li>
+<li class="level-2"><a href="nested-zooming.html#visualization-of-dmrs-from-tagmentation-based-wgbs"><span class="header-section-number">13.2</span> Visualization of
+DMRs from tagmentation-based WGBS</a></li></ul></li>
+<li class="part"><span>III Visualize Relations</span></li>
+<li class="chapter"><a href="the-chorddiagram-function.html"><span class="header-section-number">14</span><span>The chordDiagram()
+function</span></a><ul><li class="level-2"><a href="the-chorddiagram-function.html#basic-usage-of-making-chord-diagram"><span class="header-section-number">14.1</span> Basic usage of making Chord
+diagram</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#adjust-by-circos.par"><span class="header-section-number">14.2</span> Adjust by circos.par()</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-colors"><span class="header-section-number">14.3</span> Colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#set-grid-colors"><span class="header-section-number">14.3.1</span> Set grid colors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#chord-diagram-link-color"><span class="header-section-number">14.3.2</span> Set link colors</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#chord-diagram-link-border"><span class="header-section-number">14.4</span> Link border</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#highlight-links"><span class="header-section-number">14.5</span> Highlight links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#orders-of-links"><span class="header-section-number">14.6</span> Orders of links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#self-links"><span class="header-section-number">14.8</span> Self-links</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#directional-relations"><span class="header-section-number">14.10</span> Directional relations</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#scaling"><span class="header-section-number">14.11</span> Scaling</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#reduce"><span class="header-section-number">14.12</span> Reduce</a></li>
+<li class="level-2"><a href="the-chorddiagram-function.html#input-as-a-data-frame"><span class="header-section-number">14.13</span> Input as a data frame</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#multiple-links-between-two-sectors"><span class="header-section-number">14.13.1</span> Multiple links between two
+sectors</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
+ends</a></li>
+<li class="level-3"><a href="the-chorddiagram-function.html#overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
+incoming and outgoing link intervals (link_overlap)</a></li></ul></li>
+<li class="chapter"><a href="advanced-usage-of-chorddiagram.html"><span class="header-section-number">15</span><span>Advanced usage of
+chordDiagram()</span></a><ul><li class="level-2"><a href="advanced-usage-of-chorddiagram.html#organization-of-tracks"><span class="header-section-number">15.1</span> Organization of tracks</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-labels"><span class="header-section-number">15.2</span> Customize sector labels</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
+vertically symmetric</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#compare-two-chord-diagrams"><span class="header-section-number">15.5</span> Compare two Chord diagrams</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#equal-arc-scale-via-calc_gap"><span class="header-section-number">15.5.1</span> Equal arc scale via
+calc_gap()</a></li>
+<li class="level-3"><a href="advanced-usage-of-chorddiagram.html#matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
+capacity via xmax</a></li>
+<li class="level-2"><a href="advanced-usage-of-chorddiagram.html#multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram</a></li></ul></li>
+<li class="chapter"><a href="a-complex-example-of-chord-diagram.html"><span class="header-section-number">16</span><span>A complex example of Chord
+diagram</span></a></li>
+<li class="part"><span>IV Others</span></li>
+<li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
+<li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+        <li class="divider"></li>
+      </ul>
+      <div class="summary-footer">
+        <div>Published with <strong>circlize-py</strong></div>
+        <div><a href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener">GitHub Repository</a> &middot; <a href="https://jokergoo.github.io/circlize_book/book/" target="_blank" rel="noopener">Original R Book</a></div>
+      </div>
+    </nav>
+
+    <div class="book-body">
+      <header class="book-header">
+        <div class="header-left">
+          <button id="sidebar-toggle" class="toolbar-btn" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents">&#9776;</button>
+          <button id="search-toggle-btn" class="toolbar-btn" type="button" title="Search" aria-label="Search">&#128269;</button>
+          <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
+        </div>
+        <div class="header-right">
+          <div class="dropdown">
+            <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
+            <div id="font-settings-menu" class="dropdown-menu">
+              <div class="dropdown-row">
+                <button id="font-size-dec" type="button">A-</button>
+                <button id="font-size-inc" type="button">A+</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-font="sans">Sans</button>
+                <button type="button" data-font="serif">Serif</button>
+              </div>
+              <div class="dropdown-row">
+                <button type="button" data-theme="white">White</button>
+                <button type="button" data-theme="sepia">Sepia</button>
+                <button type="button" data-theme="night">Night</button>
+              </div>
+            </div>
+          </div>
+          <a class="toolbar-btn" href="https://github.com/zhanxw/circlize-book-py" target="_blank" rel="noopener" title="View on GitHub">GitHub</a>
+        </div>
+      </header>
+
+      <div class="page-wrapper">
+        <main class="page-inner">
+          <div id="search-results" aria-live="polite"></div>
+          <section class="normal markdown-section">
+            <h1 id="circos-heatmap"><span class="header-section-number">6</span> The <code>circos.heatmap()</code> function<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap">#</a></h1>
+<p>Circular heatmaps are visually striking and compact. In <a
+href="high-level-plots.html">the previous chapter</a>, we built circular
+heatmaps from low-level <code>circos.rect()</code> and
+<code>circos.dendrogram()</code> calls. <strong>circlize-py</strong>
+provides a high-level <code>circos.heatmap()</code> function that
+handles row clustering, splitting, dendrograms, row labels, multi-track
+alignment, and inter-row links automatically.</p>
+<p>First, we generate a <code>100 × 10</code> matrix (<code>df1</code>)
+with two contrasting sample blocks and randomly assign its rows into
+five groups (<code>"a"</code> through <code>"e"</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">circos</span><span class="p">,</span> <span class="n">color_ramp2</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+<span class="n">mat1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">(</span>
+    <span class="p">[</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">))]),</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">hstack</span><span class="p">([</span><span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">)),</span> <span class="n">rng</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span> <span class="mi">5</span><span class="p">))]),</span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">mat1</span> <span class="o">=</span> <span class="n">mat1</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="p">:]</span>
+<span class="n">df1</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span>
+    <span class="n">mat1</span><span class="p">,</span>
+    <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"R</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)],</span>
+    <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="sa">f</span><span class="s2">"C</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">"</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">)],</span>
+<span class="p">)</span>
+<span class="n">split</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+    <span class="n">rng</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">),</span> <span class="n">size</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">replace</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="n">categories</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">),</span>
+    <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span></code></pre></div>
+<p>In a standard rectangular heatmap, those five split groups stack
+vertically:</p>
+<figure>
+<img src="images/ch06_normal_heatmap.png"
+alt="A standard linear split heatmap of df1 split across groups a–e." />
+<figcaption aria-hidden="true">A standard linear split heatmap of
+<code>df1</code> split across groups
+<code>a</code>–<code>e</code>.</figcaption>
+</figure>
+<p>Next, we turn this layout into circular heatmaps and explore every
+feature of <code>circos.heatmap()</code>.</p>
+<h2 id="circos-heatmap-input-data"><span class="header-section-number">6.1</span> Input data<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-input-data">#</a></h2>
+<p><code>circos.heatmap()</code> accepts a 2D NumPy array, a
+<code>pandas.DataFrame</code>, or a 1D vector/Series (which is
+automatically reshaped into a single-column matrix). To split rows into
+separate circular sectors, pass a categorical variable via
+<code>split</code> (a list/array of strings, or a
+<code>pd.Categorical</code> / categorical <code>pd.Series</code>;
+numeric values are converted to strings internally).</p>
+<p>Colors must be supplied explicitly via <code>col</code>:</p>
+<ul>
+<li>For <strong>continuous numeric</strong> data, pass a
+<code>ColorRamp2</code> mapping produced by
+<code>color_ramp2()</code>.</li>
+<li>For <strong>categorical/character</strong> data, pass a
+<code>dict</code> (or <code>pd.Series</code>) mapping category names to
+colors.</li>
+</ul>
+<p>In circular heatmaps, matrix rows run along the circular axis and
+matrix columns run radially:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_fun1</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_split.png"
+alt="A circular heatmap split into five sectors." />
+<figcaption aria-hidden="true">A circular heatmap split into five
+sectors.</figcaption>
+</figure>
+<blockquote>
+<p><strong>Important:</strong> Always call <code>circos.clear()</code>
+after finishing a circular heatmap so cached clustering, splitting, and
+sector metadata are completely reset before the next plot.</p>
+</blockquote>
+<p>When <code>split</code> is omitted, the entire matrix is drawn as a
+single sector:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_nosplit.png"
+alt="An unsplit circular heatmap occupying a single sector." />
+<figcaption aria-hidden="true">An unsplit circular heatmap occupying a
+single sector.</figcaption>
+</figure>
+<h2 id="circos-heatmap-layout"><span class="header-section-number">6.2</span> Circular layout<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-layout">#</a></h2>
+<p>Global layout parameters are controlled via <code>circos.par()</code>
+prior to calling <code>circos.heatmap()</code>, while track height,
+borders, and sector labels are passed directly to
+<code>circos.heatmap()</code>. In the plot below,
+<code>start_degree=90</code> begins sector <code>"a"</code> at
+<code>θ = 90°</code> and progresses clockwise through
+<code>"e"</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">start_degree</span><span class="o">=</span><span class="mi">90</span><span class="p">,</span> <span class="n">gap_degree</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">points_overflow_warning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span>
+    <span class="n">track_height</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
+    <span class="n">bg_border</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span>
+    <span class="n">bg_lwd</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span>
+    <span class="n">bg_lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+    <span class="n">show_sector_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_layout.png"
+alt="Controlling circular layout and sector styling in circos.heatmap()." />
+<figcaption aria-hidden="true">Controlling circular layout and sector
+styling in <code>circos.heatmap()</code>.</figcaption>
+</figure>
+<p>When <code>split</code> is a <code>pd.Categorical</code>, its
+<code>categories</code> order determines the clockwise order of sectors;
+when <code>split</code> is a plain list or array, sectors appear in
+order of first occurrence (<code>dict.fromkeys</code>). Reversing the
+category list flips the sector arrangement:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="c1"># Because circos.clear() reset start_degree to 0, sector "e" begins at θ = 0°</span>
+<span class="n">split_rev</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span>
+    <span class="n">split</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">),</span>
+    <span class="n">categories</span><span class="o">=</span><span class="p">[</span><span class="s2">"e"</span><span class="p">,</span> <span class="s2">"d"</span><span class="p">,</span> <span class="s2">"c"</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="s2">"a"</span><span class="p">],</span>
+    <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split_rev</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">show_sector_labels</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_order.png"
+alt="Controlling sector order with pd.Categorical levels." />
+<figcaption aria-hidden="true">Controlling sector order with
+<code>pd.Categorical</code> levels.</figcaption>
+</figure>
+<h2 id="circos-heatmap-dendrograms-rownames"><span class="header-section-number">6.3</span> Dendrograms and row
+names<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-dendrograms-rownames">#</a></h2>
+<p>By default, numeric matrices are clustered on rows. Set
+<code>dend_side</code> to <code>"inside"</code> or
+<code>"outside"</code> to draw the row dendrograms in an adjacent track
+(whose radial thickness is set by <code>dend_track_height</code>):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_dend_side.png"
+alt="Placing row dendrograms inside (left) or outside (right) the heatmap track." />
+<figcaption aria-hidden="true">Placing row dendrograms inside (left) or
+outside (right) the heatmap track.</figcaption>
+</figure>
+<p>When the input <code>DataFrame</code> has non-default row names
+(<code>index</code>), set <code>rownames_side</code> to
+<code>"inside"</code> or <code>"outside"</code> to display row labels in
+their own track:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">rownames_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">rownames_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_rownames_side.png"
+alt="Placing matrix row names inside (left) or outside (right) the heatmap track." />
+<figcaption aria-hidden="true">Placing matrix row names inside (left) or
+outside (right) the heatmap track.</figcaption>
+</figure>
+<p>Both dendrograms and row names can be enabled together as long as
+they sit on opposite sides of the heatmap track:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span> <span class="n">rownames_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span> <span class="n">rownames_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_dend_and_rownames.png"
+alt="Combining dendrograms and row names on opposite sides of the heatmap track." />
+<figcaption aria-hidden="true">Combining dendrograms and row names on
+opposite sides of the heatmap track.</figcaption>
+</figure>
+<p>Row-label graphic parameters (<code>rownames_col</code>,
+<code>rownames_cex</code>, <code>rownames_font</code>) accept either a
+scalar or a sequence matching the total number of rows in the
+matrix:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">nr</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span>
+    <span class="n">rownames_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">,</span>
+    <span class="n">rownames_col</span><span class="o">=</span><span class="p">[(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">10</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
+    <span class="n">rownames_cex</span><span class="o">=</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">nr</span><span class="p">),</span>
+    <span class="n">rownames_font</span><span class="o">=</span><span class="p">[(</span><span class="n">i</span> <span class="o">%</span> <span class="mi">4</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">nr</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)],</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_rownames_gp.png"
+alt="Customizing row name colors, sizes, and font faces." />
+<figcaption aria-hidden="true">Customizing row name colors, sizes, and
+font faces.</figcaption>
+</figure>
+<h2 id="circos-heatmap-clustering"><span class="header-section-number">6.4</span> Clustering<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-clustering">#</a></h2>
+<p>Setting <code>cluster=False</code> disables row clustering (no
+dendrogram is drawn even if <code>dend_side</code> is specified),
+keeping rows in their original order:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">cluster</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_cluster.png"
+alt="Comparing clustered rows (cluster=True, left) against input row order (cluster=False, right)." />
+<figcaption aria-hidden="true">Comparing clustered rows
+(<code>cluster=True</code>, left) against input row order
+(<code>cluster=False</code>, right).</figcaption>
+</figure>
+<p>You can customize the linkage algorithm and distance metric with
+<code>clustering_method</code> (e.g., <code>"complete"</code>,
+<code>"average"</code>, <code>"ward"</code>, <code>"single"</code>) and
+<code>distance_method</code> (e.g., <code>"euclidean"</code>,
+<code>"manhattan"</code>, <code>"maximum"</code>). Note that
+<code>circos.heatmap()</code> clusters rows only; to cluster columns as
+well, reorder columns beforehand using <code>hclust_from_data()</code>
+and <code>as_dendrogram()</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">as_dendrogram</span><span class="p">,</span> <span class="n">hclust_from_data</span>
+
+<span class="n">col_od</span> <span class="o">=</span> <span class="n">as_dendrogram</span><span class="p">(</span><span class="n">hclust_from_data</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span><span class="o">.</span><span class="n">T</span><span class="p">))</span><span class="o">.</span><span class="n">leaf_indices</span><span class="p">()</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="n">col_od</span><span class="p">],</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<h2 id="circos-heatmap-dend-callback"><span class="header-section-number">6.5</span> Callback on dendrograms<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-dend-callback">#</a></h2>
+<p>After each sector’s dendrogram is computed,
+<code>circos.heatmap()</code> passes it through
+<code>dend_callback(dend, m, si)</code>:</p>
+<ul>
+<li><code>dend</code>: the <code>DendrogramNode</code> tree for the
+current sector.</li>
+<li><code>m</code>: the sector’s NumPy sub-matrix.</li>
+<li><code>si</code>: the sector name (<code>str</code>).</li>
+</ul>
+<p>By default, <strong>circlize-py</strong> reorders branches by row
+means via <code>reorder_dendrogram(dend, np.nanmean(m, axis=1))</code>.
+You can substitute any custom <code>DendrogramNode</code>
+transformer—for instance, a recursive minimum-height node sorter
+(analogous to <code>dendsort</code>) that places tighter subtrees on the
+left:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">DendrogramNode</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">dendsort_node</span><span class="p">(</span><span class="n">dend</span><span class="p">:</span> <span class="n">DendrogramNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DendrogramNode</span><span class="p">:</span>
+    <span class="n">root</span> <span class="o">=</span> <span class="n">dend</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_sort</span><span class="p">(</span><span class="n">node</span><span class="p">:</span> <span class="n">DendrogramNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">node</span><span class="o">.</span><span class="n">leaf</span><span class="p">:</span>
+            <span class="k">return</span> <span class="mf">0.0</span>
+        <span class="n">scored</span> <span class="o">=</span> <span class="p">[(</span><span class="n">_sort</span><span class="p">(</span><span class="n">c</span><span class="p">),</span> <span class="n">c</span><span class="p">)</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">]</span>
+        <span class="n">scored</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">pair</span><span class="p">:</span> <span class="n">pair</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="n">node</span><span class="o">.</span><span class="n">children</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">]</span>
+        <span class="k">return</span> <span class="nb">float</span><span class="p">(</span><span class="n">node</span><span class="o">.</span><span class="n">height</span><span class="p">)</span> <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">leaf</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="k">else</span> <span class="nb">min</span><span class="p">(</span><span class="n">s</span> <span class="k">for</span> <span class="n">s</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">scored</span><span class="p">)</span>
+
+    <span class="n">_sort</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
+    <span class="n">root</span><span class="o">.</span><span class="n">_recompute_stats</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">root</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span>
+    <span class="n">dend_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
+    <span class="n">dend_callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">dend</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">si</span><span class="p">:</span> <span class="n">dendsort_node</span><span class="p">(</span><span class="n">dend</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_dend_reorder.png"
+alt="Comparing default row-mean dendrogram ordering (left) with custom minimum-height node sorting (right)." />
+<figcaption aria-hidden="true">Comparing default row-mean dendrogram
+ordering (left) with custom minimum-height node sorting
+(right).</figcaption>
+</figure>
+<p>Inside <code>dend_callback</code>, <code>color_branches()</code>
+paints dendrogram branches. Passing <code>k=1</code> assigns one color
+per sector, whereas <code>k=4</code> on an unsplit heatmap highlights
+four subtrees:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_branches</span>
+
+<span class="n">dend_col</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">idx</span> <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="s2">"abcde"</span><span class="p">,</span> <span class="n">start</span><span class="o">=</span><span class="mi">1</span><span class="p">)}</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">,</span>
+    <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span>
+    <span class="n">dend_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
+    <span class="n">dend_track_height</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">dend_callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">dend</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">si</span><span class="p">:</span> <span class="n">color_branches</span><span class="p">(</span><span class="n">dend</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="n">dend_col</span><span class="p">[</span><span class="n">si</span><span class="p">]]),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_dend_col_split.png"
+alt="Coloring each sector’s dendrogram with a distinct palette color (k=1)." />
+<figcaption aria-hidden="true">Coloring each sector’s dendrogram with a
+distinct palette color (<code>k=1</code>).</figcaption>
+</figure>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">df1</span><span class="p">,</span>
+    <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span>
+    <span class="n">dend_side</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
+    <span class="n">dend_track_height</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+    <span class="n">dend_callback</span><span class="o">=</span><span class="k">lambda</span> <span class="n">dend</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">si</span><span class="p">:</span> <span class="n">color_branches</span><span class="p">(</span><span class="n">dend</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_dend_col_unsplit.png"
+alt="Coloring four subtrees (k=4) in an unsplit circular heatmap." />
+<figcaption aria-hidden="true">Coloring four subtrees (<code>k=4</code>)
+in an unsplit circular heatmap.</figcaption>
+</figure>
+<h2 id="circos-heatmap-multi-tracks"><span class="header-section-number">6.6</span> Multiple heatmap tracks<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-multi-tracks">#</a></h2>
+<p>The first call to <code>circos.heatmap()</code> initializes the
+circular layout, splits the rows, and caches each sector’s clustering
+and row order internally. Subsequent <code>circos.heatmap()</code> calls
+automatically inherit that exact split and row ordering—which is why
+calling <code>circos.clear()</code> before starting a new plot is
+essential.</p>
+<p>Here <code>df2</code> is a row-permuted copy of <code>df1</code>.
+When <code>df1</code> is drawn first, <code>df1</code> governs the
+layout and dendrogram:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">df2</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">rng</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df1</span><span class="p">)),</span> <span class="p">:]</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">col_fun2</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun2</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_multi1.png"
+alt="Two stacked circular heatmap tracks with clustering governed by the first track (df1)." />
+<figcaption aria-hidden="true">Two stacked circular heatmap tracks with
+clustering governed by the first track (<code>df1</code>).</figcaption>
+</figure>
+<p>Swapping the call order transfers clustering control to
+<code>df2</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun2</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_multi2.png"
+alt="Swapping track order so df2 governs the shared clustering." />
+<figcaption aria-hidden="true">Swapping track order so <code>df2</code>
+governs the shared clustering.</figcaption>
+</figure>
+<p>When an inner track (or a separate reference matrix) should define
+the clustering instead of the outermost track, call
+<code>circos.heatmap.initialize()</code> explicitly first:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun2</span><span class="p">,</span> <span class="n">dend_side</span><span class="o">=</span><span class="s2">"outside"</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_multi_init1.png"
+alt="Using circos.heatmap.initialize() so df1 determines clustering even when df2 is the outermost track." />
+<figcaption aria-hidden="true">Using
+<code>circos.heatmap.initialize()</code> so <code>df1</code> determines
+clustering even when <code>df2</code> is the outermost
+track.</figcaption>
+</figure>
+<p>Similarly, you can cluster on the full <code>df1</code> matrix while
+plotting column subsets across multiple tracks:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">5</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">5</span><span class="p">:],</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_multi_init2.png"
+alt="Clustering on the full 10-column matrix and displaying two 5-column tracks." />
+<figcaption aria-hidden="true">Clustering on the full 10-column matrix
+and displaying two 5-column tracks.</figcaption>
+</figure>
+<h2 id="circos-heatmap-other-tracks"><span class="header-section-number">6.7</span> With other tracks<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-other-tracks">#</a></h2>
+<p>Because heatmap rows occupy
+<code>[0, 1], [1, 2], ..., [nr - 1, nr]</code> along the circular axis
+(centered at <code>0.5, 1.5, ..., nr - 0.5</code>), custom
+<code>circos.track()</code> panels can align points, lines, or boxplots
+directly underneath any heatmap track. After
+<code>circos.heatmap()</code> or
+<code>circos.heatmap.initialize()</code>, <code>CELL_META</code> exposes
+three <strong>0-based</strong> sector metadata fields in
+<strong>circlize-py</strong>:</p>
+<ul>
+<li><code>CELL_META.row_dend</code> (or <code>CELL_META.dend</code>):
+the <code>DendrogramNode</code> for the current sector
+(<code>None</code> if unclustered).</li>
+<li><code>CELL_META.row_order</code> (or <code>CELL_META.order</code>):
+0-based row order of the sector’s sub-matrix after clustering (e.g.,
+<code>[8, 11, 0, ...]</code>).</li>
+<li><code>CELL_META.subset</code>: sorted 0-based row indices from the
+original complete matrix belonging to the current sector (e.g.,
+<code>[1, 4, 15, ...]</code>).</li>
+</ul>
+<p>In sector <code>"a"</code> of our running example, these metadata
+values look like:</p>
+<div class="code-wrapper"><pre class="codehilite"><code>CELL_META.row_dend  -&gt; DendrogramNode(members=13, height=11.46435)
+CELL_META.row_order -&gt; [8, 11, 0, 9, 5, 1, 6, 3, 10, 4, 12, 7, 2]
+CELL_META.subset    -&gt; [1, 4, 15, 18, 42, 43, 50, 65, 78, 81, 89, 93, 96]</code></pre></div>
+<blockquote>
+<p><strong>0-based indexing in circlize-py:</strong> Both
+<code>CELL_META.subset</code> and <code>CELL_META.row_order</code>
+contain 0-based Python indices, so
+<code>arr[CELL_META.subset][CELL_META.row_order]</code> aligns any NumPy
+array directly with the plotted heatmap rows, and x-positions for
+<code>n</code> rows sit at <code>np.arange(n) + 0.5</code>.</p>
+</blockquote>
+<p>Below we plot row means of the first five columns as red/blue points
+aligned under the heatmap:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">CELL_META</span>
+
+<span class="n">mat1_arr</span> <span class="o">=</span> <span class="n">df1</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+<span class="n">row_mean</span> <span class="o">=</span> <span class="n">mat1_arr</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">5</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_points</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">y_vals</span> <span class="o">=</span> <span class="n">row_mean</span><span class="p">[</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">subset</span><span class="p">][</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">row_order</span><span class="p">]</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">)</span>
+    <span class="n">cols</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">y_vals</span> <span class="o">&gt;</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"blue"</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">y_vals</span><span class="p">))</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row_mean</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row_mean</span><span class="o">.</span><span class="n">max</span><span class="p">())),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_points</span><span class="p">,</span>
+    <span class="n">cell_padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_points.png"
+alt="Adding a row-mean scatter track aligned with a circular heatmap." />
+<figcaption aria-hidden="true">Adding a row-mean scatter track aligned
+with a circular heatmap.</figcaption>
+</figure>
+<p>To place that scatter track <em>outside</em> the heatmap, call
+<code>circos.heatmap.initialize()</code> first:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">row_mean</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">row_mean</span><span class="o">.</span><span class="n">max</span><span class="p">())),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_points</span><span class="p">,</span>
+    <span class="n">cell_padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_points_first.png"
+alt="Placing the custom points track outside the heatmap by pre-initializing the heatmap layout." />
+<figcaption aria-hidden="true">Placing the custom points track outside
+the heatmap by pre-initializing the heatmap layout.</figcaption>
+</figure>
+<p><code>circos.boxplot()</code> summarizes columns of a 2D array, so
+transposing the reordered 5-column sub-matrix (<code>m.T</code>) draws
+one boxplot per heatmap row at
+<code>pos=np.arange(n_rows) + 0.5</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_boxplot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">m</span> <span class="o">=</span> <span class="n">mat1_arr</span><span class="p">[</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">subset</span><span class="p">,</span> <span class="p">:</span><span class="mi">5</span><span class="p">][</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">row_order</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="n">n_rows</span> <span class="o">=</span> <span class="n">m</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">boxplot</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">pos</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_rows</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.3</span><span class="p">)</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">,</span> <span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">],</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"grey"</span><span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span>
+    <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="n">mat1_arr</span><span class="o">.</span><span class="n">min</span><span class="p">()),</span> <span class="nb">float</span><span class="p">(</span><span class="n">mat1_arr</span><span class="o">.</span><span class="n">max</span><span class="p">())),</span>
+    <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_boxplot</span><span class="p">,</span>
+    <span class="n">cell_padding</span><span class="o">=</span><span class="p">(</span><span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.02</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+<span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_boxplot.png"
+alt="Aligning per-row boxplots beneath a circular heatmap." />
+<figcaption aria-hidden="true">Aligning per-row boxplots beneath a
+circular heatmap.</figcaption>
+</figure>
+<h2 id="circos-heatmap-annotations"><span class="header-section-number">6.8</span> Add annotations<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-annotations">#</a></h2>
+<p>While <code>show_sector_labels=True</code> adds basic sector names,
+passing <code>track_index=get_current_track_index()</code> to
+<code>circos.track()</code> lets you decorate the heatmap track with
+custom curved labels, column names, or column-group bars:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">convert_x</span><span class="p">,</span> <span class="n">convert_y</span><span class="p">,</span> <span class="n">get_current_track_index</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">points_overflow_warning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_sector_lbl</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+        <span class="n">CELL_META</span><span class="o">.</span><span class="n">xcenter</span><span class="p">,</span>
+        <span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_ylim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">convert_y</span><span class="p">(</span><span class="mf">2.0</span><span class="p">,</span> <span class="s2">"mm"</span><span class="p">)),</span>
+        <span class="sa">f</span><span class="s2">"this is group </span><span class="si">{</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">sector_index</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span>
+        <span class="n">facing</span><span class="o">=</span><span class="s2">"bending.inside"</span><span class="p">,</span>
+        <span class="n">cex</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span>
+        <span class="n">adj</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">),</span>
+        <span class="n">nice_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="n">get_current_track_index</span><span class="p">(),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_sector_lbl</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_sector_labels.png"
+alt="Adding custom curved sector labels 2 mm above the heatmap track." />
+<figcaption aria-hidden="true">Adding custom curved sector labels 2 mm
+above the heatmap track.</figcaption>
+</figure>
+<p>To add column names along the radial edge, widen the gap after the
+last sector (<code>gap_after=[2, 2, 2, 2, 10]</code>) and annotate only
+when <code>CELL_META.sector_numeric_index == 5</code> (recall
+<code>sector_numeric_index</code> is 1-based):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">gap_after</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">points_overflow_warning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_colnames</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">sector_numeric_index</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">cn</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">df1</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+        <span class="n">n_cn</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cn</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">n_cn</span><span class="p">)</span> <span class="o">+</span> <span class="nb">float</span><span class="p">(</span><span class="n">convert_x</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">"mm"</span><span class="p">)),</span>
+            <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">n_cn</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">,</span>
+            <span class="n">cn</span><span class="p">,</span>
+            <span class="n">cex</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span>
+            <span class="n">adj</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span>
+            <span class="n">facing</span><span class="o">=</span><span class="s2">"inside"</span><span class="p">,</span>
+        <span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="n">get_current_track_index</span><span class="p">(),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_colnames</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_colnames.png"
+alt="Drawing matrix column names inside an expanded gap after the final sector." />
+<figcaption aria-hidden="true">Drawing matrix column names inside an
+expanded gap after the final sector.</figcaption>
+</figure>
+<p>Using the same gap, <code>circos.rect()</code> and
+<code>circos.text()</code> can mark groups of columns:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">gap_after</span><span class="o">=</span><span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="n">points_overflow_warning</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">df1</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">split</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun1</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">panel_colgroup</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">sector_numeric_index</span> <span class="o">==</span> <span class="mi">5</span><span class="p">:</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">convert_x</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="s2">"mm"</span><span class="p">))</span>
+        <span class="n">x2</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">convert_x</span><span class="p">(</span><span class="mf">5.0</span><span class="p">,</span> <span class="s2">"mm"</span><span class="p">))</span>
+        <span class="n">xm</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">cell_xlim</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">convert_x</span><span class="p">(</span><span class="mf">3.0</span><span class="p">,</span> <span class="s2">"mm"</span><span class="p">))</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"orange"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">,</span> <span class="s2">"group 1"</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">facing</span><span class="o">=</span><span class="s2">"clockwise"</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="mf">10.0</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"pink"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+        <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">xm</span><span class="p">,</span> <span class="mf">7.5</span><span class="p">,</span> <span class="s2">"group 2"</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.55</span><span class="p">,</span> <span class="n">facing</span><span class="o">=</span><span class="s2">"clockwise"</span><span class="p">)</span>
+
+
+<span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="n">get_current_track_index</span><span class="p">(),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_colgroup</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_heatmap_colgroup.png"
+alt="Adding column-group bars and labels inside the sector gap." />
+<figcaption aria-hidden="true">Adding column-group bars and labels
+inside the sector gap.</figcaption>
+</figure>
+<p>As explained in <a href="legends.html">the Legends chapter</a>, pair
+the circular axes with a Matplotlib colorbar via
+<code>GridSpec</code>:</p>
+<figure>
+<img src="images/ch06_heatmap_legend.png"
+alt="Circular heatmap paired with a Matplotlib colorbar legend." />
+<figcaption aria-hidden="true">Circular heatmap paired with a Matplotlib
+colorbar legend.</figcaption>
+</figure>
+<h2 id="circos-heatmap-complex"><span class="header-section-number">6.9</span> A complex example of circular
+heatmaps<a class="anchor-section" aria-label="Anchor link to section" href="#circos-heatmap-complex">#</a></h2>
+<p>We now convert a multi-omics linear heatmap layout into a multi-track
+circular visualization with inter-region links and a full set of eight
+legends. The simulated dataset models 1,000 differentially methylated
+regions (DMRs) across 20 samples (<code>10</code> Tumor +
+<code>10</code> Control) alongside their nearest associated genes:</p>
+<ul>
+<li><code>mat_meth</code>: <code>1000 × 20</code> mean methylation
+levels (<code>0</code> to <code>1</code>).</li>
+<li><code>direction</code>: <code>"hyper"</code> or <code>"hypo"</code>
+methylation change in Tumor vs Control.</li>
+<li><code>mat_expr</code>: <code>1000 × 20</code> row-standardized
+(<code>z</code>-scored) gene expression negatively correlated with
+methylation.</li>
+<li><code>cor_pvalue</code>: <code>-log10(p-value)</code> for the
+Pearson correlation between methylation and expression.</li>
+<li><code>gene_type</code>: <code>"protein_coding"</code>,
+<code>"lincRNA"</code>, <code>"microRNA"</code>,
+<code>"psedo-gene"</code>, or <code>"others"</code>.</li>
+<li><code>anno_gene</code>: gene model annotation
+(<code>"intragenic"</code>, <code>"TSS"</code>, or
+<code>"intergenic"</code>).</li>
+<li><code>dist</code>: genomic distance from each DMR to its target gene
+TSS.</li>
+<li><code>anno_enhancer</code>: <code>1000 × 3</code> enhancer overlap
+fractions (<code>0</code> to <code>1</code>).</li>
+</ul>
+<p>Rows are partitioned into five clusters
+(<code>cluster1</code>–<code>cluster5</code>) by <em>k</em>-means
+(<code>scipy.cluster.vq.kmeans2</code>) on <code>mat_meth</code>:</p>
+<figure>
+<img src="images/ch06_complex_linear.png"
+alt="Linear multi-track reference view of the 1,000-DMR multi-omics dataset." />
+<figcaption aria-hidden="true">Linear multi-track reference view of the
+1,000-DMR multi-omics dataset.</figcaption>
+</figure>
+<p>Using <code>circos.heatmap()</code>, all eight data tracks stack from
+outside (<code>mat_meth</code>) to inside (<code>anno_enhancer</code>),
+sharing the clustering and sector split defined by
+<code>mat_meth</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">color_ramp2</span><span class="p">,</span> <span class="n">rand_color</span>
+
+<span class="n">col_meth</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"blue"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+<span class="n">col_direction</span> <span class="o">=</span> <span class="p">{</span><span class="s2">"hyper"</span><span class="p">:</span> <span class="s2">"red"</span><span class="p">,</span> <span class="s2">"hypo"</span><span class="p">:</span> <span class="s2">"blue"</span><span class="p">}</span>
+<span class="n">col_expr</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"green"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+<span class="n">col_pvalue</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"white"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">,</span> <span class="s2">"red"</span><span class="p">])</span>
+<span class="n">col_gene_type</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+    <span class="nb">zip</span><span class="p">(</span>
+        <span class="p">[</span><span class="s2">"protein_coding"</span><span class="p">,</span> <span class="s2">"lincRNA"</span><span class="p">,</span> <span class="s2">"microRNA"</span><span class="p">,</span> <span class="s2">"psedo-gene"</span><span class="p">,</span> <span class="s2">"others"</span><span class="p">],</span>
+        <span class="p">[</span><span class="s2">"#8DD3C7"</span><span class="p">,</span> <span class="s2">"#FFFFB3"</span><span class="p">,</span> <span class="s2">"#BEBADA"</span><span class="p">,</span> <span class="s2">"#FB8072"</span><span class="p">,</span> <span class="s2">"#80B1D3"</span><span class="p">],</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">col_anno_gene</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">"intragenic"</span><span class="p">,</span> <span class="s2">"TSS"</span><span class="p">,</span> <span class="s2">"intergenic"</span><span class="p">],</span> <span class="p">[</span><span class="s2">"#E41A1C"</span><span class="p">,</span> <span class="s2">"#377EB8"</span><span class="p">,</span> <span class="s2">"#4DAF4A"</span><span class="p">]))</span>
+<span class="n">col_dist</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">10000.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"black"</span><span class="p">,</span> <span class="s2">"white"</span><span class="p">])</span>
+<span class="n">col_enhancer</span> <span class="o">=</span> <span class="n">color_ramp2</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="p">[</span><span class="s2">"white"</span><span class="p">,</span> <span class="s2">"orange"</span><span class="p">])</span>
+
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mat_meth</span><span class="p">,</span> <span class="n">split</span><span class="o">=</span><span class="n">km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_meth</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">direction</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_direction</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">mat_expr</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_expr</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.12</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">cor_pvalue</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_pvalue</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">gene_type</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_gene_type</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">anno_gene</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_anno_gene</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">dist</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_dist</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.01</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span><span class="n">anno_enhancer</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_enhancer</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.03</span><span class="p">)</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
+<figure>
+<img src="images/ch06_complex_no_links.png"
+alt="Eight-track circular multi-omics heatmap of methylation, expression, correlation, gene annotations, TSS distance, and enhancer overlap." />
+<figcaption aria-hidden="true">Eight-track circular multi-omics heatmap
+of methylation, expression, correlation, gene annotations, TSS distance,
+and enhancer overlap.</figcaption>
+</figure>
+<p>Suppose we have 20 pairwise 3D chromatin interactions between DMRs
+stored in <code>df_link</code> with <strong>0-based</strong> row indices
+<code>from_index</code> and <code>to_index</code>. Manually resolving
+each DMR’s circular position requires finding its sector
+(<code>km[idx]</code>), fetching that sector’s <code>subset</code> and
+<code>row_order</code> metadata, locating the row’s 0-based position in
+<code>[sub[i] for i in row_order]</code>, and adding
+<code>0.5</code>:</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="kn">from</span><span class="w"> </span><span class="nn">circlize</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_cell_meta_data</span>
+
+<span class="k">for</span> <span class="n">from_idx</span><span class="p">,</span> <span class="n">to_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_link</span><span class="p">[</span><span class="s2">"from_index"</span><span class="p">],</span> <span class="n">df_link</span><span class="p">[</span><span class="s2">"to_index"</span><span class="p">]):</span>
+    <span class="n">g1</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">km</span><span class="p">[</span><span class="n">from_idx</span><span class="p">])</span>
+    <span class="n">g2</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">km</span><span class="p">[</span><span class="n">to_idx</span><span class="p">])</span>
+
+    <span class="n">sub1</span> <span class="o">=</span> <span class="n">get_cell_meta_data</span><span class="p">(</span><span class="s2">"subset"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="n">g1</span><span class="p">)</span>
+    <span class="n">ord1</span> <span class="o">=</span> <span class="n">get_cell_meta_data</span><span class="p">(</span><span class="s2">"row_order"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="n">g1</span><span class="p">)</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub1</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ord1</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">from_idx</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
+
+    <span class="n">sub2</span> <span class="o">=</span> <span class="n">get_cell_meta_data</span><span class="p">(</span><span class="s2">"subset"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="n">g2</span><span class="p">)</span>
+    <span class="n">ord2</span> <span class="o">=</span> <span class="n">get_cell_meta_data</span><span class="p">(</span><span class="s2">"row_order"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="n">g2</span><span class="p">)</span>
+    <span class="n">x2</span> <span class="o">=</span> <span class="p">[</span><span class="n">sub2</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">ord2</span><span class="p">]</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">to_idx</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span>
+
+    <span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="n">g1</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">g2</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">rand_color</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span></code></pre></div>
+<p><code>circos.heatmap.link()</code> encapsulates that exact lookup and
+accepts either <strong>0-based</strong> integer row indices or row-name
+strings (when the first matrix passed to <code>circos.heatmap()</code>
+is a <code>DataFrame</code> with string index labels):</p>
+<div class="code-wrapper"><pre class="codehilite"><code><span class="k">for</span> <span class="n">from_idx</span><span class="p">,</span> <span class="n">to_idx</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">df_link</span><span class="p">[</span><span class="s2">"from_index"</span><span class="p">],</span> <span class="n">df_link</span><span class="p">[</span><span class="s2">"to_index"</span><span class="p">]):</span>
+    <span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">from_idx</span><span class="p">),</span> <span class="nb">int</span><span class="p">(</span><span class="n">to_idx</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="n">rand_color</span><span class="p">(</span><span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1"># Or link directly by DataFrame row names:</span>
+<span class="n">circos</span><span class="o">.</span><span class="n">heatmap</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"DMR10"</span><span class="p">,</span> <span class="s2">"DMR420"</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#D95F02"</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="mf">1.6</span><span class="p">)</span></code></pre></div>
+<figure>
+<img src="images/ch06_complex_with_links.png"
+alt="Adding 20 inter-DMR links inside the eight-track multi-omics circular heatmap." />
+<figcaption aria-hidden="true">Adding 20 inter-DMR links inside the
+eight-track multi-omics circular heatmap.</figcaption>
+</figure>
+<p>Finally, wrap the circular plot in a helper and place it on the left
+of a <code>1 × 2</code> <code>GridSpec</code>, arranging all eight
+continuous colorbars (with custom tick labels such as
+<code>"0.0001"</code> for <em>p</em>-value and
+<code>"0kb"</code>–<code>"10kb"</code> for TSS distance) and discrete
+patch legends into two neat columns on the right:</p>
+<figure>
+<img src="images/ch06_complex_with_legends.png"
+alt="Complete multi-omics circular heatmap with inter-DMR links and eight custom legends." />
+<figcaption aria-hidden="true">Complete multi-omics circular heatmap
+with inter-DMR links and eight custom legends.</figcaption>
+</figure>
+
+          </section>
+          <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
+            <a href="high-level-plots.html">&larr; 5 Implement high-level circular plots</a>
+            <a href="advanced-layout.html">7 Advanced layout &rarr;</a>
+          </nav>
+        </main>
+        <a href="high-level-plots.html" class="navigation navigation-prev" aria-label="Previous chapter: Implement high-level circular plots" title="Previous: Implement high-level circular plots">&#8249;</a>
+        <a href="advanced-layout.html" class="navigation navigation-next" aria-label="Next chapter: Advanced layout" title="Next: Advanced layout">&#8250;</a>
+      </div>
+    </div>
+  </div>
+  <script src="assets/gitbook.js"></script>
+</body>
+</html>

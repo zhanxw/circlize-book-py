@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -221,10 +225,8 @@ data coordinate frame. <code>circlize-py</code> transforms
 <code>(x, y)</code> from data coordinates to polar coordinates and then
 to Cartesian canvas coordinates automatically, so you can think of every
 cell as a familiar rectangular plotting box.</p>
-<figure>
-<img src="images/ch02_coordinate_transformation.png"
-alt="Transformation between different coordinates" />
-<figcaption aria-hidden="true">Transformation between different
+<figure id="fig-ch02coordinatetransformation"><img src="images/ch02_coordinate_transformation.png"
+alt="Transformation between different coordinates" /><figcaption aria-hidden="true">Transformation between different
 coordinates</figcaption>
 </figure>
 <p>The canvas coordinate system corresponds to standard Matplotlib data
@@ -238,10 +240,8 @@ circular plot<a class="anchor-section" aria-label="Anchor link to section" href=
 <p>Constructing a circular figure follows a simple, strict lifecycle:
 <code>initialize layout -&gt; create track -&gt; add graphics -&gt; create track -&gt; add graphics -&gt; ... -&gt; clear</code>.
 Graphics can be added to any cell once its track exists.</p>
-<figure>
-<img src="images/ch02_circlize_order.png"
-alt="Order of drawing circular layout" />
-<figcaption aria-hidden="true">Order of drawing circular
+<figure id="fig-ch02circlizeorder"><img src="images/ch02_circlize_order.png"
+alt="Order of drawing circular layout" /><figcaption aria-hidden="true">Order of drawing circular
 layout</figcaption>
 </figure>
 <ol type="1">
@@ -317,10 +317,8 @@ the active cell without needing <code>sector_index</code> or
 (concentric rings). In the diagram below, the red ring highlights one
 track and the blue wedge highlights one sector; their intersection is a
 single cell.</p>
-<figure>
-<img src="images/ch02_circlize_coordinate.png"
-alt="Sectors and tracks in circular layout" />
-<figcaption aria-hidden="true">Sectors and tracks in circular
+<figure id="fig-ch02circlizecoordinate"><img src="images/ch02_circlize_coordinate.png"
+alt="Sectors and tracks in circular layout" /><figcaption aria-hidden="true">Sectors and tracks in circular
 layout</figcaption>
 </figure>
 <p>Sectors are allocated by <code>circos.initialize()</code>. Each
@@ -363,10 +361,8 @@ sorted alphabetically unless wrapped in
 
 <span class="n">s2</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Categorical</span><span class="p">(</span><span class="n">sectors</span><span class="p">,</span> <span class="n">categories</span><span class="o">=</span><span class="n">sectors</span><span class="p">,</span> <span class="n">ordered</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">initialize</span><span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span></code></pre></div>
-<figure>
-<img src="images/ch02_circlize_factor.png"
-alt="Different sector orders" />
-<figcaption aria-hidden="true">Different sector orders</figcaption>
+<figure id="fig-ch02circlizefactor"><img src="images/ch02_circlize_factor.png"
+alt="Different sector orders" /><figcaption aria-hidden="true">Different sector orders</figcaption>
 </figure>
 <p><strong>Cells in the same sector share the same x-range across all
 tracks.</strong> Consequently, each call to <code>circos.track()</code>
@@ -391,14 +387,10 @@ aligned:</p>
 with its own <code>xlim</code> and <code>ylim</code>, and sector and
 x-axis directions can be configured independently via
 <code>circos.par()</code>.</p>
-<figure>
-<img src="images/ch02_circlize_direction.png" alt="Sector directions" />
-<figcaption aria-hidden="true">Sector directions</figcaption>
+<figure id="fig-ch02circlizedirection"><img src="images/ch02_circlize_direction.png" alt="Sector directions" /><figcaption aria-hidden="true">Sector directions</figcaption>
 </figure>
-<figure>
-<img src="images/ch02_circlize_axis_direction.png"
-alt="Axes directions" />
-<figcaption aria-hidden="true">Axes directions</figcaption>
+<figure id="fig-ch02circlizeaxisdirection"><img src="images/ch02_circlize_axis_direction.png"
+alt="Axes directions" /><figcaption aria-hidden="true">Axes directions</figcaption>
 </figure>
 <h2 id="graphic-parameters"><span class="header-section-number">2.4</span> Graphic parameters<a class="anchor-section" aria-label="Anchor link to section" href="#graphic-parameters">#</a></h2>
 <p>Global layout options are managed through <code>circos.par()</code>.
@@ -457,9 +449,7 @@ proceed clockwise (<code>True</code>, default) or counter-clockwise
 Direction of the x-axis inside every cell (<code>True</code> =
 clockwise, default; <code>False</code> = counter-clockwise).</li>
 </ul>
-<figure>
-<img src="images/ch02_circlize_region.png" alt="Regions in a cell" />
-<figcaption aria-hidden="true">Regions in a cell</figcaption>
+<figure id="fig-ch02circlizeregion"><img src="images/ch02_circlize_region.png" alt="Regions in a cell" /><figcaption aria-hidden="true">Regions in a cell</figcaption>
 </figure>
 <p>Default values of <code>circos.par()</code> are summarized below:</p>
 <table>
@@ -756,10 +746,8 @@ href="graphics.html#raster-image">Section 3.10</a> for the dedicated
 <span class="n">ax</span><span class="o">.</span><span class="n">set_xlim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">set_ylim</span><span class="p">(</span><span class="o">-</span><span class="mf">1.05</span><span class="p">,</span> <span class="mf">1.05</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch02_polar_to_cartesian.png"
-alt="Add raster images to the circular plot via polar2Cartesian" />
-<figcaption aria-hidden="true">Add raster images to the circular plot
+<figure id="fig-ch02polartocartesian"><img src="images/ch02_polar_to_cartesian.png"
+alt="Add raster images to the circular plot via polar2Cartesian" /><figcaption aria-hidden="true">Add raster images to the circular plot
 via polar2Cartesian</figcaption>
 </figure>
 <h3 id="convert-functions"><span class="header-section-number">2.8.2</span> Absolute units<a class="anchor-section" aria-label="Anchor link to section" href="#convert-functions">#</a></h3>
@@ -833,9 +821,7 @@ radius of a track, <code>*_x()</code> helpers also accept an
     <span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch02_unit_convert.png" alt="Setting absolute units" />
-<figcaption aria-hidden="true">Setting absolute units</figcaption>
+<figure id="fig-ch02unitconvert"><img src="images/ch02_unit_convert.png" alt="Setting absolute units" /><figcaption aria-hidden="true">Setting absolute units</figcaption>
 </figure>
 <h3 id="circos-info-and-circos-clear"><span class="header-section-number">2.8.3</span> <code>circos.info()</code> and
 <code>circos.clear()</code><a class="anchor-section" aria-label="Anchor link to section" href="#circos-info-and-circos-clear">#</a></h3>
@@ -887,10 +873,8 @@ physical units such as <code>mm_h()</code> or <code>cm_h()</code>:</p>
 <span class="n">set_track_gap</span><span class="p">(</span><span class="n">cm_h</span><span class="p">(</span><span class="mf">0.5</span><span class="p">))</span>  <span class="c1"># 0.5 cm gap before next track</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">])</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch02_set_track_gap.png"
-alt="Setting gaps between tracks" />
-<figcaption aria-hidden="true">Setting gaps between tracks</figcaption>
+<figure id="fig-ch02settrackgap"><img src="images/ch02_set_track_gap.png"
+alt="Setting gaps between tracks" /><figcaption aria-hidden="true">Setting gaps between tracks</figcaption>
 </figure>
 
           </section>

@@ -166,6 +166,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -182,6 +185,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -345,10 +349,8 @@ Notice that <code>chord_diagram()</code> returns a
 2  R_3  C_1      0.0      0.0  15  11     3600.0  210800.0  #E41A1C20
 3  R_4  C_1    800.0    800.0  15  10    34600.0  210800.0  #E41A1C20
 4  R_5  C_1  98200.0  98200.0  15   9  1411600.0  210000.0  #E41A1CA0</code></pre></div>
-<figure>
-<img src="images/ch16_step1_chord.png"
-alt="Step 1: Initial directional Chord diagram with one pre-allocated outer track." />
-<figcaption aria-hidden="true">Step 1: Initial directional Chord diagram
+<figure id="fig-ch16step1chord"><img src="images/ch16_step1_chord.png"
+alt="Step 1: Initial directional Chord diagram with one pre-allocated outer track." /><figcaption aria-hidden="true">Step 1: Initial directional Chord diagram
 with one pre-allocated outer track.</figcaption>
 </figure>
 <p>Next, we update the grid track (<code>track_index=2</code>, since
@@ -378,10 +380,8 @@ degrees, along with genomic kilobase axes along the outer edge:</p>
         <span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t2</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch16_step2_axes.png"
-alt="Step 2: State indices and kilobase axes added to track 2." />
-<figcaption aria-hidden="true">Step 2: State indices and kilobase axes
+<figure id="fig-ch16step2axes"><img src="images/ch16_step2_axes.png"
+alt="Step 2: State indices and kilobase axes added to track 2." /><figcaption aria-hidden="true">Step 2: State indices and kilobase axes
 added to track 2.</figcaption>
 </figure>
 <p>In the upper half (Group 2), link colors immediately reveal which
@@ -406,10 +406,8 @@ destination state color for every outgoing sub-interval (we turned
             <span class="n">col</span><span class="o">=</span><span class="n">state_col2</span><span class="p">[</span><span class="n">cn_i</span><span class="p">],</span> <span class="n">border</span><span class="o">=</span><span class="n">state_col2</span><span class="p">[</span><span class="n">cn_i</span><span class="p">],</span>
             <span class="n">sector_index</span><span class="o">=</span><span class="n">rn_i</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
         <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch16_step3_target_prop.png"
-alt="Step 3: Target-state proportion bars added along the inner edge of Group 1 sectors." />
-<figcaption aria-hidden="true">Step 3: Target-state proportion bars
+<figure id="fig-ch16step3targetprop"><img src="images/ch16_step3_target_prop.png"
+alt="Step 3: Target-state proportion bars added along the inner edge of Group 1 sectors." /><figcaption aria-hidden="true">Step 3: Target-state proportion bars
 added along the inner edge of Group 1 sectors.</figcaption>
 </figure>
 <p>Now we populate the pre-allocated outer ring
@@ -457,10 +455,8 @@ white (<code>0</code>) to orange (positive).</li>
     <span class="n">circos</span><span class="o">.</span><span class="n">rect</span><span class="p">(</span><span class="n">x2</span><span class="p">,</span> <span class="n">y1</span> <span class="o">+</span> <span class="p">(</span><span class="n">y2</span> <span class="o">-</span> <span class="n">y1</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.55</span><span class="p">,</span> <span class="n">x2</span> <span class="o">-</span> <span class="nb">abs</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">y2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">c_d21</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="n">c_d21</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="n">cn_i</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch16_step4_methylation.png"
-alt="Step 4: Outer methylation rings showing group mean methylation and cross-group difference." />
-<figcaption aria-hidden="true">Step 4: Outer methylation rings showing
+<figure id="fig-ch16step4methylation"><img src="images/ch16_step4_methylation.png"
+alt="Step 4: Outer methylation rings showing group mean methylation and cross-group difference." /><figcaption aria-hidden="true">Step 4: Outer methylation rings showing
 group mean methylation and cross-group difference.</figcaption>
 </figure>
 <p>Finally, following the multi-panel layout techniques from <a
@@ -478,10 +474,8 @@ swatches and two continuous colorbars (<code>Mean Methylation</code> and
 
 <span class="c1"># Draw the Chord diagram and methylation rings inside `ax`,</span>
 <span class="c1"># then add the chromatin-state legend and two colorbars on the right.</span></code></pre></div>
-<figure>
-<img src="images/ch16_final_with_legends.png"
-alt="Complete chromatin-state transition and methylation Chord diagram with legends." />
-<figcaption aria-hidden="true">Complete chromatin-state transition and
+<figure id="fig-ch16finalwithlegends"><img src="images/ch16_final_with_legends.png"
+alt="Complete chromatin-state transition and methylation Chord diagram with legends." /><figcaption aria-hidden="true">Complete chromatin-state transition and
 methylation Chord diagram with legends.</figcaption>
 </figure>
 

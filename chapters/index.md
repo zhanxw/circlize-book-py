@@ -2,6 +2,8 @@
 
 This is the Python documentation of [**circlize-py**](https://github.com/zhanxw/circlize-master) — a pure-Python port of Zuguang Gu's [**circlize**](https://cran.r-project.org/package=circlize) package for circular visualization, built on `numpy`, `pandas`, `matplotlib`, `scipy`, and `Pillow`. Examples in this book are generated under `circlize_py` version `0.4.16` (matching R `circlize` v0.4.16).
 
+> **Quick Browse:** Looking for a visual overview of every plot in the book? Open the [**Figure Gallery & Master Index**](gallery.html) to browse, filter, zoom, inspect Python snippets, and jump straight to any of the 173 example figures.
+
 If you use **circlize** / **circlize-py** in your publications, please cite the original paper:
 
 > Gu, Z. (2014) circlize implements and enhances circular visualization in R. *Bioinformatics*, 30(19), 2811–2812. DOI: [10.1093/bioinformatics/btu393](https://doi.org/10.1093/bioinformatics/btu393)

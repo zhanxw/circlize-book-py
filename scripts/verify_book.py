@@ -35,6 +35,7 @@ EXPECTED_HTML_FILES = [
     "advanced-usage-of-chorddiagram.html",
     "a-complex-example-of-chord-diagram.html",
     "make-fun-of-the-package.html",
+    "gallery.html",
 ]
 
 
@@ -106,6 +107,11 @@ def main() -> None:
             sec_no_tables = _TABLE_RE.sub("", sec_body)
             if "library(circlize)" in sec_no_tables:
                 errors.append(f"{fname}: leftover library(circlize) outside comparison tables")
+
+        if fname == "gallery.html":
+            n_cards = len(re.findall(r'<div class="gallery-card"', html_text))
+            if n_cards < 170:
+                errors.append(f"gallery.html: expected >= 170 .gallery-card elements, found {n_cards}")
 
     for img_path in sorted(referenced_images):
         sz = img_path.stat().st_size

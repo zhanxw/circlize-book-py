@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -246,10 +250,8 @@ All your tracks:
 
 Your current sector.index is chrY
 Your current track.index is 2</code></pre></div>
-<figure>
-<img src="images/ch09_ideogram_default.png"
-alt="Figure 9.1: Initialize genomic plot, default." />
-<figcaption aria-hidden="true">Figure 9.1: Initialize genomic plot,
+<figure id="fig-ch09ideogramdefault"><img src="images/ch09_ideogram_default.png"
+alt="Figure 9.1: Initialize genomic plot, default." /><figcaption aria-hidden="true">Figure 9.1: Initialize genomic plot,
 default.</figcaption>
 </figure>
 <p>By default, <code>circos.initializeWithIdeogram()</code> uses bundled
@@ -298,10 +300,8 @@ a subset of chromosomes via <code>chromosome_index</code> (Figure
 <span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"subset of chromosomes"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_ideogram_subset.png"
-alt="Figure 9.2: Initialize genomic plot, subset chromosomes." />
-<figcaption aria-hidden="true">Figure 9.2: Initialize genomic plot,
+<figure id="fig-ch09ideogramsubset"><img src="images/ch09_ideogram_subset.png"
+alt="Figure 9.2: Initialize genomic plot, subset chromosomes." /><figcaption aria-hidden="true">Figure 9.2: Initialize genomic plot,
 subset chromosomes.</figcaption>
 </figure>
 <p>When using <code>chromInfo</code> for assemblies with many unplaced
@@ -323,10 +323,8 @@ drawn (Figure 9.3):</p>
 <span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">plot_type</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"plot_type = None"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_ideogram_track.png"
-alt="Figure 9.3: Initialize genomic plot, control tracks." />
-<figcaption aria-hidden="true">Figure 9.3: Initialize genomic plot,
+<figure id="fig-ch09ideogramtrack"><img src="images/ch09_ideogram_track.png"
+alt="Figure 9.3: Initialize genomic plot, control tracks." /><figcaption aria-hidden="true">Figure 9.3: Initialize genomic plot,
 control tracks.</figcaption>
 </figure>
 <h3 id="other-general-settings"><span class="header-section-number">9.1.3</span> Other general settings<a class="anchor-section" aria-label="Anchor link to section" href="#other-general-settings">#</a></h3>
@@ -346,10 +344,8 @@ reset cleanly.</p>
 <span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">ax</span><span class="o">=</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="s2">"gap_degree = [2, 4] * 12"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch09_ideogram_par.png"
-alt="Figure 9.4: Initialize genomic plot, control layout." />
-<figcaption aria-hidden="true">Figure 9.4: Initialize genomic plot,
+<figure id="fig-ch09ideogrampar"><img src="images/ch09_ideogram_par.png"
+alt="Figure 9.4: Initialize genomic plot, control layout." /><figcaption aria-hidden="true">Figure 9.4: Initialize genomic plot,
 control layout.</figcaption>
 </figure>
 <h2 id="customize-chromosome-track"><span class="header-section-number">9.2</span> Customize chromosome track<a class="anchor-section" aria-label="Anchor link to section" href="#customize-chromosome-track">#</a></h2>
@@ -381,10 +377,8 @@ is drawn as a randomly colored rectangle with centered white labels
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_chr</span><span class="p">,</span> <span class="n">track_height</span><span class="o">=</span><span class="mf">0.15</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_customize_chromosome.png"
-alt="Figure 9.5: Customize chromosome track." />
-<figcaption aria-hidden="true">Figure 9.5: Customize chromosome
+<figure id="fig-ch09customizechromosome"><img src="images/ch09_customize_chromosome.png"
+alt="Figure 9.5: Customize chromosome track." /><figcaption aria-hidden="true">Figure 9.5: Customize chromosome
 track.</figcaption>
 </figure>
 <h2 id="initialize-with-general-genomic-category"><span class="header-section-number">9.3</span> Initialize with
@@ -464,10 +458,8 @@ plotting regions for genomic data</a>.</p>
     <span class="n">track_height</span><span class="o">=</span><span class="mf">0.4</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_gene_model.png"
-alt="Figure 9.6: Circular representation of alternative transcripts for genes." />
-<figcaption aria-hidden="true">Figure 9.6: Circular representation of
+<figure id="fig-ch09genemodel"><img src="images/ch09_gene_model.png"
+alt="Figure 9.6: Circular representation of alternative transcripts for genes." /><figcaption aria-hidden="true">Figure 9.6: Circular representation of
 alternative transcripts for genes.</figcaption>
 </figure>
 <p>In Figure 9.6, notice that each axis begins at <code>"0kb"</code>
@@ -532,9 +524,7 @@ connecting <code>chr1</code> to <code>zoom_chr1</code> (Figure 9.7):</p>
     <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_zoom.png" alt="Figure 9.7: Zoom chromosomes." />
-<figcaption aria-hidden="true">Figure 9.7: Zoom
+<figure id="fig-ch09zoom"><img src="images/ch09_zoom.png" alt="Figure 9.7: Zoom chromosomes." /><figcaption aria-hidden="true">Figure 9.7: Zoom
 chromosomes.</figcaption>
 </figure>
 <h2 id="concatenating-two-genomes"><span class="header-section-number">9.5</span> Concatenating two genomes<a class="anchor-section" aria-label="Anchor link to section" href="#concatenating-two-genomes">#</a></h2>
@@ -567,10 +557,8 @@ mouse chromosome 1 (Figure 9.8):</p>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">initializeWithIdeogram</span><span class="p">(</span><span class="n">cytoband</span><span class="p">,</span> <span class="n">chromosome_index</span><span class="o">=</span><span class="n">chromosome_index</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_combined_default.png"
-alt="Figure 9.8: Default style of two combined genomes." />
-<figcaption aria-hidden="true">Figure 9.8: Default style of two combined
+<figure id="fig-ch09combineddefault"><img src="images/ch09_combined_default.png"
+alt="Figure 9.8: Default style of two combined genomes." /><figcaption aria-hidden="true">Figure 9.8: Default style of two combined
 genomes.</figcaption>
 </figure>
 <p>With 45 chromosomes in a single circle, default axes and prefixed
@@ -613,10 +601,8 @@ chromosome indices, add a 5-degree gap between the two species via
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">genomicIdeogram</span><span class="p">(</span><span class="n">cytoband</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_combined_improved.png"
-alt="Figure 9.9: Improved visualization of the combined genome." />
-<figcaption aria-hidden="true">Figure 9.9: Improved visualization of the
+<figure id="fig-ch09combinedimproved"><img src="images/ch09_combined_improved.png"
+alt="Figure 9.9: Improved visualization of the combined genome." /><figcaption aria-hidden="true">Figure 9.9: Improved visualization of the
 combined genome.</figcaption>
 </figure>
 <p>You can also initialize a combined genome directly from chromosome
@@ -673,10 +659,8 @@ table according to <code>chromosome_index</code> before calling
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch09_combined_genomic_initialize.png"
-alt="Figure 9.10: Initialize the plot with chromosome ranges." />
-<figcaption aria-hidden="true">Figure 9.10: Initialize the plot with
+<figure id="fig-ch09combinedgenomicinitialize"><img src="images/ch09_combined_genomic_initialize.png"
+alt="Figure 9.10: Initialize the plot with chromosome ranges." /><figcaption aria-hidden="true">Figure 9.10: Initialize the plot with
 chromosome ranges.</figcaption>
 </figure>
 <p>Adding data tracks and links works identically to single-genome plots
@@ -749,10 +733,8 @@ chromosome midpoints between human and mouse chromosomes 1–19 (Figure
 
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mf">0.9</span><span class="p">,</span> <span class="o">-</span><span class="mf">0.8</span><span class="p">,</span> <span class="s2">"Human</span><span class="se">\n</span><span class="s2">genome"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="s2">"Mouse</span><span class="se">\n</span><span class="s2">genome"</span><span class="p">,</span> <span class="n">ha</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">va</span><span class="o">=</span><span class="s2">"center"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">clip_on</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch09_combined_more_tracks.png"
-alt="Figure 9.11: The combined genome with more tracks." />
-<figcaption aria-hidden="true">Figure 9.11: The combined genome with
+<figure id="fig-ch09combinedmoretracks"><img src="images/ch09_combined_more_tracks.png"
+alt="Figure 9.11: The combined genome with more tracks." /><figcaption aria-hidden="true">Figure 9.11: The combined genome with
 more tracks.</figcaption>
 </figure>
 

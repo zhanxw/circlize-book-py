@@ -166,6 +166,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -182,6 +185,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -303,10 +307,8 @@ adjacency list:</p>
 (followed by <code>circos.clear()</code> to reset layout state):</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_basic.png"
-alt="Basic usages of chord_diagram()." />
-<figcaption aria-hidden="true">Basic usages of
+<figure id="fig-ch14chorddiagrambasic"><img src="images/ch14_chord_diagram_basic.png"
+alt="Basic usages of chord_diagram()." /><figcaption aria-hidden="true">Basic usages of
 <code>chord_diagram()</code>.</figcaption>
 </figure>
 <p>Calling <code>chord_diagram(df)</code> with the adjacency list
@@ -333,10 +335,8 @@ Chord diagram</a> for grouping more than two sets.</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="p">[</span><span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">,</span> <span class="s2">"E1"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">,</span> <span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E2"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E3"</span><span class="p">])</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_basic_order.png"
-alt="Adjust sector orders in Chord diagram. Left: sectors remain grouped after reordering; right: sectors are interleaved." />
-<figcaption aria-hidden="true">Adjust sector orders in Chord diagram.
+<figure id="fig-ch14chorddiagrambasicorder"><img src="images/ch14_chord_diagram_basic_order.png"
+alt="Adjust sector orders in Chord diagram. Left: sectors remain grouped after reordering; right: sectors are interleaved." /><figcaption aria-hidden="true">Adjust sector orders in Chord diagram.
 Left: sectors remain grouped after reordering; right: sectors are
 interleaved.</figcaption>
 </figure>
@@ -355,10 +355,8 @@ sectors:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">gap_after</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span> <span class="o">*</span> <span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="p">[</span><span class="mi">15</span><span class="p">])</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_basic_gap_after.png"
-alt="Set gaps in Chord diagram via circos.par(gap_after=...)." />
-<figcaption aria-hidden="true">Set gaps in Chord diagram via
+<figure id="fig-ch14chorddiagrambasicgapafter"><img src="images/ch14_chord_diagram_basic_gap_after.png"
+alt="Set gaps in Chord diagram via circos.par(gap_after=...)." /><figcaption aria-hidden="true">Set gaps in Chord diagram via
 <code>circos.par(gap_after=...)</code>.</figcaption>
 </figure>
 <p>With an adjacency list:</p>
@@ -386,10 +384,8 @@ automatically, while <code>small_gap</code> (default <code>1.0</code>)
 controls the spacing within each group:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">big_gap</span><span class="o">=</span><span class="mi">30</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_basic_big_gap.png"
-alt="Directly set big_gap in chord_diagram()." />
-<figcaption aria-hidden="true">Directly set <code>big_gap</code> in
+<figure id="fig-ch14chorddiagrambasicbiggap"><img src="images/ch14_chord_diagram_basic_big_gap.png"
+alt="Directly set big_gap in chord_diagram()." /><figcaption aria-hidden="true">Directly set <code>big_gap</code> in
 <code>chord_diagram()</code>.</figcaption>
 </figure>
 <p>The first sector begins at <code>circos.par(start_degree=...)</code>
@@ -409,10 +405,8 @@ adjusted; reversing <code>order</code> while keeping
 <span class="n">circos</span><span class="o">.</span><span class="n">par</span><span class="p">(</span><span class="n">start_degree</span><span class="o">=</span><span class="mi">85</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">columns</span><span class="p">))</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">index</span><span class="p">)))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_basic_start_degree.png"
-alt="Change start position and orientation of Chord diagram. Left: clock_wise=False; right: reversed order with default clockwise routing." />
-<figcaption aria-hidden="true">Change start position and orientation of
+<figure id="fig-ch14chorddiagrambasicstartdegree"><img src="images/ch14_chord_diagram_basic_start_degree.png"
+alt="Change start position and orientation of Chord diagram. Left: clock_wise=False; right: reversed order with default clockwise routing." /><figcaption aria-hidden="true">Change start position and orientation of
 Chord diagram. Left: <code>clock_wise=False</code>; right: reversed
 <code>order</code> with default clockwise routing.</figcaption>
 </figure>
@@ -438,10 +432,8 @@ matrix (<code>mat.T</code>):</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_grid_color.png"
-alt="Set grid colors in Chord diagram. Left: mat; right: mat.T colors links by E* sectors." />
-<figcaption aria-hidden="true">Set grid colors in Chord diagram. Left:
+<figure id="fig-ch14chorddiagramgridcolor"><img src="images/ch14_chord_diagram_grid_color.png"
+alt="Set grid colors in Chord diagram. Left: mat; right: mat.T colors links by E* sectors." /><figcaption aria-hidden="true">Set grid colors in Chord diagram. Left:
 <code>mat</code>; right: <code>mat.T</code> colors links by
 <code>E*</code> sectors.</figcaption>
 </figure>
@@ -451,10 +443,8 @@ alt="Set grid colors in Chord diagram. Left: mat; right: mat.T colors links by E
 defaulting to <code>0.5</code>:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_color_transparency.png"
-alt="Opaque links (transparency=0) in Chord diagram." />
-<figcaption aria-hidden="true">Opaque links
+<figure id="fig-ch14chorddiagramcolortransparency"><img src="images/ch14_chord_diagram_color_transparency.png"
+alt="Opaque links (transparency=0) in Chord diagram." /><figcaption aria-hidden="true">Opaque links
 (<code>transparency=0</code>) in Chord diagram.</figcaption>
 </figure>
 <p>For matrix input, you can supply a 2D array (or DataFrame) of link
@@ -465,10 +455,8 @@ already encoded in the colors (e.g., via
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">col_mat</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">rand_color</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">object</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">mat</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">order</span><span class="o">=</span><span class="s2">"F"</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_mat</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_color_mat.png"
-alt="Set a 2D color matrix for links in Chord diagram." />
-<figcaption aria-hidden="true">Set a 2D color matrix for links in Chord
+<figure id="fig-ch14chorddiagramcolormat"><img src="images/ch14_chord_diagram_color_mat.png"
+alt="Set a 2D color matrix for links in Chord diagram." /><figcaption aria-hidden="true">Set a 2D color matrix for links in Chord
 diagram.</figcaption>
 </figure>
 <p>For an adjacency list <code>df</code>, pass a 1D list or Series of
@@ -485,10 +473,8 @@ length <code>len(df)</code>:</p>
 <span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_color_fun.png"
-alt="Set a color_ramp2() color mapping function for links." />
-<figcaption aria-hidden="true">Set a <code>color_ramp2()</code> color
+<figure id="fig-ch14chorddiagramcolorfun"><img src="images/ch14_chord_diagram_color_fun.png"
+alt="Set a color_ramp2() color mapping function for links." /><figcaption aria-hidden="true">Set a <code>color_ramp2()</code> color
 mapping function for links.</figcaption>
 </figure>
 <p>The same callable works with adjacency lists:</p>
@@ -509,10 +495,8 @@ are all accepted):</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax2</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">column_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_color_row_col.png"
-alt="Color links by row (row_col) or column (column_col) independently of grid_col." />
-<figcaption aria-hidden="true">Color links by row (<code>row_col</code>)
+<figure id="fig-ch14chorddiagramcolorrowcol"><img src="images/ch14_chord_diagram_color_row_col.png"
+alt="Color links by row (row_col) or column (column_col) independently of grid_col." /><figcaption aria-hidden="true">Color links by row (<code>row_col</code>)
 or column (<code>column_col</code>) independently of
 <code>grid_col</code>.</figcaption>
 </figure>
@@ -529,10 +513,8 @@ border color. Each accepts a scalar, a 2D array matching
 <p>With scalar values, all links share the same border style:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_lty</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="s2">"red"</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_style_scalar.png"
-alt="Uniform scalar link border style in Chord diagram." />
-<figcaption aria-hidden="true">Uniform scalar link border style in Chord
+<figure id="fig-ch14chorddiagramstylescalar"><img src="images/ch14_chord_diagram_style_scalar.png"
+alt="Uniform scalar link border style in Chord diagram." /><figcaption aria-hidden="true">Uniform scalar link border style in Chord
 diagram.</figcaption>
 </figure>
 <p>With full matrices matching <code>mat.shape</code>, use
@@ -544,10 +526,8 @@ no visible border:</p>
 <span class="n">border_mat</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"red"</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="n">lwd_mat</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_mat</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_style_fullmat.png"
-alt="Set link line width and border color as matrices." />
-<figcaption aria-hidden="true">Set link line width and border color as
+<figure id="fig-ch14chorddiagramstylefullmat"><img src="images/ch14_chord_diagram_style_fullmat.png"
+alt="Set link line width and border color as matrices." /><figcaption aria-hidden="true">Set link line width and border color as
 matrices.</figcaption>
 </figure>
 <p>To style a single row or subset of links while keeping other links
@@ -558,10 +538,8 @@ links have explicit styles):</p>
 <span class="n">border_mat2</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="s2">"black"</span>  <span class="c1"># highlight row S2</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_mat2</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_style_submatrix.png"
-alt="Highlight borders for a single row (S2) in the matrix." />
-<figcaption aria-hidden="true">Highlight borders for a single row
+<figure id="fig-ch14chorddiagramstylesubmatrix"><img src="images/ch14_chord_diagram_style_submatrix.png"
+alt="Highlight borders for a single row (S2) in the matrix." /><figcaption aria-hidden="true">Highlight borders for a single row
 (<code>S2</code>) in the matrix.</figcaption>
 </figure>
 <p>You can also pass a three-column <code>DataFrame</code>
@@ -572,10 +550,8 @@ alt="Highlight borders for a single row (S2) in the matrix." />
 <span class="n">border_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s2">"rn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"S1"</span><span class="p">,</span> <span class="s2">"S2"</span><span class="p">,</span> <span class="s2">"S3"</span><span class="p">],</span> <span class="s2">"cn"</span><span class="p">:</span> <span class="p">[</span><span class="s2">"E5"</span><span class="p">,</span> <span class="s2">"E6"</span><span class="p">,</span> <span class="s2">"E4"</span><span class="p">],</span> <span class="s2">"border"</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]})</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_lty</span><span class="o">=</span><span class="n">lty_df</span><span class="p">,</span> <span class="n">link_lwd</span><span class="o">=</span><span class="n">lwd_df</span><span class="p">,</span> <span class="n">link_border</span><span class="o">=</span><span class="n">border_df</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_style_dataframe.png"
-alt="Set link line style, width, and border via three-column DataFrames." />
-<figcaption aria-hidden="true">Set link line style, width, and border
+<figure id="fig-ch14chorddiagramstyledataframe"><img src="images/ch14_chord_diagram_style_dataframe.png"
+alt="Set link line style, width, and border via three-column DataFrames." /><figcaption aria-hidden="true">Set link line style, width, and border
 via three-column DataFrames.</figcaption>
 </figure>
 <p>For an adjacency list <code>df</code>, pass vectors matching
@@ -598,10 +574,8 @@ filtering visibility.</p>
 pass per-row colors with low alpha for the remaining rows:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="p">[</span><span class="s2">"#FF000080"</span><span class="p">,</span> <span class="s2">"#00FF0010"</span><span class="p">,</span> <span class="s2">"#0000FF10"</span><span class="p">])</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_highlight_row.png"
-alt="Highlight links from S1 by varying transparency across rows." />
-<figcaption aria-hidden="true">Highlight links from <code>S1</code> by
+<figure id="fig-ch14chorddiagramhighlightrow"><img src="images/ch14_chord_diagram_highlight_row.png"
+alt="Highlight links from S1 by varying transparency across rows." /><figcaption aria-hidden="true">Highlight links from <code>S1</code> by
 varying transparency across rows.</figcaption>
 </figure>
 <p>To highlight links above a numeric threshold, set smaller entries in
@@ -610,10 +584,8 @@ a color matrix to <code>"#00000000"</code> (fully transparent):</p>
 <span class="n">col_mat_hl</span><span class="p">[</span><span class="n">mat</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mi">12</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"#00000000"</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_mat_hl</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_highlight_mat.png"
-alt="Highlight strong links (value &gt;= 12) using a color matrix." />
-<figcaption aria-hidden="true">Highlight strong links
+<figure id="fig-ch14chorddiagramhighlightmat"><img src="images/ch14_chord_diagram_highlight_mat.png"
+alt="Highlight strong links (value &gt;= 12) using a color matrix." /><figcaption aria-hidden="true">Highlight strong links
 (<code>value &gt;= 12</code>) using a color matrix.</figcaption>
 </figure>
 <p>Equivalently, use a threshold function for either matrix or
@@ -634,10 +606,8 @@ matrix:</p>
 <span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">col_df</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_highlight_df.png"
-alt="Draw only highlighted links using a three-column color DataFrame." />
-<figcaption aria-hidden="true">Draw only highlighted links using a
+<figure id="fig-ch14chorddiagramhighlightdf"><img src="images/ch14_chord_diagram_highlight_df.png"
+alt="Draw only highlighted links using a three-column color DataFrame." /><figcaption aria-hidden="true">Draw only highlighted links using a
 three-column color DataFrame.</figcaption>
 </figure>
 <p>For an adjacency list, you can also modify a color vector
@@ -651,10 +621,8 @@ from rendering without changing sector sizes, use
 <code>link_visible</code> with a boolean matrix or boolean vector:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_visible</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&gt;=</span> <span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_visible.png"
-alt="Filter rendered links using link_visible." />
-<figcaption aria-hidden="true">Filter rendered links using
+<figure id="fig-ch14chorddiagramlinkvisible"><img src="images/ch14_chord_diagram_link_visible.png"
+alt="Filter rendered links using link_visible." /><figcaption aria-hidden="true">Filter rendered links using
 <code>link_visible</code>.</figcaption>
 </figure>
 <h2 id="orders-of-links"><span class="header-section-number">14.6</span> Orders of links<a class="anchor-section" aria-label="Anchor link to section" href="#orders-of-links">#</a></h2>
@@ -673,10 +641,8 @@ with <code>link_decreasing</code>:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">link_sort</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">link_decreasing</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_sort = True, link_decreasing = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_order1.png"
-alt="Sort link widths within sectors using link_sort and link_decreasing." />
-<figcaption aria-hidden="true">Sort link widths within sectors using
+<figure id="fig-ch14chorddiagramlinkorder1"><img src="images/ch14_chord_diagram_link_order1.png"
+alt="Sort link widths within sectors using link_sort and link_decreasing." /><figcaption aria-hidden="true">Sort link widths within sectors using
 <code>link_sort</code> and <code>link_decreasing</code>.</figcaption>
 </figure>
 <h2 id="z-index-of-adding-links"><span class="header-section-number">14.7</span> z-index of adding links<a class="anchor-section" aria-label="Anchor link to section" href="#z-index-of-adding-links">#</a></h2>
@@ -699,10 +665,8 @@ top:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_zindex</span><span class="o">=</span><span class="n">zmat</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_zindex = rank(mat)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_order2.png"
-alt="Control link layering with link_zindex." />
-<figcaption aria-hidden="true">Control link layering with
+<figure id="fig-ch14chorddiagramlinkorder2"><img src="images/ch14_chord_diagram_link_order2.png"
+alt="Control link layering with link_zindex." /><figcaption aria-hidden="true">Control link layering with
 <code>link_zindex</code>.</figcaption>
 </figure>
 <p>For an adjacency list:</p>
@@ -722,10 +686,8 @@ ones without computing ranks manually, set
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">transparency</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">link_largest_ontop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_largest_ontop = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_largest_ontop.png"
-alt="Place largest links on top using link_largest_ontop=True." />
-<figcaption aria-hidden="true">Place largest links on top using
+<figure id="fig-ch14chorddiagramlinklargestontop"><img src="images/ch14_chord_diagram_link_largest_ontop.png"
+alt="Place largest links on top using link_largest_ontop=True." /><figcaption aria-hidden="true">Place largest links on top using
 <code>link_largest_ontop=True</code>.</figcaption>
 </figure>
 <h2 id="self-links"><span class="header-section-number">14.8</span> Self-links<a class="anchor-section" aria-label="Anchor link to section" href="#self-links">#</a></h2>
@@ -745,10 +707,8 @@ duplicating the width in sector totals):</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">df2</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">self_link</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"self_link = 2"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_self_link.png"
-alt="Comparison of self_link=1 and self_link=2 on sector a." />
-<figcaption aria-hidden="true">Comparison of <code>self_link=1</code>
+<figure id="fig-ch14chorddiagramselflink"><img src="images/ch14_chord_diagram_self_link.png"
+alt="Comparison of self_link=1 and self_link=2 on sector a." /><figcaption aria-hidden="true">Comparison of <code>self_link=1</code>
 and <code>self_link=2</code> on sector <code>a</code>.</figcaption>
 </figure>
 <h2 id="symmetric-matrix"><span class="header-section-number">14.9</span> Symmetric matrix<a class="anchor-section" aria-label="Anchor link to section" href="#symmetric-matrix">#</a></h2>
@@ -771,10 +731,8 @@ without the diagonal, avoiding duplicate links:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">cor_mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="n">col_fun_sym</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"symmetric = False"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_symmetric.png"
-alt="Symmetric matrix handling (symmetric=True vs symmetric=False)." />
-<figcaption aria-hidden="true">Symmetric matrix handling
+<figure id="fig-ch14chorddiagramsymmetric"><img src="images/ch14_chord_diagram_symmetric.png"
+alt="Symmetric matrix handling (symmetric=True vs symmetric=False)." /><figcaption aria-hidden="true">Symmetric matrix handling
 (<code>symmetric=True</code> vs
 <code>symmetric=False</code>).</figcaption>
 </figure>
@@ -800,10 +758,8 @@ taller instead):</p>
 <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">directional</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_simple.png"
-alt="Represent link directions with unequal endpoint radii (diff_height)." />
-<figcaption aria-hidden="true">Represent link directions with unequal
+<figure id="fig-ch14chorddiagramdirectionalsimple"><img src="images/ch14_chord_diagram_directional_simple.png"
+alt="Represent link directions with unequal endpoint radii (diff_height)." /><figcaption aria-hidden="true">Represent link directions with unequal
 endpoint radii (<code>diff_height</code>).</figcaption>
 </figure>
 <p>Directional mode is especially helpful when row names and column
@@ -816,10 +772,8 @@ names overlap:</p>
 <span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat2</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_overlap.png"
-alt="Directional Chord diagram where row and column sector names overlap." />
-<figcaption aria-hidden="true">Directional Chord diagram where row and
+<figure id="fig-ch14chorddiagramdirectionaloverlap"><img src="images/ch14_chord_diagram_directional_overlap.png"
+alt="Directional Chord diagram where row and column sector names overlap." /><figcaption aria-hidden="true">Directional Chord diagram where row and
 column sector names overlap.</figcaption>
 </figure>
 <p>To suppress self-loops in such a matrix, zero out the shared diagonal
@@ -829,10 +783,8 @@ entries before plotting:</p>
     <span class="n">mat3_ns</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">cn_name</span><span class="p">,</span> <span class="n">cn_name</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat3_ns</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">8</span><span class="p">)),</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">row_col</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_non_selfloop.png"
-alt="Directional Chord diagram with self-links removed." />
-<figcaption aria-hidden="true">Directional Chord diagram with self-links
+<figure id="fig-ch14chorddiagramdirectionalnonselfloop"><img src="images/ch14_chord_diagram_directional_non_selfloop.png"
+alt="Directional Chord diagram with self-links removed." /><figcaption aria-hidden="true">Directional Chord diagram with self-links
 removed.</figcaption>
 </figure>
 <p>Links can also display center arrows by setting
@@ -854,10 +806,8 @@ three-column DataFrame to <code>direction_type</code>:</p>
     <span class="n">link_arr_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_arrow.png"
-alt="Center arrows added to a subset of directional links." />
-<figcaption aria-hidden="true">Center arrows added to a subset of
+<figure id="fig-ch14chorddiagramdirectionalarrow"><img src="images/ch14_chord_diagram_directional_arrow.png"
+alt="Center arrows added to a subset of directional links." /><figcaption aria-hidden="true">Center arrows added to a subset of
 directional links.</figcaption>
 </figure>
 <p>Combining <code>"diffHeight"</code> and <code>"arrows"</code> gives a
@@ -878,10 +828,8 @@ clear indication at both the link ends and center:</p>
     <span class="n">link_arr_length</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_arrow2.png"
-alt="Combine diffHeight and center arrows on selected links." />
-<figcaption aria-hidden="true">Combine <code>diffHeight</code> and
+<figure id="fig-ch14chorddiagramdirectionalarrow2"><img src="images/ch14_chord_diagram_directional_arrow2.png"
+alt="Combine diffHeight and center arrows on selected links." /><figcaption aria-hidden="true">Combine <code>diffHeight</code> and
 center <code>arrows</code> on selected links.</figcaption>
 </figure>
 <p>When there are many links, <code>link_arr_type="big.arrow"</code>
@@ -896,10 +844,8 @@ separate center arrows:</p>
     <span class="n">link_arr_type</span><span class="o">=</span><span class="s2">"big.arrow"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_arrow3.png"
-alt="Use link_arr_type=&quot;big.arrow&quot; for dense directional matrices." />
-<figcaption aria-hidden="true">Use
+<figure id="fig-ch14chorddiagramdirectionalarrow3"><img src="images/ch14_chord_diagram_directional_arrow3.png"
+alt="Use link_arr_type=&quot;big.arrow&quot; for dense directional matrices." /><figcaption aria-hidden="true">Use
 <code>link_arr_type="big.arrow"</code> for dense directional
 matrices.</figcaption>
 </figure>
@@ -913,10 +859,8 @@ longer:</p>
     <span class="n">diff_height</span><span class="o">=-</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">2</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_directional_arrow4.png"
-alt="big.arrow with negative diff_height=-mm_h(2)." />
-<figcaption aria-hidden="true"><code>big.arrow</code> with negative
+<figure id="fig-ch14chorddiagramdirectionalarrow4"><img src="images/ch14_chord_diagram_directional_arrow4.png"
+alt="big.arrow with negative diff_height=-mm_h(2)." /><figcaption aria-hidden="true"><code>big.arrow</code> with negative
 <code>diff_height=-mm_h(2)</code>.</figcaption>
 </figure>
 <p>The same directional options work directly on adjacency-list
@@ -941,10 +885,8 @@ proportion going to each target sector. Disable them with
     <span class="n">target_prop_height</span><span class="o">=</span><span class="n">mm_h</span><span class="p">(</span><span class="mi">8</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_target_prop.png"
-alt="Control target-proportion indicator bars with link_target_prop and target_prop_height." />
-<figcaption aria-hidden="true">Control target-proportion indicator bars
+<figure id="fig-ch14chorddiagramlinktargetprop"><img src="images/ch14_chord_diagram_link_target_prop.png"
+alt="Control target-proportion indicator bars with link_target_prop and target_prop_height." /><figcaption aria-hidden="true">Control target-proportion indicator bars
 with <code>link_target_prop</code> and
 <code>target_prop_height</code>.</figcaption>
 </figure>
@@ -964,10 +906,8 @@ sector:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"scale = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_scale.png"
-alt="Scaling each sector from 0 to 1 (scale=True)." />
-<figcaption aria-hidden="true">Scaling each sector from 0 to 1
+<figure id="fig-ch14chorddiagramscale"><img src="images/ch14_chord_diagram_scale.png"
+alt="Scaling each sector from 0 to 1 (scale=True)." /><figcaption aria-hidden="true">Scaling each sector from 0 to 1
 (<code>scale=True</code>).</figcaption>
 </figure>
 <h2 id="reduce"><span class="header-section-number">14.12</span> Reduce<a class="anchor-section" aria-label="Anchor link to section" href="#reduce">#</a></h2>
@@ -1026,10 +966,8 @@ and negative links:</p>
     <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_multiple_link.png"
-alt="Multiple links (positive in red, negative in green) between the same sector pairs." />
-<figcaption aria-hidden="true">Multiple links (positive in red, negative
+<figure id="fig-ch14chorddiagrammultiplelink"><img src="images/ch14_chord_diagram_multiple_link.png"
+alt="Multiple links (positive in red, negative in green) between the same sector pairs." /><figcaption aria-hidden="true">Multiple links (positive in red, negative
 in green) between the same sector pairs.</figcaption>
 </figure>
 <p>Using <code>link_visible</code>, you can split positive and negative
@@ -1046,10 +984,8 @@ widths:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_multi</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">link_visible</span><span class="o">=</span><span class="n">df_multi</span><span class="p">[</span><span class="s2">"value"</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Negative links"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_multiple_link_split.png"
-alt="Split positive and negative links while preserving sector sizes." />
-<figcaption aria-hidden="true">Split positive and negative links while
+<figure id="fig-ch14chorddiagrammultiplelinksplit"><img src="images/ch14_chord_diagram_multiple_link_split.png"
+alt="Split positive and negative links while preserving sector sizes." /><figcaption aria-hidden="true">Split positive and negative links while
 preserving sector sizes.</figcaption>
 </figure>
 <h3 id="unequal-width-of-the-link-ends"><span class="header-section-number">14.13.2</span> Unequal width of the link
@@ -1073,10 +1009,8 @@ and the second specifies the width at the target sector
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">df_uneq</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">4</span><span class="p">],</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col_m</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"Two columns of values"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_unequal_end_width.png"
-alt="Equal vs. unequal link endpoint widths from one vs. two numeric DataFrame columns." />
-<figcaption aria-hidden="true">Equal vs. unequal link endpoint widths
+<figure id="fig-ch14chorddiagramunequalendwidth"><img src="images/ch14_chord_diagram_unequal_end_width.png"
+alt="Equal vs. unequal link endpoint widths from one vs. two numeric DataFrame columns." /><figcaption aria-hidden="true">Equal vs. unequal link endpoint widths
 from one vs. two numeric DataFrame columns.</figcaption>
 </figure>
 <h3 id="overlapping-incoming-and-outgoing-link-intervals-link_overlap"><span class="header-section-number">14.13.3</span> Overlapping
@@ -1106,10 +1040,8 @@ incoming (<code>x2</code>) sub-intervals on the same
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_ov</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_ov</span><span class="p">,</span> <span class="n">directional</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">link_overlap</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"link_overlap = True"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch14_chord_diagram_link_overlap.png"
-alt="Comparing side-by-side (link_overlap=False) and overlaid (link_overlap=True) sub-intervals." />
-<figcaption aria-hidden="true">Comparing side-by-side
+<figure id="fig-ch14chorddiagramlinkoverlap"><img src="images/ch14_chord_diagram_link_overlap.png"
+alt="Comparing side-by-side (link_overlap=False) and overlaid (link_overlap=True) sub-intervals." /><figcaption aria-hidden="true">Comparing side-by-side
 (<code>link_overlap=False</code>) and overlaid
 (<code>link_overlap=True</code>) sub-intervals.</figcaption>
 </figure>

@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -343,10 +347,8 @@ proxy handle creation and <code>fig.legend()</code>, while
     <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.04</span><span class="p">,</span> <span class="mf">0.032</span><span class="p">,</span> <span class="mf">0.19</span><span class="p">],</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch04_directly_add.png"
-alt="Directly overlaid corner legends on the circular plot." />
-<figcaption aria-hidden="true">Directly overlaid corner legends on the
+<figure id="fig-ch04directlyadd"><img src="images/ch04_directly_add.png"
+alt="Directly overlaid corner legends on the circular plot." /><figcaption aria-hidden="true">Directly overlaid corner legends on the
 circular plot.</figcaption>
 </figure>
 <p>As the stacked corner legends demonstrate, overlaying multiple
@@ -375,10 +377,8 @@ colorbar in the lower-right corner.</p>
     <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="mf">0.89</span><span class="p">,</span> <span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.028</span><span class="p">,</span> <span class="mf">0.22</span><span class="p">],</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch04_two_legends.png"
-alt="Legends split across the bottom-left and bottom-right corners." />
-<figcaption aria-hidden="true">Legends split across the bottom-left and
+<figure id="fig-ch04twolegends"><img src="images/ch04_two_legends.png"
+alt="Legends split across the bottom-left and bottom-right corners." /><figcaption aria-hidden="true">Legends split across the bottom-left and
 bottom-right corners.</figcaption>
 </figure>
 <h2 id="gridspec-legends"><span class="header-section-number">4.3</span> Partitioning space with
@@ -426,10 +426,8 @@ column:</p>
     <span class="n">rect</span><span class="o">=</span><span class="p">[</span><span class="n">pos</span><span class="o">.</span><span class="n">x0</span> <span class="o">+</span> <span class="mf">0.012</span><span class="p">,</span> <span class="n">pos</span><span class="o">.</span><span class="n">y0</span> <span class="o">+</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="mf">0.025</span><span class="p">,</span> <span class="mf">0.22</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">],</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch04_right_legend.png"
-alt="Circular plot with a dedicated right-side legend column built via GridSpec." />
-<figcaption aria-hidden="true">Circular plot with a dedicated right-side
+<figure id="fig-ch04rightlegend"><img src="images/ch04_right_legend.png"
+alt="Circular plot with a dedicated right-side legend column built via GridSpec." /><figcaption aria-hidden="true">Circular plot with a dedicated right-side
 legend column built via GridSpec.</figcaption>
 </figure>
 <p>Legends can just as easily sit below the circular plot by switching
@@ -471,10 +469,8 @@ to a <code>2 × 1</code> <code>GridSpec</code>
           <span class="mf">0.28</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="mf">0.16</span> <span class="o">*</span> <span class="n">pos</span><span class="o">.</span><span class="n">height</span><span class="p">],</span>
     <span class="n">title</span><span class="o">=</span><span class="s2">"Links"</span><span class="p">,</span> <span class="n">ticks</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="n">orientation</span><span class="o">=</span><span class="s2">"horizontal"</span><span class="p">,</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch04_bottom_legend.png"
-alt="Circular plot with horizontal legends placed in a dedicated bottom row via GridSpec." />
-<figcaption aria-hidden="true">Circular plot with horizontal legends
+<figure id="fig-ch04bottomlegend"><img src="images/ch04_bottom_legend.png"
+alt="Circular plot with horizontal legends placed in a dedicated bottom row via GridSpec." /><figcaption aria-hidden="true">Circular plot with horizontal legends
 placed in a dedicated bottom row via GridSpec.</figcaption>
 </figure>
 <p>See <a href="circos-heatmap.html">the <code>circos.heatmap()</code>

@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter active"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -276,9 +280,7 @@ coordinates (<code>[-1, 1] x [-1, 1]</code>) with Matplotlib’s
 <span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch17_clock.png" alt="A clock." />
-<figcaption aria-hidden="true">A clock.</figcaption>
+<figure id="fig-ch17clock"><img src="images/ch17_clock.png" alt="A clock." /><figcaption aria-hidden="true">A clock.</figcaption>
 </figure>
 <h2 id="a-dartboard"><span class="header-section-number">17.2</span> A dartboard<a class="anchor-section" aria-label="Anchor link to section" href="#a-dartboard">#</a></h2>
 <p>The second example builds a regulation 20-sector dartboard. Five
@@ -338,9 +340,7 @@ black outer ring:</p>
 <span class="n">draw</span><span class="o">.</span><span class="n">sector</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">start_degree</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_degree</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">rou1</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"#E41A1C"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"#EEEEEE"</span><span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch17_dartboard.png" alt="A dartboard." />
-<figcaption aria-hidden="true">A dartboard.</figcaption>
+<figure id="fig-ch17dartboard"><img src="images/ch17_dartboard.png" alt="A dartboard." /><figcaption aria-hidden="true">A dartboard.</figcaption>
 </figure>
 <h2 id="ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji<a class="anchor-section" aria-label="Anchor link to section" href="#ba-gua-and-tai-ji">#</a></h2>
 <p>The third example renders <a
@@ -395,22 +395,20 @@ containing a seed of the other:</p>
 <span class="n">draw</span><span class="o">.</span><span class="n">sector</span><span class="p">(</span><span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="n">r</span> <span class="o">/</span> <span class="mi">2</span><span class="p">),</span> <span class="n">start_degree</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end_degree</span><span class="o">=</span><span class="mi">360</span><span class="p">,</span> <span class="n">rou1</span><span class="o">=</span><span class="n">r</span> <span class="o">/</span> <span class="mi">8</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch17_bagua.png" alt="Ba-Gua and Tai-Ji." />
-<figcaption aria-hidden="true">Ba-Gua and Tai-Ji.</figcaption>
+<figure id="fig-ch17bagua"><img src="images/ch17_bagua.png" alt="Ba-Gua and Tai-Ji." /><figcaption aria-hidden="true">Ba-Gua and Tai-Ji.</figcaption>
 </figure>
 
           </section>
           <nav class="chapter-footer-nav" aria-label="Chapter Navigation">
             <a href="a-complex-example-of-chord-diagram.html">&larr; 16 A complex example of Chord
 diagram</a>
-            <span></span>
+            <a href="gallery.html">★ Figure Gallery &rarr;</a>
           </nav>
         </main>
         <a href="a-complex-example-of-chord-diagram.html" class="navigation navigation-prev" aria-label="Previous chapter: A complex example of Chord
 diagram" title="Previous: A complex example of Chord
 diagram">&#8249;</a>
-        
+        <a href="gallery.html" class="navigation navigation-next" aria-label="Next chapter: Figure Gallery" title="Next: Figure Gallery">&#8250;</a>
       </div>
     </div>
   </div>

@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -293,10 +297,8 @@ the outer border of sector <code>"b"</code>:</p>
     <span class="n">col</span><span class="o">=</span><span class="s2">"#00000020"</span><span class="p">,</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_zoom.png"
-alt="Horizontal zooming of sector a and the leading interval of sector b." />
-<figcaption aria-hidden="true">Horizontal zooming of sector a and the
+<figure id="fig-ch07circlizezoom"><img src="images/ch07_circlize_zoom.png"
+alt="Horizontal zooming of sector a and the leading interval of sector b." /><figcaption aria-hidden="true">Horizontal zooming of sector a and the
 leading interval of sector b.</figcaption>
 </figure>
 <p><a href="nested-zooming.html">The Nested zooming chapter</a> covers
@@ -326,10 +328,8 @@ that sector to that exact 90° arc:</p>
     <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">lines</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span> <span class="o">/</span> <span class="mf">100.0</span><span class="p">,</span> <span class="n">y</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_part.png"
-alt="Restricting canvas_xlim and canvas_ylim to (0, 1) displays one quarter of the circle." />
-<figcaption aria-hidden="true">Restricting canvas_xlim and canvas_ylim
+<figure id="fig-ch07circlizepart"><img src="images/ch07_circlize_part.png"
+alt="Restricting canvas_xlim and canvas_ylim to (0, 1) displays one quarter of the circle." /><figcaption aria-hidden="true">Restricting canvas_xlim and canvas_ylim
 to (0, 1) displays one quarter of the circle.</figcaption>
 </figure>
 <p>You can also show only a subset of cells within selected tracks while
@@ -361,10 +361,8 @@ selectively reveal and populate cells with
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">sectors</span><span class="o">=</span><span class="n">sectors</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">sectors</span><span class="o">=</span><span class="n">sectors</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">))</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_part2.png"
-alt="Populating a subset of cells per track via filtered data or circos.update()." />
-<figcaption aria-hidden="true">Populating a subset of cells per track
+<figure id="fig-ch07circlizepart2"><img src="images/ch07_circlize_part2.png"
+alt="Populating a subset of cells per track via filtered data or circos.update()." /><figcaption aria-hidden="true">Populating a subset of cells per track
 via filtered data or circos.update().</figcaption>
 </figure>
 <h2 id="combine-circular-plots"><span class="header-section-number">7.3</span> Combine multiple circular plots<a class="anchor-section" aria-label="Anchor link to section" href="#combine-circular-plots">#</a></h2>
@@ -419,10 +417,8 @@ half radius and sits concentrically inside the first:</p>
     <span class="n">panel_fun</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">:</span> <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"inner circos"</span><span class="p">,</span> <span class="n">nice_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_nested.png"
-alt="Combining concentric circular plots by overlaying a scaled canvas onto the base canvas." />
-<figcaption aria-hidden="true">Combining concentric circular plots by
+<figure id="fig-ch07circlizenested"><img src="images/ch07_circlize_nested.png"
+alt="Combining concentric circular plots by overlaying a scaled canvas onto the base canvas." /><figcaption aria-hidden="true">Combining concentric circular plots by
 overlaying a scaled canvas onto the base canvas.</figcaption>
 </figure>
 <p>Shifting asymmetric <code>canvas_xlim</code> and
@@ -449,10 +445,8 @@ canvas so they face each other without overlapping:</p>
 <span class="n">circos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sector_index</span><span class="o">=</span><span class="s2">"c"</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"second one"</span><span class="p">,</span> <span class="n">nice_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.7</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_separated.png"
-alt="Combining two shifted partial circular plots onto one canvas." />
-<figcaption aria-hidden="true">Combining two shifted partial circular
+<figure id="fig-ch07circlizeseparated"><img src="images/ch07_circlize_separated.png"
+alt="Combining two shifted partial circular plots onto one canvas." /><figcaption aria-hidden="true">Combining two shifted partial circular
 plots onto one canvas.</figcaption>
 </figure>
 <p>Repeating the overlay trick in a loop with increasing
@@ -476,10 +470,8 @@ radius:</p>
     <span class="n">circos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sector_index</span><span class="o">=</span><span class="n">sectors</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">bg_border</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
     <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">),</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
     <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_diff_radius.png"
-alt="Drawing cells with distinct radii by overlaying four independent circular layouts." />
-<figcaption aria-hidden="true">Drawing cells with distinct radii by
+<figure id="fig-ch07circlizediffradius"><img src="images/ch07_circlize_diff_radius.png"
+alt="Drawing cells with distinct radii by overlaying four independent circular layouts." /><figcaption aria-hidden="true">Drawing cells with distinct radii by
 overlaying four independent circular layouts.</figcaption>
 </figure>
 <p>Notice the difference between this figure and the subset-of-cells
@@ -512,10 +504,8 @@ call <code>circos.clear()</code> at the end of each panel:</p>
             <span class="n">border</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
         <span class="p">)</span>
     <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch07_circlize_multiple_layout.png"
-alt="Arranging nine independent circular plots in a 3x3 Matplotlib subplot grid." />
-<figcaption aria-hidden="true">Arranging nine independent circular plots
+<figure id="fig-ch07circlizemultiplelayout"><img src="images/ch07_circlize_multiple_layout.png"
+alt="Arranging nine independent circular plots in a 3x3 Matplotlib subplot grid." /><figcaption aria-hidden="true">Arranging nine independent circular plots
 in a 3x3 Matplotlib subplot grid.</figcaption>
 </figure>
 

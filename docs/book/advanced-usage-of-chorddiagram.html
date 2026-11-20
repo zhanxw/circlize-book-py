@@ -166,6 +166,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -182,6 +185,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -282,10 +286,8 @@ when <code>"grid"</code> is included in
 <span class="n">plt</span><span class="o">.</span><span class="n">sca</span><span class="p">(</span><span class="n">ax3</span><span class="p">)</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">annotation_track</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_default_track.png"
-alt="Track organization controlled by annotation_track and annotation_track_height." />
-<figcaption aria-hidden="true">Track organization controlled by
+<figure id="fig-ch15chorddiagramdefaulttrack"><img src="images/ch15_chord_diagram_default_track.png"
+alt="Track organization controlled by annotation_track and annotation_track_height." /><figcaption aria-hidden="true">Track organization controlled by
 <code>annotation_track</code> and
 <code>annotation_track_height</code>.</figcaption>
 </figure>
@@ -355,10 +357,8 @@ to pass <code>bg_border=None</code> so track 1 stays borderless:</p>
     <span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_labels_show.png"
-alt="Clockwise radial sector labels added in a pre-allocated outer track." />
-<figcaption aria-hidden="true">Clockwise radial sector labels added in a
+<figure id="fig-ch15chorddiagramlabelsshow"><img src="images/ch15_chord_diagram_labels_show.png"
+alt="Clockwise radial sector labels added in a pre-allocated outer track." /><figcaption aria-hidden="true">Clockwise radial sector labels added in a
 pre-allocated outer track.</figcaption>
 </figure>
 <p>When labels are long and oriented radially (<code>"clockwise"</code>
@@ -403,10 +403,8 @@ comfortably inside the figure:</p>
     <span class="p">),</span>
 <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_labels_circle_margin.png"
-alt="Long rotated clockwise sector labels accommodated via dynamic circle_margin." />
-<figcaption aria-hidden="true">Long rotated clockwise sector labels
+<figure id="fig-ch15chorddiagramlabelscirclemargin"><img src="images/ch15_chord_diagram_labels_circle_margin.png"
+alt="Long rotated clockwise sector labels accommodated via dynamic circle_margin." /><figcaption aria-hidden="true">Long rotated clockwise sector labels
 accommodated via dynamic <code>circle_margin</code>.</figcaption>
 </figure>
 <p>You can also place sector names directly inside the grid bars by
@@ -433,10 +431,8 @@ explicitly passing <code>sector_index</code> and
         <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span>
     <span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_labels_inside.png"
-alt="Curved sector labels drawn inside the grid cells." />
-<figcaption aria-hidden="true">Curved sector labels drawn inside the
+<figure id="fig-ch15chorddiagramlabelsinside"><img src="images/ch15_chord_diagram_labels_inside.png"
+alt="Curved sector labels drawn inside the grid cells." /><figcaption aria-hidden="true">Curved sector labels drawn inside the
 grid cells.</figcaption>
 </figure>
 <p>Or choose label orientation dynamically based on each sector’s
@@ -474,10 +470,8 @@ tangential <code>"inside"</code> labels:</p>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_adaptive_labels</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_labels_multiple_style.png"
-alt="Adaptive sector label direction based on sector angular width." />
-<figcaption aria-hidden="true">Adaptive sector label direction based on
+<figure id="fig-ch15chorddiagramlabelsmultiplestyle"><img src="images/ch15_chord_diagram_labels_multiple_style.png"
+alt="Adaptive sector label direction based on sector angular width." /><figcaption aria-hidden="true">Adaptive sector label direction based on
 sector angular width.</figcaption>
 </figure>
 <h2 id="customize-sector-axes"><span class="header-section-number">15.3</span> Customize sector axes<a class="anchor-section" aria-label="Anchor link to section" href="#customize-sector-axes">#</a></h2>
@@ -517,10 +511,8 @@ ticks:</p>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_pct_axes</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_axes.png"
-alt="Dual sector axes combining absolute value ticks and custom percentage labels." />
-<figcaption aria-hidden="true">Dual sector axes combining absolute value
+<figure id="fig-ch15chorddiagramaxes"><img src="images/ch15_chord_diagram_axes.png"
+alt="Dual sector axes combining absolute value ticks and custom percentage labels." /><figcaption aria-hidden="true">Dual sector axes combining absolute value
 ticks and custom percentage labels.</figcaption>
 </figure>
 <h2 id="put-horizontally-or-vertically-symmetric"><span class="header-section-number">15.4</span> Put horizontally or
@@ -544,10 +536,8 @@ symmetry across <code>x = 0</code>:</p>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">grid_col</span><span class="p">,</span> <span class="n">big_gap</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">axvline</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">linestyle</span><span class="o">=</span><span class="s2">"--"</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">"#00000080"</span><span class="p">,</span> <span class="n">linewidth</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_sym.png"
-alt="Rotating two-group Chord diagrams for horizontal (start_degree=0) or vertical (start_degree=90) symmetry." />
-<figcaption aria-hidden="true">Rotating two-group Chord diagrams for
+<figure id="fig-ch15chorddiagramsym"><img src="images/ch15_chord_diagram_sym.png"
+alt="Rotating two-group Chord diagrams for horizontal (start_degree=0) or vertical (start_degree=90) symmetry." /><figcaption aria-hidden="true">Rotating two-group Chord diagrams for
 horizontal (<code>start_degree=0</code>) or vertical
 (<code>start_degree=90</code>) symmetry.</figcaption>
 </figure>
@@ -593,10 +583,8 @@ unit spans the same arc angle in both plots (provided
 <span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="sa">f</span><span class="s2">"mat2 = mat1 / 2 (big_gap = </span><span class="si">{</span><span class="n">gap</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">)"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_compare.png"
-alt="Comparing two Chord diagrams on a common unit scale using calc_gap()." />
-<figcaption aria-hidden="true">Comparing two Chord diagrams on a common
+<figure id="fig-ch15chorddiagramcompare"><img src="images/ch15_chord_diagram_compare.png"
+alt="Comparing two Chord diagrams on a common unit scale using calc_gap()." /><figcaption aria-hidden="true">Comparing two Chord diagrams on a common
 unit scale using <code>calc_gap()</code>.</figcaption>
 </figure>
 <h3 id="matching-per-sector-capacity-via-xmax"><span class="header-section-number">15.5.2</span> Matching per-sector
@@ -626,10 +614,8 @@ empty space on smaller sectors:</p>
 <span class="p">)</span>
 <span class="n">ax2</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">"mat2 with xmax = mat1 sector totals"</span><span class="p">,</span> <span class="n">fontsize</span><span class="o">=</span><span class="mf">9.5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_diagram_compare_xmax.png"
-alt="Comparing two Chord diagrams by pinning per-sector widths with xmax." />
-<figcaption aria-hidden="true">Comparing two Chord diagrams by pinning
+<figure id="fig-ch15chorddiagramcomparexmax"><img src="images/ch15_chord_diagram_compare_xmax.png"
+alt="Comparing two Chord diagrams by pinning per-sector widths with xmax." /><figcaption aria-hidden="true">Comparing two Chord diagrams by pinning
 per-sector widths with <code>xmax</code>.</figcaption>
 </figure>
 <h2 id="multiple-group-chord-diagram"><span class="header-section-number">15.6</span> Multiple-group Chord diagram<a class="anchor-section" aria-label="Anchor link to section" href="#multiple-group-chord-diagram">#</a></h2>
@@ -657,10 +643,8 @@ name to its group label:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">group_abc</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">}</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_g</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group_abc</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_g</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_grouped.png"
-alt="Grouped Chord diagram separating sectors into groups A, B, and C." />
-<figcaption aria-hidden="true">Grouped Chord diagram separating sectors
+<figure id="fig-ch15chordgrouped"><img src="images/ch15_chord_grouped.png"
+alt="Grouped Chord diagram separating sectors into groups A, B, and C." /><figcaption aria-hidden="true">Grouped Chord diagram separating sectors
 into groups <code>A</code>, <code>B</code>, and
 <code>C</code>.</figcaption>
 </figure>
@@ -670,10 +654,8 @@ matrix—for example, grouping by trailing index (<code>1</code> through
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">group_num</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">nm</span><span class="p">}</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_g</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group_num</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_g</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_grouped2.png"
-alt="Grouped Chord diagram with sectors grouped by numeric suffix 1–5." />
-<figcaption aria-hidden="true">Grouped Chord diagram with sectors
+<figure id="fig-ch15chordgrouped2"><img src="images/ch15_chord_grouped2.png"
+alt="Grouped Chord diagram with sectors grouped by numeric suffix 1–5." /><figcaption aria-hidden="true">Grouped Chord diagram with sectors
 grouped by numeric suffix <code>1</code>–<code>5</code>.</figcaption>
 </figure>
 <p>In <strong>circlize-py</strong>, <code>group</code> preserves
@@ -688,10 +670,8 @@ puts groups in any desired <code>C</code>, <code>A</code>,
 <span class="n">group_ord</span> <span class="o">=</span> <span class="p">{</span><span class="n">s</span><span class="p">:</span> <span class="n">prefix_map</span><span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">nm_shuffled</span><span class="p">}</span>
 <span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_g</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group_ord</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_g</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_grouped3.png"
-alt="Controlling group order (C, A, B) and within-group sector permutation via group." />
-<figcaption aria-hidden="true">Controlling group order (<code>C</code>,
+<figure id="fig-ch15chordgrouped3"><img src="images/ch15_chord_grouped3.png"
+alt="Controlling group order (C, A, B) and within-group sector permutation via group." /><figcaption aria-hidden="true">Controlling group order (<code>C</code>,
 <code>A</code>, <code>B</code>) and within-group sector permutation via
 <code>group</code>.</figcaption>
 </figure>
@@ -699,10 +679,8 @@ alt="Controlling group order (C, A, B) and within-group sector permutation via g
 between-group and within-group spacing:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">chord_diagram</span><span class="p">(</span><span class="n">mat_g</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="n">group_abc</span><span class="p">,</span> <span class="n">grid_col</span><span class="o">=</span><span class="n">gcol_g</span><span class="p">,</span> <span class="n">big_gap</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">small_gap</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_grouped4.png"
-alt="Adjusting between-group (big_gap=20) and within-group (small_gap=5) gaps." />
-<figcaption aria-hidden="true">Adjusting between-group
+<figure id="fig-ch15chordgrouped4"><img src="images/ch15_chord_grouped4.png"
+alt="Adjusting between-group (big_gap=20) and within-group (small_gap=5) gaps." /><figcaption aria-hidden="true">Adjusting between-group
 (<code>big_gap=20</code>) and within-group (<code>small_gap=5</code>)
 gaps.</figcaption>
 </figure>
@@ -729,10 +707,8 @@ banners:</p>
 <span class="n">highlight</span><span class="o">.</span><span class="n">sector</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mat1</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"B"</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">text_col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">nice_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">highlight</span><span class="o">.</span><span class="n">sector</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">mat2</span><span class="o">.</span><span class="n">columns</span><span class="p">),</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="s2">"C"</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.8</span><span class="p">,</span> <span class="n">text_col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">,</span> <span class="n">nice_facing</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">clear</span><span class="p">()</span></code></pre></div>
-<figure>
-<img src="images/ch15_chord_grouped5.png"
-alt="Customized multi-group Chord diagram with group banners drawn via highlight.sector()." />
-<figcaption aria-hidden="true">Customized multi-group Chord diagram with
+<figure id="fig-ch15chordgrouped5"><img src="images/ch15_chord_grouped5.png"
+alt="Customized multi-group Chord diagram with group banners drawn via highlight.sector()." /><figcaption aria-hidden="true">Customized multi-group Chord diagram with
 group banners drawn via <code>highlight.sector()</code>.</figcaption>
 </figure>
 <p>Under the hood, <code>group</code> simply computes an ordered sector

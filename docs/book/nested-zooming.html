@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -318,10 +322,8 @@ for the inner layout—and passes both along with
     <span class="p">)</span>
 
 <span class="n">circos</span><span class="o">.</span><span class="n">nested</span><span class="p">(</span><span class="n">f1</span><span class="p">,</span> <span class="n">f2</span><span class="p">,</span> <span class="n">correspondance</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch13_nested_normal.png"
-alt="Figure 13.1: Nested zooming between two circular plots." />
-<figcaption aria-hidden="true">Figure 13.1: Nested zooming between two
+<figure id="fig-ch13nestednormal"><img src="images/ch13_nested_normal.png"
+alt="Figure 13.1: Nested zooming between two circular plots." /><figcaption aria-hidden="true">Figure 13.1: Nested zooming between two
 circular plots.</figcaption>
 </figure>
 <p>By default, <code>f2()</code> is placed inside <code>f1()</code> and
@@ -331,10 +333,8 @@ connection distances. To place the zoomed ring on the
 swap the first three and last three columns of
 <code>correspondance</code> (Figure 13.2):</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">nested</span><span class="p">(</span><span class="n">f2</span><span class="p">,</span> <span class="n">f1</span><span class="p">,</span> <span class="n">correspondance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]])</span></code></pre></div>
-<figure>
-<img src="images/ch13_nested_outside.png"
-alt="Figure 13.2: Nested zooming between two circular plots, zoomed plot placed outside." />
-<figcaption aria-hidden="true">Figure 13.2: Nested zooming between two
+<figure id="fig-ch13nestedoutside"><img src="images/ch13_nested_outside.png"
+alt="Figure 13.2: Nested zooming between two circular plots, zoomed plot placed outside." /><figcaption aria-hidden="true">Figure 13.2: Nested zooming between two
 circular plots, zoomed plot placed outside.</figcaption>
 </figure>
 <p>Keep four constraints in mind when calling
@@ -411,10 +411,8 @@ labels, and matching ribbon colors (Figure 13.3):</p>
     <span class="n">correspondance</span><span class="p">,</span>
     <span class="n">connection_col</span><span class="o">=</span><span class="p">[</span><span class="n">sector_col</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">correspondance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]],</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch13_nested_complex.png"
-alt="Figure 13.3: Nested zooming between two circular plots with highlighted regions and colored ribbons." />
-<figcaption aria-hidden="true">Figure 13.3: Nested zooming between two
+<figure id="fig-ch13nestedcomplex"><img src="images/ch13_nested_complex.png"
+alt="Figure 13.3: Nested zooming between two circular plots with highlighted regions and colored ribbons." /><figcaption aria-hidden="true">Figure 13.3: Nested zooming between two
 circular plots with highlighted regions and colored
 ribbons.</figcaption>
 </figure>
@@ -513,10 +511,8 @@ chromosome color bar:</p>
     <span class="n">correspondance</span><span class="p">,</span>
     <span class="n">connection_col</span><span class="o">=</span><span class="p">[</span><span class="n">chr_bg_color</span><span class="p">[</span><span class="n">c</span><span class="p">]</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">correspondance</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]],</span>
 <span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch13_dmr.png"
-alt="Figure 13.4: Visualization of DMRs from tagmentation-based WGBS." />
-<figcaption aria-hidden="true">Figure 13.4: Visualization of DMRs from
+<figure id="fig-ch13dmr"><img src="images/ch13_dmr.png"
+alt="Figure 13.4: Visualization of DMRs from tagmentation-based WGBS." /><figcaption aria-hidden="true">Figure 13.4: Visualization of DMRs from
 tagmentation-based WGBS.</figcaption>
 </figure>
 

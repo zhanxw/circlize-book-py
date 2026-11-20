@@ -165,6 +165,9 @@ diagram</span></a></li>
 <li class="chapter"><a href="make-fun-of-the-package.html"><span class="header-section-number">17</span><span>Make fun of the package</span></a><ul><li class="level-2"><a href="make-fun-of-the-package.html#a-clock"><span class="header-section-number">17.1</span> A clock</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#a-dartboard"><span class="header-section-number">17.2</span> A dartboard</a></li>
 <li class="level-2"><a href="make-fun-of-the-package.html#ba-gua-and-tai-ji"><span class="header-section-number">17.3</span> Ba-Gua and Tai-Ji</a></li></ul></li>
+<li class="part"><span>Gallery &amp; Index</span></li>
+<li class="chapter"><a href="gallery.html"><span class="header-section-number">★</span><span>Figure Gallery</span></a><ul><li class="level-2"><a href="gallery.html#visual-gallery">Visual Figure Gallery</a></li>
+<li class="level-2"><a href="gallery.html#master-index">Master Index Table</a></li></ul></li>
         <li class="divider"></li>
       </ul>
       <div class="summary-footer">
@@ -181,6 +184,7 @@ diagram</span></a></li>
           <h1 class="header-title"><a href="index.html">Circular Visualization in Python</a></h1>
         </div>
         <div class="header-right">
+          <a class="toolbar-btn" href="gallery.html" title="Browse All Example Figures">Gallery</a>
           <div class="dropdown">
             <button id="font-settings-btn" class="toolbar-btn" type="button" title="Font and Theme Settings" aria-label="Font Settings">A</button>
             <div id="font-settings-menu" class="dropdown-menu">
@@ -304,10 +308,8 @@ layout state.</li>
 of circular figure. The showcase composite below displays nine diverse
 circular visualizations generated directly with
 <code>circlize-py</code>.</p>
-<figure>
-<img src="images/ch01_examples_overview.png"
-alt="Examples generated with circlize-py" />
-<figcaption aria-hidden="true">Examples generated with
+<figure id="fig-ch01examplesoverview"><img src="images/ch01_examples_overview.png"
+alt="Examples generated with circlize-py" /><figcaption aria-hidden="true">Examples generated with
 circlize-py</figcaption>
 </figure>
 <h2 id="a-quick-glance"><span class="header-section-number">1.2</span> A quick glance<a class="anchor-section" aria-label="Anchor link to section" href="#a-quick-glance">#</a></h2>
@@ -375,10 +377,8 @@ pair shared across the track:</p>
 <span class="n">col</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#FF0000"</span><span class="p">,</span> <span class="s2">"#00FF00"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">trackPoints</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="n">col</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="s2">"text"</span><span class="p">,</span> <span class="n">sector_index</span><span class="o">=</span><span class="s2">"a"</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_1.png"
-alt="First example of circlize-py: add the first track." />
-<figcaption aria-hidden="true">First example of circlize-py: add the
+<figure id="fig-ch01glancetrack1"><img src="images/ch01_glance_track_1.png"
+alt="First example of circlize-py: add the first track." /><figcaption aria-hidden="true">First example of circlize-py: add the
 first track.</figcaption>
 </figure>
 <p>Axes are usually placed along the outer rim of the outermost track.
@@ -417,10 +417,8 @@ creates a new track automatically. Fixing <code>bin_size=0.2</code>
 ensures consistent bin widths across all sectors:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">bgcol</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"#EFEFEF"</span><span class="p">,</span> <span class="s2">"#CCCCCC"</span><span class="p">]</span> <span class="o">*</span> <span class="mi">4</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">trackHist</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">bin_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">bg_col</span><span class="o">=</span><span class="n">bgcol</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_2.png"
-alt="First example of circlize-py: add the second track." />
-<figcaption aria-hidden="true">First example of circlize-py: add the
+<figure id="fig-ch01glancetrack2"><img src="images/ch01_glance_track_2.png"
+alt="First example of circlize-py: add the second track." /><figcaption aria-hidden="true">First example of circlize-py: add the
 second track.</figcaption>
 </figure>
 <p>For the third track, pass <code>sectors</code>, <code>x</code>, and
@@ -441,10 +439,8 @@ each cell and passes them into <code>panel_fun(x, y)</code>. Inside
 
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">"sectors"</span><span class="p">],</span> <span class="n">x</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"x"</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="n">df</span><span class="p">[</span><span class="s2">"y"</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t3</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_3.png"
-alt="First example of circlize-py: add the third track." />
-<figcaption aria-hidden="true">First example of circlize-py: add the
+<figure id="fig-ch01glancetrack3"><img src="images/ch01_glance_track_3.png"
+alt="First example of circlize-py: add the third track." /><figcaption aria-hidden="true">First example of circlize-py: add the
 third track.</figcaption>
 </figure>
 <p>Suppose we now want to revisit the second track
@@ -456,10 +452,8 @@ sets it as the current cell for subsequent low-level calls:</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">sector_index</span><span class="o">=</span><span class="s2">"d"</span><span class="p">,</span> <span class="n">track_index</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">bg_col</span><span class="o">=</span><span class="s2">"#FF8080"</span><span class="p">,</span> <span class="n">bg_border</span><span class="o">=</span><span class="s2">"black"</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">points</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">repeat</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">CELL_META</span><span class="o">.</span><span class="n">xcenter</span><span class="p">,</span> <span class="n">CELL_META</span><span class="o">.</span><span class="n">ycenter</span><span class="p">,</span> <span class="s2">"updated"</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">"white"</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_update.png"
-alt="First example of circlize-py: update the second track." />
-<figcaption aria-hidden="true">First example of circlize-py: update the
+<figure id="fig-ch01glancetrackupdate"><img src="images/ch01_glance_track_update.png"
+alt="First example of circlize-py: update the second track." /><figcaption aria-hidden="true">First example of circlize-py: update the
 second track.</figcaption>
 </figure>
 <p>Even after jumping back to update Track 2, the next
@@ -490,10 +484,8 @@ by <code>panel_fun(x, y)</code> are both <code>None</code>:</p>
 
 
 <span class="n">circos</span><span class="o">.</span><span class="n">track</span><span class="p">(</span><span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">panel_fun</span><span class="o">=</span><span class="n">panel_t4</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_4.png"
-alt="First example of circlize-py: add the fourth track." />
-<figcaption aria-hidden="true">First example of circlize-py: add the
+<figure id="fig-ch01glancetrack4"><img src="images/ch01_glance_track_4.png"
+alt="First example of circlize-py: add the fourth track." /><figcaption aria-hidden="true">First example of circlize-py: add the
 fourth track.</figcaption>
 </figure>
 <p>Finally, add links and ribbons in the center of the circle with
@@ -503,10 +495,8 @@ options):</p>
 <div class="code-wrapper"><pre class="codehilite"><code><span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"a"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"b"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.4</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"c"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="s2">"d"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="s2">"red"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"blue"</span><span class="p">,</span> <span class="n">h</span><span class="o">=</span><span class="mf">0.2</span><span class="p">)</span>
 <span class="n">circos</span><span class="o">.</span><span class="n">link</span><span class="p">(</span><span class="s2">"e"</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">"g"</span><span class="p">,</span> <span class="p">[</span><span class="o">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="s2">"green"</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s2">"black"</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lty</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span></code></pre></div>
-<figure>
-<img src="images/ch01_glance_track_links.png"
-alt="First example of circlize-py: add links." />
-<figcaption aria-hidden="true">First example of circlize-py: add
+<figure id="fig-ch01glancetracklinks"><img src="images/ch01_glance_track_links.png"
+alt="First example of circlize-py: add links." /><figcaption aria-hidden="true">First example of circlize-py: add
 links.</figcaption>
 </figure>
 <p>Always call <code>circos.clear()</code> at the end of a circular plot
